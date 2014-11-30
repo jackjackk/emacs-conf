@@ -35,7 +35,7 @@
 ;; ** Font
 (cond ((eq window-system 'w32)
            (set-face-font 'default "Consolas-16.0:antialias=natural"))
-       (T
+       (t
            (set-face-font 'default "DejaVu Sans Mono-14.0:antialias=natural")))
 ;(set-face-font 'default "bold DejaVu Sans Mono-12.0:antialias=subpixel")
 
