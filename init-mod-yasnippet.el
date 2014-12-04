@@ -1,0 +1,59 @@
+;; * yasnippet
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;; From https://github.com/magnars/.emacs.d/blob/master/setup-yasnippet.el
+
+;(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+
+;; Jump to end of snippet definition
+(define-key yas-keymap (kbd "<return>") 'yas/exit-all-snippets)
+
+;; Inter-field navigation
+(defun yas/goto-end-of-active-field ()
+  (interactive)
+  (let* ((snippet (car (yas--snippets-at-point)))
+	 (position (yas--field-end (yas--snippet-active-field snippet))))
+    (if (= (point) position)
+	(move-end-of-line 1)
+      (goto-char position))))
+
+(defun yas/goto-start-of-active-field ()
+  (interactive)
+  (let* ((snippet (car (yas--snippets-at-point)))
+	 (position (yas--field-start (yas--snippet-active-field snippet))))
+    (if (= (point) position)
+	(move-beginning-of-line 1)
+      (goto-char position))))
+
+(define-key yas-keymap (kbd "C-e") 'yas/goto-end-of-active-field)
+(define-key yas-keymap (kbd "C-a") 'yas/goto-start-of-active-field)
+
+;; No need to be so verbose
+(setq yas-verbosity 1)
+
+;; Wrap around region
+(setq yas-wrap-around-region t)
+
+;; Select snippet using helm (http://www.emacswiki.org/emacs/Yasnippet)
+(defun shk-yas/helm-prompt (prompt choices &optional display-fn)
+  "Use helm to select a snippet. Put this into `yas/prompt-functions.'"
+  (interactive)
+  (setq display-fn (or display-fn 'identity))
+  (if (require 'helm-config)
+      (let (tmpsource cands result rmap)
+        (setq cands (mapcar (lambda (x) (funcall display-fn x)) choices))
+        (setq rmap (mapcar (lambda (x) (cons (funcall display-fn x) x)) choices))
+        (setq tmpsource
+              (list
+               (cons 'name prompt)
+               (cons 'candidates cands)
+               '(action . (("Expand" . (lambda (selection) selection))))
+               ))
+        (setq result (helm-other-buffer '(tmpsource) "*helm-select-yasnippet"))
+        (if (null result)
+            (signal 'quit "user quit!")
+          (cdr (assoc result rmap))))
+    nil))
+(setq yas-prompt-functions '(shk-yas/helm-prompt))

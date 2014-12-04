@@ -3,7 +3,8 @@
 ;; ** List the repositories
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 ;; ** Activate all the packages (in particular autoloads)
 (package-initialize)
@@ -21,8 +22,8 @@
 (unless (package-list-installed-p)
   (message "%s" "Emacs is now refreshing its package database...")
   (package-refresh-contents)
-  (message "%s" " done.")
-  (dolist (package package-list)
-    (unless (package-installed-p package)
-      (package-install package))
-    (load-library (format "init-mod-%s.el" package))))
+  (message "%s" " done."))
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package))
+  (load-library (format "init-mod-%s.el" package)))
