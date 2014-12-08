@@ -5,6 +5,7 @@
 
 ;; ** Truncate lines
 (setq-default truncate-lines t)
+(global-set-key (kbd "C-x t") 'toggle-truncate-lines)
 
 ;; ** Turn on paren match highlighting
 (show-paren-mode 1)

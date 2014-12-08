@@ -3,6 +3,7 @@
 ;; ** Tab indentation
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
+(global-set-key (kbd "<backtab>") 'indent-relative)
 
 ;; ** Overwrite selected region when typing after selection
 (pending-delete-mode 1)
@@ -16,6 +17,21 @@
   "Copy entire buffer to clipboard"
   (interactive)
   (clipboard-kill-ring-save (point-min) (point-max)))
+(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
+
+(fset 'clone-previous-line
+   [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
+(global-set-key (kbd "C-S-z")  'clone-previous-line)
+
+(fset 'copy-line
+   "\C-a\C-k\C-y")
+(global-set-key (kbd "C-z")  'copy-line)
+
+(fset 'copy-sexp
+   [?\C-  C-M-right escape ?w C-M-left])
+(global-set-key (kbd "C-M-j")  'copy-sexp)
+
+
 
 ;; ** Clean-up
 ; Untabify

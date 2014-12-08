@@ -1,3 +1,6 @@
 [submodule "replace-colorthemes"]
 	path = replace-colorthemes
 	url = https://github.com/emacs-jp/replace-colorthemes.git
+[submodule "org-helpers"]
+	path = org-helpers
+	url = https://github.com/leoc/org-helpers.el.git

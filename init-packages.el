@@ -27,3 +27,7 @@
   (unless (package-installed-p package)
     (package-install package))
   (load-library (format "init-mod-%s.el" package)))
+
+(dolist (package other-package-list)
+  (add-to-list 'load-path (format "~/.emacs.d/%s" package))
+  (load-library (format "init-mod-%s.el" package)))

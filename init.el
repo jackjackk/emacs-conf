@@ -6,9 +6,15 @@
 (load-library "init-visual.el")
 (load-library "init-text.el")
 
-;; * Extra packages from repositories
+;; * Extra packages
+;; ** from repositories
 (setq package-list '(helm
-		     yasnippet
-		     expand-region
-		     multiple-cursors))
+                     yasnippet
+                     expand-region
+                     multiple-cursors
+                     org
+;                     org-redmine
+                     org-pomodoro))
+;; ** from local subfolders 
+(setq other-package-list '(gams))
 (load-library "init-packages.el")
