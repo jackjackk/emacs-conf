@@ -10,8 +10,10 @@
 (global-set-key (kbd "s-`") 'helm-semantic-or-imenu)
 
 ;; Only if not in Windows use locate
-(cond ((not (eq window-system 'w32))
-       (setq helm-locate-command "locate %s -e -A --regex %s")))
+(cond ( (eq window-system 'w32)
+		(setq helm-locate-command "es %s %s"))
+	  (t
+        (setq helm-locate-command "locate %s -e -A --regex %s")))
 
 
 ;; ** Navigation

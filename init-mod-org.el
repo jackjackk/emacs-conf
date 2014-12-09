@@ -11,6 +11,36 @@
 ;; ** Navigation
 ;; Use speed commands
 (setq org-use-speed-commands t)
+(defun ded/org-show-next-heading-tidily ()
+  "Show next entry, keeping other entries closed."
+  (if (save-excursion (end-of-line) (outline-invisible-p))
+      (progn (org-show-entry) (show-children))
+    (outline-next-heading)
+    (unless (and (bolp) (org-on-heading-p))
+      (org-up-heading-safe)
+      (hide-subtree)
+      (error "Boundary reached"))
+    (org-overview)
+    (org-reveal t)
+    (org-show-entry)
+    (show-children)))
+(add-to-list 'org-speed-commands-user
+             '("n" ded/org-show-next-heading-tidily))
+(defun ded/org-show-previous-heading-tidily ()
+  "Show previous entry, keeping other entries closed."
+  (let ((pos (point)))
+    (outline-previous-heading)
+    (unless (and (< (point) pos) (bolp) (org-on-heading-p))
+      (goto-char pos)
+      (hide-subtree)
+      (error "Boundary reached"))
+    (org-overview)
+    (org-reveal t)
+    (org-show-entry)
+    (show-children)))
+(add-to-list 'org-speed-commands-user 
+             '("p" ded/org-show-previous-heading-tidily))
+
 
 ;; ** Agenda
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -157,6 +187,9 @@
 (global-set-key (kbd "<M-menu>") (kbd "C-c '"))
 (global-set-key (kbd "<C-menu>") (kbd "C-c C-v p"))
 (global-set-key (kbd "<C-M-menu>") (kbd "C-c C-v n"))
+(global-set-key (kbd "<M-apps>") (kbd "C-c '"))
+(global-set-key (kbd "<C-apps>") (kbd "C-c C-v p"))
+(global-set-key (kbd "<C-M-apps>") (kbd "C-c C-v n"))
 (global-set-key (kbd "<f2>") 'outline-previous-visible-heading)
 (global-set-key (kbd "M-p") 'previous-error)
 (global-set-key (kbd "M-n") 'next-error)
