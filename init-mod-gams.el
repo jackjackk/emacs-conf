@@ -24,7 +24,7 @@
        (setq gams-docs-view-program "C:/Program Files (x86)/Adobe/Acrobat 11.0/Acrobat/AcroRd32.exe")
        (setq gams-lxi-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi.exe")
        (setq gams-lxi-import-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi-import.exe")
-       (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc.exe")
+       (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc.exe"))
        (t
        (setq gams:process-command-name "gams")
        (setq gams-system-directory "/opt/gams/24.2")
@@ -33,4 +33,4 @@
        (setq gams-lxi-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi")
        (setq gams-lxi-import-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi-import")
        (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc")
-)))
+))

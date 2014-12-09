@@ -123,10 +123,9 @@
  '((python . t) (emacs-lisp . t) (ditaa . t) (sh . t)))
 (setq org-confirm-babel-evaluate nil)
 (cond ((eq window-system 'w32)
-       (setq org-babel-sh-command "C:/cygwin/bin/sh.exe")
-       ;(setq org-babel-sh-command "C:/Windows/SysWOW64/cmd.exe")
+       (setq org-babel-sh-command "C:/cygwin/bin/sh.exe"))
        (t
-        (setq org-babel-sh-command "sh"))))
+        (setq org-babel-sh-command "sh")))
 
 ;; ** Clean view
 (setq org-startup-indented t)
@@ -136,10 +135,10 @@
   (interactive)
   (font-lock-add-keywords nil
                           '(("\\(\+BEGIN_SRC\\)"
-                             (0 (progn (compose-region (match-beginning 1) (match-end 1) ?Â¦)
+                             (0 (progn (compose-region (match-beginning 1) (match-end 1) ?¦)
                                        nil))) 
                             ("\\(\+END_SRC\\)"
-                             (0 (progn (compose-region (match-beginning 1) (match-end 1) ?Â¦)
+                             (0 (progn (compose-region (match-beginning 1) (match-end 1) ?¦)
                                        nil))))))
 (defun prettier-org-code-blocks-lower ()
   (interactive)
