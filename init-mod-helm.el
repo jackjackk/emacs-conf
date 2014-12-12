@@ -2,19 +2,37 @@
 
 (require 'helm-config)
 
+(setq helm-moccur-always-search-in-current t)
+
+;; Only if not in Windows use locate
+(cond ( (eq window-system 'w32)
+		(setq helm-locate-command "es %s %s")
+        (setq helm-for-files-preferred-list
+              '(helm-source-buffers-list
+                helm-source-recentf
+                ;; helm-source-bookmarks
+                ;; helm-source-file-cache
+                helm-source-files-in-current-dir
+                ;; helm-source-locate
+                helm-source-moccur)))
+	  (t
+        (setq helm-locate-command "locate %s -e -A --regex %s")
+        (setq helm-for-files-preferred-list
+              '(helm-source-buffers-list
+                helm-source-recentf
+                ;; helm-source-bookmarks
+                ;; helm-source-file-cache
+                helm-source-files-in-current-dir
+                helm-source-locate
+                helm-source-moccur))))
+
+
 (global-set-key (kbd "C-`") 'helm-for-files)
 (global-set-key (kbd "C-~") 'helm-find-files)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "s-`") 'helm-semantic-or-imenu)
-
-;; Only if not in Windows use locate
-(cond ( (eq window-system 'w32)
-		(setq helm-locate-command "es %s %s"))
-	  (t
-        (setq helm-locate-command "locate %s -e -A --regex %s")))
-
 
 ;; ** Navigation
 (defun switch-to-buffer-other-window-vertical()
