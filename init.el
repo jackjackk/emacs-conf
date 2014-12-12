@@ -5,6 +5,7 @@
 (load-library "init-general.el")
 (load-library "init-visual.el")
 (load-library "init-text.el")
+(load-library "init-os.el")
 
 ;; * Extra packages
 ;; ** from repositories
