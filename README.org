@@ -1,0 +1,94 @@
+#+OPTIONS: toc:nil h:1
+
+* My emacs configuration
+
+Cumulated over years, all the elisp configuration lines I found interesting for
+my workflow in their tidiest form I could come up with, both for Windows and Linux.
+
+* Usage
+
+#+BEGIN_SRC sh
+git clone https://github.com/jackjackk/emacs-conf.git ~/.emacs.d
+mv ~/.emacs ~/.emacs.bak
+#+END_SRC
+
+* Features
+
+** Modular configuration files
+
+- ~init.el~ is the main configuration file.
+- ~init-XXX.el~ contain Emacs customizations. Each one is loaded in ~init.el~
+  via a ~(load-library "init-XXX.el")~.
+- Packages defined in ~package-list~ (~init.el~) are automatically installed
+  from MELPA if missing,
+  and their respective configuration file ~init-mod-XXX.el~ loaded.
+- Entries defined in ~other-package-list~ (~init.el~) are the names of subfolders
+  to be included in ~load-path~, referring to packages outside the MELPA
+  system. Their respective configuration file ~init-mod-XXX.el~ is also loaded.
+- The mechanism for loading packages is contained in ~init-packages.el~.
+
+** Startup configuration (~init-startup.el~)
+
+- Start Emacs server to accept client processes (e.g. IPython).
+- Remove startup messages.
+- Clean the scratch buffer.
+
+** General configuration (~init-general.el~)
+
+- One character yes-no answer.
+- Save temporary files in a unique directory.
+- ~<F5>~ reverts buffer w/o confirmation.
+- Switch across windows.
+  - ~<Ctrl-Tab>~ switches focus to other window.
+  - ~<Shift-Ctrl-Tab>~ switches focus to other window in reverse.
+  - ~<Ctrl-0>~ deletes current window and switches to previous.
+  - ~<Ctrl-1>~ expands current window.
+- Resizing windows.
+  - ~<Shift-Ctrl-LeftArr>~ shrinks window horizontally.
+  - ~<Shift-Ctrl-RightArr>~ enlarges window horizontally.
+  - ~<Shift-Ctrl-UpArr>~ shrinks window vertically.
+  - ~<Shift-Ctrl-DownArr>~ enlarges window vertically.
+
+** Visual configuration (~init-visual.el~)
+
+- Long lines.
+  - Divide long logical line into two or more screen lines in ~text~ mode.
+  - ~<Ctrl-x t>~ toggles truncate lines.
+- Disable:
+  - scroll, menu and tool bar;
+  - cursor blinking.
+- Show:
+  - matching parentheses highlight;
+  - column and line numbers;
+  - empty line markers;
+  - buffer file name as frame title.
+- Use ~dark-laptop~ color theme, with a ~black~ background and a ~grey90~ foreground.
+- Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
+
+** Text editing configuration (~init-text.el~)
+
+- 4 spaces for tab indentation.
+- Overwrite selected region when typing after selection.
+- Fill-column in ~text~ mode (79 characters).
+- ~<Ctrl-u Ctrl-i>~ for grepping.
+- ~<Ctrl-x Ctrl-a>~ copies whole buffer.
+- ~<Ctrl-z>~ copies current line.
+- ~<Ctrl-Shift-z>~ clones previous line.
+- ~<Ctrl-Meta-j>~ copies a symbolic expression.
+- Provide ~cleanup-buffer~ function.
+- Enable disabled commands (~narrow-to-region~, ~upcase-region~,
+  ~downcase-region~ and ~erase-baffer~).
+
+** OS integration configuration (~init-os.el~)
+
+- ~open-folder-in-explorer~ opens folder of the buffer file either in Windows
+  Explorer or nautilus.
+- ~open-cmd-at-folder~ opens a command line (Windows or gnome) at the folder of
+  the buffer file.
+- ~view-buffer-in-firefox~ opens the buffer file in Firefox.
+
+** Modules
+
+* DISCLAIMER
+
+THIS SOFTWARE IS PRIVIDED "AS IS" AND COMES WITH NO WARRANTY. USE AT YOUR OWN RISK. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OR CORRUPTION OF DATA). USE AT YOUR OWN RISK.

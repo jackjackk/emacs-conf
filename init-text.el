@@ -12,6 +12,12 @@
 (setq-default fill-column 79)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;; ** Grepping
+(keyboard-translate ?\C-i ?\H-i)
+(global-set-key [?\H-i] 'grep-find)
+;(grep-apply-setting 'grep-command "grep -r --include=\"!\" -nH -e ! .")
+;(setq grep-command  "grep -r --include=\"!\" -nH -e ! .")
+
 ;; ** Copying
 (defun copy-whole-buffer ()
   "Copy entire buffer to clipboard"

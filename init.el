@@ -15,7 +15,9 @@
                      multiple-cursors
                      org
 ;                     org-redmine
-                     org-pomodoro))
+                     org-pomodoro
+                     org2blog
+                     ein))
 ;; ** from local subfolders 
 (setq other-package-list '(gams))
 (load-library "init-packages.el")

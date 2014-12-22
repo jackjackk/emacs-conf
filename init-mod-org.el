@@ -44,7 +44,7 @@
 
 ;; ** Agenda
 (global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-files '("~/Dropbox/org"))
+(setq org-agenda-files '("~/org"))
 (defun custom-org-agenda-mode-defaults ()
   (org-defkey org-agenda-mode-map "W" 'oh/agenda-remove-restriction)
   (org-defkey org-agenda-mode-map "N" 'oh/agenda-restrict-to-subtree)
@@ -56,7 +56,7 @@
        ((agenda "" nil)
           (alltodo ""
                    ((org-agenda-overriding-header "Tasks to Refile")
-                    (org-agenda-files '("~/Dropbox/org/capture.org"))
+                    (org-agenda-files '("~/org/capture.org"))
                     (org-agenda-skip-function
                      '(oh/agenda-skip :headline-if-restricted-and '(todo)))))
           (tags-todo "-CANCELLED/!-HOLD-WAITING"
@@ -91,7 +91,7 @@
          nil)
         ("r" "Tasks to Refile" alltodo ""
          ((org-agenda-overriding-header "Tasks to Refile")
-          (org-agenda-files '("~/Dropbox/org/capture.org"))))
+          (org-agenda-files '("~/org/capture.org"))))
         ("#" "Stuck Projects" tags-todo "-CANCELLED/!-HOLD-WAITING"
          ((org-agenda-overriding-header "Stuck Projects")
           (org-agenda-skip-function
@@ -120,17 +120,10 @@
         ("w" "Waiting Tasks" tags-todo "-CANCELLED/!WAITING|HOLD"
          ((org-agenda-overriding-header "Waiting and Postponed Tasks")
           (org-agenda-skip-function '(oh/agenda-skip :subtree-if '(project habit)))))))
+(add-hook 'org-agenda-after-show-hook 'show-all)
 
-;; ** Capture
-(setq org-capture-templates
-      '(("r" "Todo" entry (file+headline "~/Dropbox/org/capture.org" "Capture")
-         "* TODO %?")
-        ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-         (file "~/.org/templates/review"))))
-(define-key global-map "\C-cr"
-  (lambda () (interactive) (org-capture nil "r")))
-(define-key global-map "\C-cj"
-  (lambda () (interactive) (org-capture nil "j")))
+(load-library "init-mod-org-capture.el")
+
 
 ;; ** Tasks
 ;; Add a time stamp to the task when moved to DONE
@@ -156,6 +149,9 @@
        (setq org-babel-sh-command "C:/cygwin/bin/sh.exe"))
        (t
         (setq org-babel-sh-command "sh")))
+;; this will use emacs syntax higlighting in your #+BEGIN_SRC
+;; <language> <your-code> #+END_SRC code blocks.
+(setq org-src-fontify-natively t)
 
 ;; ** Clean view
 (setq org-startup-indented t)
@@ -182,8 +178,38 @@
 (add-hook 'org-mode-hook 'prettier-org-code-blocks-lower)
 (add-hook 'org-mode-hook 'prettier-org-code-blocks-upper)
 
-;; ** Org Key bindings
+;; ** Links
 (global-set-key (kbd "C-c l") 'org-store-link)
+(setq org-return-follows-link t) ; <RET> will also follow the link at point
+
+;; ** Refile
+; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+; Use full outline paths for refile targets - we file directly with IDO
+(setq org-refile-use-outline-path t)
+; Targets complete directly with IDO
+(setq org-outline-path-complete-in-steps nil)
+; Allow refile to create parent tasks with confirmation
+(setq org-refile-allow-creating-parent-nodes (quote confirm))
+; Use IDO for both buffer and file completion and ido-everywhere to t
+(setq org-completion-use-ido t)
+(setq ido-everywhere t)
+(setq ido-max-directory-size 100000)
+(ido-mode (quote both))
+; Use the current window when visiting files and buffers with ido
+(setq ido-default-file-method 'selected-window)
+(setq ido-default-buffer-method 'selected-window)
+; Use the current window for indirect buffer display
+(setq org-indirect-buffer-display 'current-window)
+;;;; Refile settings
+; Exclude DONE state tasks from refile targets
+(defun bh/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+(setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+;; ** Org Key bindings
 (global-set-key (kbd "<M-menu>") (kbd "C-c '"))
 (global-set-key (kbd "<C-menu>") (kbd "C-c C-v p"))
 (global-set-key (kbd "<C-M-menu>") (kbd "C-c C-v n"))
@@ -193,3 +219,7 @@
 (global-set-key (kbd "<f2>") 'outline-previous-visible-heading)
 (global-set-key (kbd "M-p") 'previous-error)
 (global-set-key (kbd "M-n") 'next-error)
+
+
+
+
