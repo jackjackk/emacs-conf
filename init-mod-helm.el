@@ -32,7 +32,7 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
-(global-set-key (kbd "s-`") 'helm-semantic-or-imenu)
+(global-set-key (kbd "C-M-`") 'helm-semantic-or-imenu)
 
 ;; ** Navigation
 (defun switch-to-buffer-other-window-vertical()

@@ -89,6 +89,33 @@ mv ~/.emacs ~/.emacs.bak
 
 ** Modules
 
+*** helm (~init-mod-helm.el~)
+
+- helm configuration:
+  - show buffers list, recent files, files in current dir, and moccur
+  - don't use locate under Windows (I haven't been able to find something that doesn't freeze
+    up my system)
+- helm replacements for common things:
+  - ~<M-x>~ uses helm version
+  - ~<M-y>~ shows kill ring
+  - ~<Ctrl-h SPC>~ shows all mark rings
+- helm navigation between buffers and files:
+  - ~<Ctrl-`>~ looks for and opens buffer
+  - ~<Ctrl-M-`>~ looks for and go to semantic section
+  - ~<Ctrl-\~>~ looks for and opens file
+  - ~<Ctrl-2>~ splits window vertically, then switches to buffer in other window
+  - ~<Ctrl-@>~ splits window vertically, then finds file in other window
+  - ~<Ctrl-3>~ splits window horizontally, then switches to buffer in other window
+  - ~<Ctrl-#>~ splits window horizontally, then finds file in other window
+  - ~<Ctrl-4>~ switches to buffer in other window
+  - ~<Ctrl-$>~ finds file in other window
+  - ~<Ctrl-5>~ switches to buffer in other window in reverse order
+  - ~<Ctrl-%>~ finds file in other window
+
+*** yasnippet (~init-mod-yasnippet.el~)
+
+- 
+
 * DISCLAIMER
 
 THIS SOFTWARE IS PRIVIDED "AS IS" AND COMES WITH NO WARRANTY. USE AT YOUR OWN RISK. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OR CORRUPTION OF DATA). USE AT YOUR OWN RISK.
