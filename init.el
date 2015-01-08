@@ -17,7 +17,8 @@
 ;                     org-redmine
                      org-pomodoro
                      org2blog
-                     ein))
+;                     ein
+))
 ;; ** from local subfolders 
 (setq other-package-list '(gams))
 (load-library "init-packages.el")

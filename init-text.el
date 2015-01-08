@@ -10,7 +10,7 @@
 
 ;; ** Fill-column in text-mode
 (setq-default fill-column 79)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; ** Grepping
 (keyboard-translate ?\C-i ?\H-i)

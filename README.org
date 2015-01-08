@@ -69,7 +69,7 @@ mv ~/.emacs ~/.emacs.bak
 
 - 4 spaces for tab indentation.
 - Overwrite selected region when typing after selection.
-- Fill-column in ~text~ mode (79 characters).
+- Fill-column width is set to 79 characters.
 - ~<Ctrl-u Ctrl-i>~ for grepping.
 - ~<Ctrl-x Ctrl-a>~ copies whole buffer.
 - ~<Ctrl-z>~ copies current line.
