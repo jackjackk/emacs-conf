@@ -17,6 +17,7 @@
 ;                     org-redmine
                      org-pomodoro
                      org2blog
+;                     websocket
 ;                     ein
 ))
 ;; ** from local subfolders 
