@@ -13,6 +13,10 @@
 (setq auto-save-list-file-prefix
     emacs-tmp-dir)
 
+;;Autosave every 5 minutes
+(defun save-all () (interactive) (save-some-buffers t))
+(global-set-key (kbd "C-S-s") 'save-all)
+
 ;; ** Revert buffer w/o confirm
 (defun revert-buffer-no-confirm ()
     "Revert buffer without confirmation."

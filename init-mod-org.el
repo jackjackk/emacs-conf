@@ -280,18 +280,45 @@ A prefix arg forces clock in of the default task."
 
 
 
+(define-key global-map "\C-cc" 'org-capture)
+
+(setq org-directory "~/org")
+
+(setq org-default-notes-file "~/org/capture.org")
+
+(setq org-capture-templates
+      (quote (("t" "todo" entry (file "capture.org")
+               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("r" "respond" entry (file "capture.org")
+               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+              ("n" "note" entry (file "capture.org")
+               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("j" "Journal" entry (file+datetree "diary.org")
+               "* %?\n%U\n" :clock-in t :clock-resume t)
+              ("w" "org-protocol" entry (file "capture.org")
+               "* TODO Review %c\n%U\n" :immediate-finish t)
+              ("m" "Meeting" entry (file "capture.org")
+               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+              ("p" "Phone call" entry (file "capture.org")
+               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+              ("h" "Habit" entry (file "capture.org")
+               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+
+(define-key global-map (kbd "<M-f9>")
+  (lambda () (interactive) (org-capture nil "t")))
+(define-key global-map (kbd "<M-S-f9>")
+  (lambda () (interactive) (org-capture nil "r")))
+(define-key global-map (kbd "<C-f9>")
+  (lambda () (interactive) (org-capture nil "j")))
+(define-key global-map (kbd "<C-S-f9>")
+  (lambda () (interactive) (org-capture nil "n")))
+
 ;; * Org-mode
 
 (require 'org-habit)
 
 ;; ** Agenda
 
-
-
-(load-library "init-mod-org-capture.el")
-
-
-;; ** Tasks
 
 ;; ** Latex
 (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
