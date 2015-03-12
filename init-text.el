@@ -13,8 +13,8 @@
 ;(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; ** Grepping
-(keyboard-translate ?\C-i ?\H-i)
-(global-set-key [?\H-i] 'grep-find)
+;(keyboard-translate ?\C-i ?\H-i)
+;(global-set-key [?\H-i] 'grep-find)
 ;(grep-apply-setting 'grep-command "grep -r --include=\"!\" -nH -e ! .")
 ;(setq grep-command  "grep -r --include=\"!\" -nH -e ! .")
 
@@ -23,7 +23,7 @@
   "Copy entire buffer to clipboard"
   (interactive)
   (clipboard-kill-ring-save (point-min) (point-max)))
-(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
+;(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
 
 (fset 'clone-previous-line
    [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
@@ -37,7 +37,9 @@
    [?\C-  C-M-right escape ?w C-M-left])
 (global-set-key (kbd "C-M-j")  'copy-sexp)
 
-
+(fset 'copy-section-around-keeping-cursor-position
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([C-f1 67108925 134217847 C-f2] 0 "%d")) arg)))
+(global-set-key (kbd "C-\\") 'copy-section-around-keeping-cursor-position)
 
 ;; ** Clean-up
 ; Untabify

@@ -13,6 +13,8 @@
 (org-defkey org-mode-map (kbd "M-n") 'org-metadown)
 (org-defkey org-mode-map (kbd "C-p") 'org-babel-previous-src-block)
 (org-defkey org-mode-map (kbd "C-n") 'org-babel-next-src-block)
+(org-defkey org-mode-map (kbd "<prior>") 'org-previous-link)
+(org-defkey org-mode-map (kbd "<next>") 'org-next-link)
 (org-shifttab 2))
 (add-hook 'org-mode-hook 'custom-org-mode-defaults)
 
@@ -62,8 +64,8 @@
         ("CANCELLED" :foreground "#9eb9a7" :weight bold)))
 
 (setq org-clock-persist 'history)
-(org-clock-persistence-insinuate)
 (setq org-clock-persist-query-resume nil)
+(org-clock-persistence-insinuate)
 
 (setq org-clock-history-length 30)
 
@@ -138,6 +140,7 @@ as the default task."
 (global-set-key (kbd "M-<f11>") 'bh/punch-in)
 (global-set-key (kbd "M-S-<f11>") 'bh/punch-out)
 (global-set-key (kbd "C-<f11>") 'org-clock-goto)
+(global-set-key (kbd "C-S-<f11>") '(lambda () (interactive) (org-clock-in '(4)) ))
 
 (defun bh/clock-in-default-task ()
   (save-excursion
@@ -278,7 +281,7 @@ A prefix arg forces clock in of the default task."
 
 (add-hook 'org-agenda-after-show-hook 'show-all)
 
-
+(global-set-key (kbd "<C-escape>") (kbd "C-c '"))
 
 (define-key global-map "\C-cc" 'org-capture)
 
@@ -402,7 +405,6 @@ A prefix arg forces clock in of the default task."
 (global-set-key (kbd "<f2>") (kbd "C-c '"))
 (global-set-key (kbd "<C-menu>") (kbd "C-c C-v p"))
 (global-set-key (kbd "<C-M-menu>") (kbd "C-c C-v n"))
-(global-set-key (kbd "<M-apps>") (kbd "C-c '"))
 (global-set-key (kbd "<C-apps>") (kbd "C-c C-v p"))
 (global-set-key (kbd "<C-M-apps>") (kbd "C-c C-v n"))
 (global-set-key (kbd "<f1>") 'outline-previous-visible-heading)

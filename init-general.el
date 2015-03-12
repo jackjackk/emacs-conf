@@ -51,3 +51,15 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'enlarge-window)
 (global-set-key (kbd "S-C-<up>") 'shrink-window)
+
+;; Distinguish C-i and <TAB>
+(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+
+;; Enable automatic saving of the desktop (i.e. the buffers, their file names,
+;; major modes, buffer positions, ...) when you exit Emacs, and automatic
+;; restoration of the last saved desktop when Emacs starts
+(desktop-save-mode 1)
+
+;; Dired options
+(setq dired-listing-switches "-alh")
+

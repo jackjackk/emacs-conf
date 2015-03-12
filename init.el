@@ -6,6 +6,8 @@
 (load-library "init-visual.el")
 (load-library "init-text.el")
 (load-library "init-os.el")
+(load-library "init-python.el")
+(load-library "init-latex.el")
 
 ;; * Extra packages
 ;; ** from repositories
@@ -19,7 +21,10 @@
                      org2blog
 ;                     websocket
 ;                     ein
+                     bm
+                     zotelo
 ))
 ;; ** from local subfolders 
-(setq other-package-list '(gams))
+(setq other-package-list '(gams
+                           matlab))
 (load-library "init-packages.el")

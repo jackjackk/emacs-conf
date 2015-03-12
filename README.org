@@ -88,8 +88,118 @@ mv ~/.emacs ~/.emacs.bak
   the buffer file.
 - ~view-buffer-in-firefox~ opens the buffer file in Firefox.
 
-** Modules
+** Python (~init-python.el~)
+:PROPERTIES:
+:tangle:   init-python.el
+:END:
+Use the ~ipython~ interpreter with no arguments.
+#+BEGIN_SRC elisp
+(setq python-shell-interpreter "ipython")
+(setq python-shell-interpreter-args "")
+#+END_SRC
 
+Set regular expressions matching the input and output prompt of the ipython shell.
+#+BEGIN_SRC elisp
+(setq python-shell-prompt-regexp "In \\[[0-9]+\\]: ")
+(setq python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
+#+END_SRC
+
+Activate auto-completion support.
+#+BEGIN_SRC elisp
+(setq python-shell-completion-setup-code "from IPython.core.completerlib import module_completion")
+(setq python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))\n")
+(setq python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+#+END_SRC
+
+** MATLAB (~init-matlab.el~)
+:PROPERTIES:
+:tangle:   init-matlab.el
+:END:
+#+BEGIN_SRC elisp
+  (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
+  (add-to-list
+   'auto-mode-alist
+   '("\\.m$" . matlab-mode))
+  (setq matlab-indent-function t)
+  (setq matlab-shell-command "/usr/local/bin/matlab --nodesktop")
+#+END_SRC
+** LaTeX (~init-latex.el~)
+:PROPERTIES:
+:tangle:   init-latex.el
+:END:
+
+~C-c C-c~ to run LaTeX over your document. Once it has compiled correctly, ~C-c C-c~ again to view it, or if it failed to compile ~C-c `~ to see the errors.
+
+When you have a "master" file including other files with the TeX macro "\input" or the LaTeX macro "\include", to format the document you must run the commands on the top level master file. Assume the current file is a master file itself.
+#+BEGIN_SRC elisp
+(setq-default TeX-master t)
+#+END_SRC
+
+If ~TeX-master~ is set to ~nil~, you will be queried for a master file unless the following text is present at the end of your files.
+#+BEGIN_EXAMPLE
+%%% Local Variables:
+%%% TeX-master: "master"
+%%% End:
+#+END_EXAMPLE
+
+Enable parsing of buffers at save and load events for extracting meta information, which will be stored in an ~auto~ subdirectory.
+#+BEGIN_SRC elisp
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+#+END_SRC
+
+Activate some useful hooks.
+#+BEGIN_SRC elisp
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+#+END_SRC
+
+Configure reftex.
+#+BEGIN_SRC elisp
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+(setq reftex-default-bibliography 
+(quote
+("~/org/jacklibrary.bib"))) 
+#+END_SRC
+** Modules
+*** Visible Bookmarks (~init-mod-bm.el~)
+:PROPERTIES:
+:tangle:   init-mod-bm.el
+:END:
+#+BEGIN_SRC elisp
+(require 'bm)
+#+END_SRC
+
+Navigate bookmarks with assigned keys.
+#+BEGIN_SRC elisp
+(global-set-key (kbd "<C-f1>") 'bm-toggle)
+(global-set-key (kbd "<C-f2>")   'bm-next)
+(global-set-key (kbd "<C-f3>") 'bm-previous)
+#+END_SRC
+
+Click on fringe to toggle bookmarks, and use mouse wheel to move between them.
+#+BEGIN_SRC elisp
+(global-set-key (kbd "<left-fringe> <mouse-5>") 'bm-next-mouse)
+(global-set-key (kbd "<left-fringe> <mouse-4>") 'bm-previous-mouse)
+(global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
+#+END_SRC
+
+Cycle bookmark in LIFO order.
+#+BEGIN_SRC elisp
+(setq bm-in-lifo-order t)
+#+END_SRC
+
+Cycle through bookmarks in all open buffers.
+#+BEGIN_SRC 
+(setq bm-cycle-all-buffers t)
+#+END_SRC
+
+Remove bookmark after jump to it by ~bm-next~ or ~bm-previous~.
+#+BEGIN_SRC elisp
+(setq temporary-bookmark-p t)
+#+END_SRC
 *** helm (~init-mod-helm.el~)
 
 - helm configuration:
@@ -151,6 +261,8 @@ Provide some convenient rebindings.
 (org-defkey org-mode-map (kbd "M-n") 'org-metadown)
 (org-defkey org-mode-map (kbd "C-p") 'org-babel-previous-src-block)
 (org-defkey org-mode-map (kbd "C-n") 'org-babel-next-src-block)
+(org-defkey org-mode-map (kbd "<prior>") 'org-previous-link)
+(org-defkey org-mode-map (kbd "<next>") 'org-next-link)
 (org-shifttab 2))
 (add-hook 'org-mode-hook 'custom-org-mode-defaults)
 #+END_SRC
@@ -186,7 +298,6 @@ Speed keys ~n~ and ~p~ are rebind to a tidier view of next/previous entries.
 (add-to-list 'org-speed-commands-user 
              '("p" ded/org-show-previous-heading-tidily))
 #+END_SRC
-
 **** Tasks
 Add a time stamp to the task when moved to DONE.
 #+BEGIN_SRC elisp
@@ -210,16 +321,20 @@ Set the default workflow keywords (~C-c C-t~ to choose) and their faces.
 #+END_SRC
 
 **** Clock setup
+:LOGBOOK:  
+CLOCK: [2015-02-24 Tue 17:00]--[2015-02-24 Tue 17:05] =>  0:05
+CLOCK: [2015-02-24 Tue 15:02]--[2015-02-24 Tue 15:30] =>  0:28
+:END:      
 Most of the clock and time reporting setup is taken from [[http://doc.norang.ca/org-mode.html]] website.
 
 Save the clock history across Emacs sessions, and when you clock into a new task after resuming Emacs, resume it without prompting about what to do with the previous incomplete clock. 
 #+BEGIN_SRC elisp
 (setq org-clock-persist 'history)
-(org-clock-persistence-insinuate)
 (setq org-clock-persist-query-resume nil)
+(org-clock-persistence-insinuate)
 #+END_SRC
 
-Show lot of clocking history so it's easy to pick items off with ~C-u C-c C-x C-x~ / ~C-F11~.
+Show lot of clocking history so it's easy to pick items off with ~C-u C-c C-x C-x~ / ~C-S-F11~.
 #+BEGIN_SRC elisp
 (setq org-clock-history-length 30)
 #+END_SRC
@@ -326,16 +441,19 @@ as the default task."
 #+END_SRC
 
 Add the following key beindings:
-| ~F11~     | go to the currently clocked item        |
-| ~M-F11~  | clock in a task (show menu with prefix) |
-| ~C-F11~   | Punch Clock In                          |
-|           |                                         |
+| ~F11~   | clock in a task (show menu with prefix) |
+| ~S-F11~ | clock out of task |
+| ~M-F11~ | Punch Clock In                          |
+| ~M-S-F11~ | Punch Clock Out                         |
+| ~C-F11~ | go to the currently clocked item        |
+| ~C-S-F11~ | show clocked items history |
 #+BEGIN_SRC elisp
 (global-set-key (kbd "<f11>") 'org-clock-in)
 (global-set-key (kbd "S-<f11>") 'org-clock-out)
 (global-set-key (kbd "M-<f11>") 'bh/punch-in)
 (global-set-key (kbd "M-S-<f11>") 'bh/punch-out)
 (global-set-key (kbd "C-<f11>") 'org-clock-goto)
+(global-set-key (kbd "C-S-<f11>") '(lambda () (interactive) (org-clock-in '(4)) ))
 #+END_SRC
 
 Other code.
@@ -571,7 +689,7 @@ After an item has been shown from the agenda, show all of its text in the buffer
 **** Babel
 Assign convenient key-bindings for source blocks navigation.
 #+BEGIN_SRC elisp
-
+  (global-set-key (kbd "<C-escape>") (kbd "C-c '"))
 #+END_SRC
 
 **** Capture
@@ -715,15 +833,31 @@ Provide some convenient key bindings to access those templates directly.
 (global-set-key (kbd "<f2>") (kbd "C-c '"))
 (global-set-key (kbd "<C-menu>") (kbd "C-c C-v p"))
 (global-set-key (kbd "<C-M-menu>") (kbd "C-c C-v n"))
-(global-set-key (kbd "<M-apps>") (kbd "C-c '"))
 (global-set-key (kbd "<C-apps>") (kbd "C-c C-v p"))
 (global-set-key (kbd "<C-M-apps>") (kbd "C-c C-v n"))
 (global-set-key (kbd "<f1>") 'outline-previous-visible-heading)
 (global-set-key (kbd "M-p") 'previous-error)
 (global-set-key (kbd "M-n") 'next-error)
-
 #+END_SRC
 
+*** zotelo (~init-mod-zotelo.el~)
+:PROPERTIES:
+:tangle:   init-mod-zotelo.el
+:END:
+Zotelo helps you efficiently export and synchronize local databases (bib, rdf, html, json etc) and Zotero collections directly from emacs (https://github.com/vspinu/zotelo).
+#+BEGIN_SRC elisp
+(require 'zotelo)
+#+END_SRC
+
+Activate zotelo-minor-mode in LaTeX and org mode:
+#+BEGIN_SRC elisp
+(add-hook 'TeX-mode-hook 'zotelo-minor-mode)
+(add-hook 'org-mode-hook 'zotelo-minor-mode)
+#+END_SRC
+
+To export a zotero collection, first associate it with the current buffer with ~C-c z c~ (~zotelo-set-collection~).
+To update the the local database with new changes from Zotero, use ~C-c z u~ (~zotelo-update-database~).
+Use ~C-c [~ to retrieve items from the bib file.
 * DISCLAIMER
 
 THIS SOFTWARE IS PRIVIDED "AS IS" AND COMES WITH NO WARRANTY. USE AT YOUR OWN RISK. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OR CORRUPTION OF DATA). USE AT YOUR OWN RISK.
