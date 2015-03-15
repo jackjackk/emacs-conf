@@ -4,17 +4,228 @@
 * My emacs configuration
 
 Cumulated over years, all the elisp configuration lines I found interesting for
-my workflow in their tidiest form I could come up with, both for Windows and Linux.
+my workflow in their tidiest form I could come up with, both for Windows and
+Linux.
 
 * Usage
-
+Simplest way: save your current configuration and clone this repository in its place.
 #+BEGIN_SRC sh
-git clone https://github.com/jackjackk/emacs-conf.git ~/.emacs.d
+mv ~/.emacs.d ~/.emacs.d.bak
 mv ~/.emacs ~/.emacs.bak
+git clone https://github.com/jackjackk/emacs-conf.git ~/.emacs.d
+#+END_SRC
+Other strategies to merge an existing directory with a git repo can be found [[http://stackoverflow.com/questions/5377960/whats-the-best-practice-to-git-clone-into-an-existing-folder][here]]. In particular:
+#+BEGIN_SRC sh
+git clone https://github.com/jackjackk/emacs-conf.git ~/.emacs.d/.git --mirror --config core.bare=false
+#+END_SRC
+will transform your emacs conf dir in a working copy of this repository.
+
+* Description
+** The main file (~init.el~)
+:PROPERTIES:
+:tangle:   init.el
+:END:
+All conf code is self-contained in =~/.emacs.d= dir. If no =~/.emacs= file is
+found, emacs will use =~/.emacs.d/init.el=. This in turn call other files in a modular fashion.
+First, customize built-in features.
+#+BEGIN_SRC elisp
+(add-to-list 'load-path "~/.emacs.d/")
+
+(load-library "init-startup.el")
+(load-library "init-general.el")
+(load-library "init-visual.el")
+(load-library "init-text.el")
+(load-library "init-os.el")
+(load-library "init-python.el")
+(load-library "init-latex.el")
 #+END_SRC
 
-* Features
+Then add extra packages, either from repositories or from local subfolders.
+#+BEGIN_SRC elisp
+;; * Extra packages
+;; ** from repositories
+(setq package-list '(helm
+                     yasnippet
+                     expand-region
+                     multiple-cursors
+                     org
+;                     org-redmine
+                     org-pomodoro
+                     org2blog
+;                     websocket
+;                     ein
+                     bm
+                     zotelo
+))
+;; ** from local subfolders 
+(setq other-package-list '(gams
+                           matlab))
+(load-library "init-packages.el")
+#+END_SRC
+Make sure you *select just the packages you are interested in*, otherwise be aware that all missing packages on repositories will be downloaded and installed on startup, which requires time + internet bandwidth.
+** Customizing built-in features
+*** Startup (~init-startup.el~)
+:PROPERTIES:
+:tangle:   init-startup.el
+:END:
 
+Allow Emacs to accept client processes (e.g. an external IPython console with ~emacsclient~ as editor).
+#+BEGIN_SRC elisp
+(server-start)
+#+END_SRC
+
+Remove startup messages and clean the scratch buffer.
+#+BEGIN_SRC elisp
+(setq inhibit-startup-message t
+      inhibit-splash-screen t
+      initial-scratch-message nil)
+#+END_SRC
+*** General (~init-general.el~)
+:PROPERTIES:
+:tangle:   init-general.el
+:END:
+
+One-character yes-no answer.
+#+BEGIN_SRC elisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+Save all tempfiles in ~$TMPDIR/emacs$UID/~.
+#+BEGIN_SRC elisp
+(defconst emacs-tmp-dir (format "%s%s%s/" temporary-file-directory "emacs" (user-uid)))
+(setq backup-directory-alist
+    `((".*" . ,emacs-tmp-dir)))
+(setq auto-save-file-name-transforms
+    `((".*" ,emacs-tmp-dir t)))
+(setq auto-save-list-file-prefix
+    emacs-tmp-dir)
+#+END_SRC
+
+Distinguish ~C-i~ and ~tab~.
+#+BEGIN_SRC elisp
+(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+#+END_SRC
+
+Enable automatic saving of the desktop (i.e. the buffers, their file names,
+major modes, buffer positions, ...) when you exit Emacs, and automatic
+restoration of the last saved desktop when Emacs starts
+#+BEGIN_SRC elisp
+(desktop-save-mode 1)
+#+END_SRC
+
+Set convenient Dired switches.
+#+BEGIN_SRC elisp
+(setq dired-listing-switches "-alh")
+#+END_SRC
+
+**** Key-bindings
+| ~<C-S-s>~     | Save all files at once.                         |
+| ~<f5>~        | Revert buffer w/o confirmation.                 |
+| ~<C-tab>~     | Switch focus to other window.                   |
+| ~<C-S-tab>~   | Switch focus to other window in reverse.        |
+| ~<C-0>~       | Delete current window and switches to previous. |
+| ~<C-1>~       | Expand current window.                          |
+| ~<C-S-left>~  | Shrink window horizontally.                     |
+| ~<C-S-right>~ | Enlarge window horizontally.                    |
+| ~<C-S-up>~    | Shrink window vertically.                       |
+| ~<C-S-down>~  | Enlarge window vertically.                      |
+
+#+BEGIN_SRC elisp
+(defun save-all () (interactive) (save-some-buffers t))
+(global-set-key (kbd "C-S-s") 'save-all)
+
+(defun revert-buffer-no-confirm ()
+    "Revert buffer without confirmation."
+    (interactive) (revert-buffer t t))
+(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm)
+
+(global-set-key (kbd "<C-tab>") 'other-window)
+
+(fset 'other-window-reverse
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("-1o" 0 "%d")) arg)))
+(global-set-key (kbd "<C-S-iso-lefttab>") 'other-window-reverse)
+
+(defun delete-window-switch-previous()
+  "Delete a window and give focus to the previous window"
+  (interactive)
+  (call-interactively 'delete-window)
+  (call-interactively 'other-window-reverse)
+)
+(global-set-key (kbd "C-0") 'delete-window-switch-previous)
+
+(defun expand-window()
+  "Update current workgroup config, then delete other windows"
+  (interactive)
+;  (call-interactively 'wg-update-workgroup)
+  (delete-other-windows)
+)
+(global-set-key (kbd "C-1") 'expand-window)
+
+(global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-S-<down>") 'enlarge-window)
+(global-set-key (kbd "C-S-<up>") 'shrink-window)
+#+END_SRC
+*** Visual (~init-visual.el~)
+:PROPERTIES:
+:tangle:   init-visual.el
+:END:
+Divide long logical line into two or more screen lines in ~text~ mode.
+#+BEGIN_SRC elisp
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+#+END_SRC
+
+Turn off potentially distracting things: the scroll bar, menu bar, tool bar, and the blinking of the cursor.
+#+BEGIN_SRC elisp
+(menu-bar-mode t)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(blink-cursor-mode -1)
+#+END_SRC
+
+Turn on potentially useful things: empty line markers, line/column numbers, matching parentheses highlight.
+#+BEGIN_SRC elisp
+(setq-default indicate-empty-lines t)
+(when (not indicate-empty-lines)
+  (toggle-indicate-empty-lines))
+(line-number-mode 1)
+(column-number-mode 1)
+(show-paren-mode 1)
+#+END_SRC
+
+Use buffer file name as frame title.
+#+BEGIN_SRC elisp
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+#+END_SRC
+
+Use ~dark-laptop~ color theme, with a ~black~ background and a ~grey90~ foreground.
+#+BEGIN_SRC elisp
+(add-to-list 'custom-theme-load-path
+             (file-name-as-directory "~/.emacs.d/replace-colorthemes"))
+(load-theme 'dark-laptop t t)
+(enable-theme 'dark-laptop)
+(setq default-frame-alist
+       `((background-color . "black")
+         (foreground-color . "grey90")))
+#+END_SRC
+
+Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
+#+BEGIN_SRC elisp
+(cond ((eq window-system 'w32)
+           (set-face-font 'default "Consolas-16.0:antialias=natural"))
+       (t
+           (set-face-font 'default "DejaVu Sans Mono-14.0:antialias=natural")))
+#+END_SRC
+
+**** Key-bindings
+| ~<C-x t>~ | Toggle truncate lines.|
+
+#+BEGIN_SRC elisp
+(setq-default truncate-lines t)
+(global-set-key (kbd "C-x t") 'toggle-truncate-lines)
+#+END_SRC
+* To be cleaned 
 ** Modular configuration files
 
 - ~init.el~ is the main configuration file.
@@ -27,44 +238,6 @@ mv ~/.emacs ~/.emacs.bak
   to be included in ~load-path~, referring to packages outside the MELPA
   system. Their respective configuration file ~init-mod-XXX.el~ is also loaded.
 - The mechanism for loading packages is contained in ~init-packages.el~.
-
-** Startup configuration (~init-startup.el~)
-
-- Start Emacs server to accept client processes (e.g. IPython).
-- Remove startup messages.
-- Clean the scratch buffer.
-
-** General configuration (~init-general.el~)
-
-- One character yes-no answer.
-- Save temporary files in a unique directory.
-- ~<F5>~ reverts buffer w/o confirmation.
-- Switch across windows.
-  - ~<Ctrl-Tab>~ switches focus to other window.
-  - ~<Shift-Ctrl-Tab>~ switches focus to other window in reverse.
-  - ~<Ctrl-0>~ deletes current window and switches to previous.
-  - ~<Ctrl-1>~ expands current window.
-- Resizing windows.
-  - ~<Shift-Ctrl-LeftArr>~ shrinks window horizontally.
-  - ~<Shift-Ctrl-RightArr>~ enlarges window horizontally.
-  - ~<Shift-Ctrl-UpArr>~ shrinks window vertically.
-  - ~<Shift-Ctrl-DownArr>~ enlarges window vertically.
-
-** Visual configuration (~init-visual.el~)
-
-- Long lines.
-  - Divide long logical line into two or more screen lines in ~text~ mode.
-  - ~<Ctrl-x t>~ toggles truncate lines.
-- Disable:
-  - scroll, menu and tool bar;
-  - cursor blinking.
-- Show:
-  - matching parentheses highlight;
-  - column and line numbers;
-  - empty line markers;
-  - buffer file name as frame title.
-- Use ~dark-laptop~ color theme, with a ~black~ background and a ~grey90~ foreground.
-- Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
 
 ** Text editing configuration (~init-text.el~)
 
@@ -858,6 +1031,14 @@ Activate zotelo-minor-mode in LaTeX and org mode:
 To export a zotero collection, first associate it with the current buffer with ~C-c z c~ (~zotelo-set-collection~).
 To update the the local database with new changes from Zotero, use ~C-c z u~ (~zotelo-update-database~).
 Use ~C-c [~ to retrieve items from the bib file.
+** Other 
+*** Maximize window at startup
+#+BEGIN_SRC elisp
+;(defun toggle-full-screen () (interactive) (shell-command "%APPDATA%/.emacs.d/emacs_fullscreen.exe"))
+;(global-set-key (kbd "M-<f11>") 'toggle-full-screen)
+;(add-hook 'window-setup-hook 'toggle-full-screen)
+#+END_SRC
+
 * DISCLAIMER
 
 THIS SOFTWARE IS PRIVIDED "AS IS" AND COMES WITH NO WARRANTY. USE AT YOUR OWN RISK. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OR CORRUPTION OF DATA). USE AT YOUR OWN RISK.

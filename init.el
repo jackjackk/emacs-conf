@@ -1,6 +1,6 @@
+
 (add-to-list 'load-path "~/.emacs.d/")
 
-;; * Custom 
 (load-library "init-startup.el")
 (load-library "init-general.el")
 (load-library "init-visual.el")

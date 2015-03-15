@@ -1,10 +1,6 @@
-;; * General behaviour
 
-;; ** One-character yes-no answer
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; ** Change backup behavior to save in a directory
-;;Save all tempfiles in $TMPDIR/emacs$UID/                                                        
 (defconst emacs-tmp-dir (format "%s%s%s/" temporary-file-directory "emacs" (user-uid)))
 (setq backup-directory-alist
     `((".*" . ,emacs-tmp-dir)))
@@ -13,17 +9,20 @@
 (setq auto-save-list-file-prefix
     emacs-tmp-dir)
 
-;;Autosave every 5 minutes
+(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+
+(desktop-save-mode 1)
+
+(setq dired-listing-switches "-alh")
+
 (defun save-all () (interactive) (save-some-buffers t))
 (global-set-key (kbd "C-S-s") 'save-all)
 
-;; ** Revert buffer w/o confirm
 (defun revert-buffer-no-confirm ()
     "Revert buffer without confirmation."
     (interactive) (revert-buffer t t))
 (global-set-key (kbd "<f5>") 'revert-buffer-no-confirm)
 
-;; ** Navigation
 (global-set-key (kbd "<C-tab>") 'other-window)
 
 (fset 'other-window-reverse
@@ -46,20 +45,7 @@
 )
 (global-set-key (kbd "C-1") 'expand-window)
 
-;; ** Resizing
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'enlarge-window)
-(global-set-key (kbd "S-C-<up>") 'shrink-window)
-
-;; Distinguish C-i and <TAB>
-(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
-
-;; Enable automatic saving of the desktop (i.e. the buffers, their file names,
-;; major modes, buffer positions, ...) when you exit Emacs, and automatic
-;; restoration of the last saved desktop when Emacs starts
-(desktop-save-mode 1)
-
-;; Dired options
-(setq dired-listing-switches "-alh")
-
+(global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-S-<down>") 'enlarge-window)
+(global-set-key (kbd "C-S-<up>") 'shrink-window)
