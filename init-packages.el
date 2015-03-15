@@ -1,13 +1,9 @@
-;; * Packages
 
-;; ** List the repositories
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-;; ** Activate all the packages (in particular autoloads)
 (package-initialize)
 
-;; ** Fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
 

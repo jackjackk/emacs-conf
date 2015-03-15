@@ -119,16 +119,16 @@ Set convenient Dired switches.
 #+END_SRC
 
 **** Key-bindings
-| ~<C-S-s>~     | Save all files at once.                         |
-| ~<f5>~        | Revert buffer w/o confirmation.                 |
-| ~<C-tab>~     | Switch focus to other window.                   |
-| ~<C-S-tab>~   | Switch focus to other window in reverse.        |
-| ~<C-0>~       | Delete current window and switches to previous. |
-| ~<C-1>~       | Expand current window.                          |
-| ~<C-S-left>~  | Shrink window horizontally.                     |
-| ~<C-S-right>~ | Enlarge window horizontally.                    |
-| ~<C-S-up>~    | Shrink window vertically.                       |
-| ~<C-S-down>~  | Enlarge window vertically.                      |
+| ~C-S-s~     | Save all files at once.                         |
+| ~f5~        | Revert buffer w/o confirmation.                 |
+| ~C-tab~     | Switch focus to other window.                   |
+| ~C-S-tab~   | Switch focus to other window in reverse.        |
+| ~C-0~       | Delete current window and switches to previous. |
+| ~C-1~       | Expand current window.                          |
+| ~C-S-left~  | Shrink window horizontally.                     |
+| ~C-S-right~ | Enlarge window horizontally.                    |
+| ~C-S-up~    | Shrink window vertically.                       |
+| ~C-S-down~  | Enlarge window vertically.                      |
 
 #+BEGIN_SRC elisp
 (defun save-all () (interactive) (save-some-buffers t))
@@ -170,6 +170,7 @@ Set convenient Dired switches.
 :PROPERTIES:
 :tangle:   init-visual.el
 :END:
+
 Divide long logical line into two or more screen lines in ~text~ mode.
 #+BEGIN_SRC elisp
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
@@ -219,40 +220,141 @@ Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
 #+END_SRC
 
 **** Key-bindings
-| ~<C-x t>~ | Toggle truncate lines.|
+| ~C-x t~ | Toggle truncate lines.|
 
 #+BEGIN_SRC elisp
 (setq-default truncate-lines t)
 (global-set-key (kbd "C-x t") 'toggle-truncate-lines)
 #+END_SRC
+
+*** Text editing (~init-text.el~)
+:PROPERTIES:
+:tangle:   init-text.el
+:END:
+
+Use 4 spaces for tab indentation.
+#+BEGIN_SRC elisp
+(setq default-tab-width 4)
+(setq-default indent-tabs-mode nil)
+#+END_SRC
+
+Overwrite selected region when typing after selection.
+#+BEGIN_SRC elisp
+(pending-delete-mode 1)
+#+END_SRC
+
+Set fill-column width to 79 characters.
+#+BEGIN_SRC elisp
+(setq-default fill-column 79)
+#+END_SRC
+
+Provide a ~cleanup-buffer~ function (untabify + indent + remove trailing whitespaces).
+#+BEGIN_SRC elisp
+(defun untabify-buffer ()
+  (interactive)
+  (untabify (point-min) (point-max)))
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
+(defun cleanup-buffer ()
+  "Perform a bunch of operations on the whitespace content of a buffer."
+  (interactive)
+  (indent-buffer)
+  (untabify-buffer)
+  (delete-trailing-whitespace))
+#+END_SRC
+
+Provide convenient hooks for programming modes (e.g. for GAMS and python) to automatically untabify and set utf-8-unix coding system before saving.
+#+BEGIN_SRC elisp
+(defun progmodes-hooks ()
+  "Hooks for programming modes"
+  (yas/minor-mode-on)
+  (add-hook 'before-save-hook 'progmodes-write-hooks))
+(defun progmodes-write-hooks ()
+  "Hooks which run on file write for programming modes"
+  (prog1 nil
+    (set-buffer-file-coding-system 'utf-8-unix)
+    (untabify-buffer)))
+#+END_SRC
+
+Enable disabled commands.
+#+BEGIN_SRC elisp
+(put 'erase-buffer 'disabled nil)
+#+END_SRC
+
+**** Key-bindings
+| ~C-x C-a~          | Copy whole buffer.                              |
+| ~C-z~              | Copy current line.                              |
+| ~C-S-z~            | Clone previous line.                            |
+| ~C-M-j~            | Copy a symbolic expression.                     |
+| ~C-x n n, C-x n w~ | Restrict editing to region.                     |
+| ~C-x C-u~          | Convert region to upper case.                   |
+| ~C-x C-l~          | Convert region to lower case                    |
+
+#+BEGIN_SRC elisp
+(defun copy-whole-buffer ()
+  "Copy entire buffer to clipboard"
+  (interactive)
+  (clipboard-kill-ring-save (point-min) (point-max)))
+(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
+
+(fset 'copy-line
+   "\C-a\C-k\C-y")
+(global-set-key (kbd "C-z")  'copy-line)
+
+(fset 'clone-previous-line
+   [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
+(global-set-key (kbd "C-S-z")  'clone-previous-line)
+
+(fset 'copy-sexp
+   [?\C-  C-M-right escape ?w C-M-left])
+(global-set-key (kbd "C-M-j")  'copy-sexp)
+
+(put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+#+END_SRC
+
+** Customizing add-on features
+*** The loader (~init-packages.el~)
+:PROPERTIES:
+:tangle:   init-packages.el
+:END:
+
+Packages defined in ~package-list~ (~init.el~) are automatically installed from MELPA/gnu repositories if missing, and their respective configuration file ~init-mod-${PACKAGE_NAME}.el~ loaded.
+
+#+BEGIN_SRC elisp
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(require 'cl)
+(defun package-list-installed-p ()
+  (loop for package in package-list
+        when (not (package-installed-p package)) do (return nil)
+        finally (return t)))
+
+(unless (package-list-installed-p)
+  (message "%s" "Emacs is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done."))
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package))
+  (load-library (format "init-mod-%s.el" package)))
+#+END_SRC
+
+Entries defined in ~other-package-list~ (~init.el~) are the names of subfolders to be included in ~load-path~, referring to packages outside the repository-based system above. Their respective configuration file ~init-mod-${SUBFOLDER_NAME}.el~ is also loaded.
+#+BEGIN_SRC elisp
+(dolist (package other-package-list)
+  (add-to-list 'load-path (format "~/.emacs.d/%s" package))
+  (load-library (format "init-mod-%s.el" package)))
+#+END_SRC
 * To be cleaned 
-** Modular configuration files
-
-- ~init.el~ is the main configuration file.
-- ~init-XXX.el~ contain Emacs customizations. Each one is loaded in ~init.el~
-  via a ~(load-library "init-XXX.el")~.
-- Packages defined in ~package-list~ (~init.el~) are automatically installed
-  from MELPA if missing,
-  and their respective configuration file ~init-mod-XXX.el~ loaded.
-- Entries defined in ~other-package-list~ (~init.el~) are the names of subfolders
-  to be included in ~load-path~, referring to packages outside the MELPA
-  system. Their respective configuration file ~init-mod-XXX.el~ is also loaded.
-- The mechanism for loading packages is contained in ~init-packages.el~.
-
-** Text editing configuration (~init-text.el~)
-
-- 4 spaces for tab indentation.
-- Overwrite selected region when typing after selection.
-- Fill-column width is set to 79 characters.
-- ~<Ctrl-u Ctrl-i>~ for grepping.
-- ~<Ctrl-x Ctrl-a>~ copies whole buffer.
-- ~<Ctrl-z>~ copies current line.
-- ~<Ctrl-Shift-z>~ clones previous line.
-- ~<Ctrl-Meta-j>~ copies a symbolic expression.
-- Provide ~cleanup-buffer~ function.
-- Enable disabled commands (~narrow-to-region~, ~upcase-region~,
-  ~downcase-region~ and ~erase-baffer~).
-
 ** OS integration configuration (~init-os.el~)
 
 - ~open-folder-in-explorer~ opens folder of the buffer file either in Windows
@@ -337,6 +439,54 @@ Configure reftex.
 ("~/org/jacklibrary.bib"))) 
 #+END_SRC
 ** Modules
+*** helm (~init-mod-helm.el~)
+
+- helm configuration:
+  - show buffers list, recent files, files in current dir, and moccur
+  - don't use locate under Windows (I haven't been able to find something that doesn't freeze
+    up my system)
+- helm replacements for common things:
+  - ~M-x~ uses helm version
+  - ~M-y~ shows kill ring
+  - ~Ctrl-h SPC~ shows all mark rings
+- helm navigation between buffers and files:
+  - ~Ctrl-`~ looks for and opens buffer
+  - ~Ctrl-M-`~ looks for and go to semantic section
+  - ~Ctrl-\~~ looks for and opens file
+  - ~Ctrl-2~ splits window vertically, then switches to buffer in other window
+  - ~Ctrl-@~ splits window vertically, then finds file in other window
+  - ~Ctrl-3~ splits window horizontally, then switches to buffer in other window
+  - ~Ctrl-#~ splits window horizontally, then finds file in other window
+  - ~Ctrl-4~ switches to buffer in other window
+  - ~Ctrl-$~ finds file in other window
+  - ~Ctrl-5~ switches to buffer in other window in reverse order
+  - ~Ctrl-%~ finds file in other window
+
+*** yasnippet (~init-mod-yasnippet.el~)
+
+-
+
+*** expand-region (~init-mod-expand-region.el~)
+#+BEGIN_SRC elisp
+(require 'expand-region)
+#+END_SRC
+
+Customize the list of functions that are tried when expanding depending on current mode.
+
+
+**** Key-bindings
+| ~C-=~ | Expand region.                                  |
+| ~C-+~ | Contract region.                                |
+| ~C-\~ | Copy section around keeping cursor in position. |
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C-+") 'er/contract-region)
+
+(fset 'copy-section-around-keeping-cursor-position
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([C-f1 67108925 134217847 C-f2] 0 "%d")) arg)))
+(global-set-key (kbd "C-\\") 'copy-section-around-keeping-cursor-position)
+#+END_SRC
 *** Visible Bookmarks (~init-mod-bm.el~)
 :PROPERTIES:
 :tangle:   init-mod-bm.el
@@ -373,32 +523,6 @@ Remove bookmark after jump to it by ~bm-next~ or ~bm-previous~.
 #+BEGIN_SRC elisp
 (setq temporary-bookmark-p t)
 #+END_SRC
-*** helm (~init-mod-helm.el~)
-
-- helm configuration:
-  - show buffers list, recent files, files in current dir, and moccur
-  - don't use locate under Windows (I haven't been able to find something that doesn't freeze
-    up my system)
-- helm replacements for common things:
-  - ~<M-x>~ uses helm version
-  - ~<M-y>~ shows kill ring
-  - ~<Ctrl-h SPC>~ shows all mark rings
-- helm navigation between buffers and files:
-  - ~<Ctrl-`>~ looks for and opens buffer
-  - ~<Ctrl-M-`>~ looks for and go to semantic section
-  - ~<Ctrl-\~>~ looks for and opens file
-  - ~<Ctrl-2>~ splits window vertically, then switches to buffer in other window
-  - ~<Ctrl-@>~ splits window vertically, then finds file in other window
-  - ~<Ctrl-3>~ splits window horizontally, then switches to buffer in other window
-  - ~<Ctrl-#>~ splits window horizontally, then finds file in other window
-  - ~<Ctrl-4>~ switches to buffer in other window
-  - ~<Ctrl-$>~ finds file in other window
-  - ~<Ctrl-5>~ switches to buffer in other window in reverse order
-  - ~<Ctrl-%>~ finds file in other window
-
-*** yasnippet (~init-mod-yasnippet.el~)
-
--
 
 *** org-mode (~init-mod-org.el~)
 :PROPERTIES:
@@ -1038,7 +1162,14 @@ Use ~C-c [~ to retrieve items from the bib file.
 ;(global-set-key (kbd "M-<f11>") 'toggle-full-screen)
 ;(add-hook 'window-setup-hook 'toggle-full-screen)
 #+END_SRC
-
+*** Grepping
+#+BEGIN_SRC elisp
+;; ** Grepping
+;(keyboard-translate ?\C-i ?\H-i)
+;(global-set-key [?\H-i] 'grep-find)
+;(grep-apply-setting 'grep-command "grep -r --include=\"!\" -nH -e ! .")
+;(setq grep-command  "grep -r --include=\"!\" -nH -e ! .")
+#+END_SRC
 * DISCLAIMER
 
 THIS SOFTWARE IS PRIVIDED "AS IS" AND COMES WITH NO WARRANTY. USE AT YOUR OWN RISK. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OR CORRUPTION OF DATA). USE AT YOUR OWN RISK.
