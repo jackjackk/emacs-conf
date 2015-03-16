@@ -37,17 +37,9 @@
   (clipboard-kill-ring-save (point-min) (point-max)))
 (global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
 
-(fset 'copy-line
-   "\C-a\C-k\C-y")
-(global-set-key (kbd "C-z")  'copy-line)
-
 (fset 'clone-previous-line
    [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
 (global-set-key (kbd "C-S-z")  'clone-previous-line)
-
-(fset 'copy-sexp
-   [?\C-  C-M-right escape ?w C-M-left])
-(global-set-key (kbd "C-M-j")  'copy-sexp)
 
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)

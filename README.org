@@ -42,25 +42,26 @@ First, customize built-in features.
 
 Then add extra packages, either from repositories or from local subfolders.
 #+BEGIN_SRC elisp
-;; * Extra packages
-;; ** from repositories
-(setq package-list '(helm
-                     yasnippet
-                     expand-region
-                     multiple-cursors
-                     org
-;                     org-redmine
-                     org-pomodoro
-                     org2blog
-;                     websocket
-;                     ein
-                     bm
-                     zotelo
-))
-;; ** from local subfolders 
-(setq other-package-list '(gams
-                           matlab))
-(load-library "init-packages.el")
+  ;; * Extra packages
+  ;; ** from repositories
+  (setq package-list '(helm
+                       yasnippet
+                       expand-region
+                       multiple-cursors
+                       org
+  ;                     org-redmine
+                       org-pomodoro
+                       org2blog
+  ;                     websocket
+  ;                     ein
+                       bm
+                       zotelo
+  ))
+  ;; ** from local subfolders 
+  (setq other-package-list '(thing-edit
+                             gams
+                             matlab))
+  (load-library "init-packages.el")
 #+END_SRC
 Make sure you *select just the packages you are interested in*, otherwise be aware that all missing packages on repositories will be downloaded and installed on startup, which requires time + internet bandwidth.
 ** Customizing built-in features
@@ -284,9 +285,7 @@ Enable disabled commands.
 
 **** Key-bindings
 | ~C-x C-a~          | Copy whole buffer.                              |
-| ~C-z~              | Copy current line.                              |
 | ~C-S-z~            | Clone previous line.                            |
-| ~C-M-j~            | Copy a symbolic expression.                     |
 | ~C-x n n, C-x n w~ | Restrict editing to region.                     |
 | ~C-x C-u~          | Convert region to upper case.                   |
 | ~C-x C-l~          | Convert region to lower case                    |
@@ -298,17 +297,9 @@ Enable disabled commands.
   (clipboard-kill-ring-save (point-min) (point-max)))
 (global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
 
-(fset 'copy-line
-   "\C-a\C-k\C-y")
-(global-set-key (kbd "C-z")  'copy-line)
-
 (fset 'clone-previous-line
    [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
 (global-set-key (kbd "C-S-z")  'clone-previous-line)
-
-(fset 'copy-sexp
-   [?\C-  C-M-right escape ?w C-M-left])
-(global-set-key (kbd "C-M-j")  'copy-sexp)
 
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -354,6 +345,32 @@ Entries defined in ~other-package-list~ (~init.el~) are the names of subfolders 
   (add-to-list 'load-path (format "~/.emacs.d/%s" package))
   (load-library (format "init-mod-%s.el" package)))
 #+END_SRC
+*** From repository
+*** Local
+**** thing-edit (~init-mod-thing-edit.el~)
+:PROPERTIES:
+:tangle:   init-mod-thing-edit.el
+:END:
+
+#+BEGIN_SRC elisp
+(require 'thing-edit)
+#+END_SRC
+***** Key-bindings
+| ~C-z~   | Copy current line.                |
+| ~C-S-k~ | Copy current line.                |
+| ~C-M-j~ | Copy current symbolic expression. |
+| ~C-\\~  | Copy current paragraph.           |
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-z")  'thing-copy-line)
+(global-set-key (kbd "C-S-k")  'thing-copy-to-line-end)
+(global-set-key (kbd "C-M-j")  'thing-copy-sexp)
+(global-set-key (kbd "C-\\")  'thing-copy-paragraph)
+#+END_SRC
+
+
+
+
+
 * To be cleaned 
 ** OS integration configuration (~init-os.el~)
 
@@ -467,25 +484,44 @@ Configure reftex.
 -
 
 *** expand-region (~init-mod-expand-region.el~)
+:PROPERTIES:
+:tangle:   init-mod-expand-region.el
+:END:
+
 #+BEGIN_SRC elisp
 (require 'expand-region)
 #+END_SRC
 
-Customize the list of functions that are tried when expanding depending on current mode.
+Customize the list of functions that are tried when expanding regions to support specific modes.
+#+BEGIN_SRC elisp
+(require 'html-mode-expansions)
+(require 'latex-mode-expansions)
+(require 'octave-expansions)
+(require 'python-mode-expansions)
+(require 'text-mode-expansions)
+(require 'the-org-mode-expansions)
+#+END_SRC
 
-
+You can also play around with ~er/try-expand-list~.
+#+BEGIN_SRC elisp
+;(defun er/add-text-mode-expansions ()
+;  (make-variable-buffer-local 'er/try-expand-list)
+;  (setq er/try-expand-list (append
+;                            er/try-expand-list
+;                            '(mark-paragraph
+;                              mark-page)))
+;  ;(setq er/try-expand-list '(mark-paragraph
+;  ;                            mark-page))
+;)
+;(er/enable-mode-expansions 'python-mode 'er/add-text-mode-expansions)
+#+END_SRC
 **** Key-bindings
 | ~C-=~ | Expand region.                                  |
 | ~C-+~ | Contract region.                                |
-| ~C-\~ | Copy section around keeping cursor in position. |
 
 #+BEGIN_SRC elisp
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-+") 'er/contract-region)
-
-(fset 'copy-section-around-keeping-cursor-position
-   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([C-f1 67108925 134217847 C-f2] 0 "%d")) arg)))
-(global-set-key (kbd "C-\\") 'copy-section-around-keeping-cursor-position)
 #+END_SRC
 *** Visible Bookmarks (~init-mod-bm.el~)
 :PROPERTIES:

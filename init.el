@@ -25,6 +25,7 @@
                      zotelo
 ))
 ;; ** from local subfolders 
-(setq other-package-list '(gams
+(setq other-package-list '(thing-edit
+                           gams
                            matlab))
 (load-library "init-packages.el")
