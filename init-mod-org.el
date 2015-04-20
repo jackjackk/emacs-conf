@@ -6,6 +6,13 @@
 
 (setq org-use-speed-commands t)
 
+(setq org-pretty-entities t)
+
+(add-hook 'org-mode-hook
+      '(lambda ()
+         (delete '("\\.pdf\\'" . default) org-file-apps)
+         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+
 (defun custom-org-mode-defaults ()
 "Executed as org-mode-hook."
 (electric-indent-mode -1)
@@ -281,7 +288,16 @@ A prefix arg forces clock in of the default task."
 
 (add-hook 'org-agenda-after-show-hook 'show-all)
 
+
+
 (global-set-key (kbd "<C-escape>") (kbd "C-c '"))
+
+(setq org-babel-python-command "ipython2 --pylab=qt5 --pdb --nosep --classic 
+--no-banner --no-confirm-exit")
+
+(fset 'execute_ipython_src_code_around_pointer
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([28 C-S-iso-lefttab 134217790 37 112 97 115 116 101 return C-S-iso-lefttab] 0 "%d")) arg)))
+(global-set-key (kbd "C-|")  'execute_ipython_src_code_around_pointer)
 
 (define-key global-map "\C-cc" 'org-capture)
 
@@ -339,10 +355,22 @@ A prefix arg forces clock in of the default task."
 ;; <language> <your-code> #+END_SRC code blocks.
 (setq org-src-fontify-natively t)
 (setq org-src-window-setup 'current-window)
+;; add <p for python expansion
 (add-to-list 'org-structure-template-alist
-             '("p" "#+BEGIN_SRC python :session :results silent\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))
+             '("p" "#+BEGIN_SRC python\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))
+;; add <por for python expansion with raw output
+(add-to-list 'org-structure-template-alist
+             '("por" "#+BEGIN_SRC python :results output raw\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))
+;; add <pv for python expansion with value
+(add-to-list 'org-structure-template-alist
+             '("pv" "#+BEGIN_SRC python :results value\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))
+;; add <el for emacs-lisp expansion
+(add-to-list 'org-structure-template-alist
+             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
+;; add <sh for shell
+(add-to-list 'org-structure-template-alist
+             '("sh" "#+BEGIN_SRC sh\n?\n#+END_SRC" "<src lang=\"shell\">\n?\n</src>"))
 ;(setq org-babel-python-command "~/anaconda/bin/ipython --no-banner --classic --no-confirm-exit")
-(setq org-babel-python-command "~/anaconda/bin/python")
 
 ;; ** Clean view
 (setq org-startup-indented t)

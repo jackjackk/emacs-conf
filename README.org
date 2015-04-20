@@ -21,49 +21,7 @@ git clone https://github.com/jackjackk/emacs-conf.git ~/.emacs.d/.git --mirror -
 will transform your emacs conf dir in a working copy of this repository.
 
 * Description
-** The main file (~init.el~)
-:PROPERTIES:
-:tangle:   init.el
-:END:
-All conf code is self-contained in =~/.emacs.d= dir. If no =~/.emacs= file is
-found, emacs will use =~/.emacs.d/init.el=. This in turn call other files in a modular fashion.
-First, customize built-in features.
-#+BEGIN_SRC elisp
-(add-to-list 'load-path "~/.emacs.d/")
-
-(load-library "init-startup.el")
-(load-library "init-general.el")
-(load-library "init-visual.el")
-(load-library "init-text.el")
-(load-library "init-os.el")
-(load-library "init-python.el")
-(load-library "init-latex.el")
-#+END_SRC
-
-Then add extra packages, either from repositories or from local subfolders.
-#+BEGIN_SRC elisp
-  ;; * Extra packages
-  ;; ** from repositories
-  (setq package-list '(helm
-                       yasnippet
-                       expand-region
-                       multiple-cursors
-                       org
-  ;                     org-redmine
-                       org-pomodoro
-                       org2blog
-  ;                     websocket
-  ;                     ein
-                       bm
-                       zotelo
-  ))
-  ;; ** from local subfolders 
-  (setq other-package-list '(thing-edit
-                             gams
-                             matlab))
-  (load-library "init-packages.el")
-#+END_SRC
-Make sure you *select just the packages you are interested in*, otherwise be aware that all missing packages on repositories will be downloaded and installed on startup, which requires time + internet bandwidth.
+** The main file ([[init.org][init.el]])
 ** Customizing built-in features
 *** Startup (~init-startup.el~)
 :PROPERTIES:
@@ -217,7 +175,7 @@ Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
 (cond ((eq window-system 'w32)
            (set-face-font 'default "Consolas-16.0:antialias=natural"))
        (t
-           (set-face-font 'default "DejaVu Sans Mono-14.0:antialias=natural")))
+           (set-face-font 'default "DejaVu Sans Mono-12.0:antialias=natural")))
 #+END_SRC
 
 **** Key-bindings
@@ -244,9 +202,9 @@ Overwrite selected region when typing after selection.
 (pending-delete-mode 1)
 #+END_SRC
 
-Set fill-column width to 79 characters.
+Set fill-column width to 70 characters.
 #+BEGIN_SRC elisp
-(setq-default fill-column 79)
+(setq-default fill-column 70)
 #+END_SRC
 
 Provide a ~cleanup-buffer~ function (untabify + indent + remove trailing whitespaces).
@@ -284,18 +242,18 @@ Enable disabled commands.
 #+END_SRC
 
 **** Key-bindings
-| ~C-x C-a~          | Copy whole buffer.                              |
-| ~C-S-z~            | Clone previous line.                            |
-| ~C-x n n, C-x n w~ | Restrict editing to region.                     |
-| ~C-x C-u~          | Convert region to upper case.                   |
-| ~C-x C-l~          | Convert region to lower case                    |
+| ~?~                | Copy whole buffer.            |
+| ~C-S-z~            | Clone previous line.          |
+| ~C-x n n, C-x n w~ | Restrict editing to region.   |
+| ~C-x C-u~          | Convert region to upper case. |
+| ~C-x C-l~          | Convert region to lower case  |
 
 #+BEGIN_SRC elisp
 (defun copy-whole-buffer ()
   "Copy entire buffer to clipboard"
   (interactive)
   (clipboard-kill-ring-save (point-min) (point-max)))
-(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
+;(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
 
 (fset 'clone-previous-line
    [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
@@ -386,7 +344,7 @@ Entries defined in ~other-package-list~ (~init.el~) are the names of subfolders 
 :END:
 Use the ~ipython~ interpreter with no arguments.
 #+BEGIN_SRC elisp
-(setq python-shell-interpreter "ipython")
+(setq python-shell-interpreter "ipython2")
 (setq python-shell-interpreter-args "")
 #+END_SRC
 
@@ -394,6 +352,11 @@ Set regular expressions matching the input and output prompt of the ipython shel
 #+BEGIN_SRC elisp
 (setq python-shell-prompt-regexp "In \\[[0-9]+\\]: ")
 (setq python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
+#+END_SRC
+
+Set PYTHONPATH (~.bashrc~ not read automatically)
+#+BEGIN_SRC elisp
+(setenv "PYTHONPATH" "/home/jack/github/gdxpy")
 #+END_SRC
 
 Activate auto-completion support.
@@ -578,12 +541,25 @@ Use org as the default mode for .org, .org_archive, and .txt files.
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 #+END_SRC
 
-
 Single keys can be made to execute commands when the cursor is at the
 beginning of a headline, speeding up the navigation.
 #+BEGIN_SRC elisp
 (setq org-use-speed-commands t)
 #+END_SRC
+
+Show entities as UTF8 characters.
+#+BEGIN_SRC elisp
+(setq org-pretty-entities t)    
+#+END_SRC
+
+Open PDFs in Evince (and not in the default choice) http://stackoverflow.com/a/8836108/789593.
+#+BEGIN_SRC elisp
+(add-hook 'org-mode-hook
+      '(lambda ()
+         (delete '("\\.pdf\\'" . default) org-file-apps)
+         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+#+END_SRC
+
 
 Provide some convenient rebindings.
 #+BEGIN_SRC elisp
@@ -1019,10 +995,27 @@ After an item has been shown from the agenda, show all of its text in the buffer
 (add-hook 'org-agenda-after-show-hook 'show-all)
 #+END_SRC
 
+**** Latex
+#+BEGIN_SRC elisp
+
+#+END_SRC
 **** Babel
 Assign convenient key-bindings for source blocks navigation.
 #+BEGIN_SRC elisp
   (global-set-key (kbd "<C-escape>") (kbd "C-c '"))
+#+END_SRC
+
+Make org play nicely with ~ipython~
+#+BEGIN_SRC elisp
+(setq org-babel-python-command "ipython2 --pylab=qt5 --pdb --nosep --classic 
+--no-banner --no-confirm-exit")
+#+END_SRC
+
+***** Key-Bindings
+#+BEGIN_SRC elisp
+(fset 'execute_ipython_src_code_around_pointer
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([28 C-S-iso-lefttab 134217790 37 112 97 115 116 101 return C-S-iso-lefttab] 0 "%d")) arg)))
+(global-set-key (kbd "C-|")  'execute_ipython_src_code_around_pointer)
 #+END_SRC
 
 **** Capture
@@ -1077,102 +1070,113 @@ Provide some convenient key bindings to access those templates directly.
 
 **** Rest
 #+BEGIN_SRC elisp
-;; * Org-mode
+  ;; * Org-mode
 
-(require 'org-habit)
+  (require 'org-habit)
 
-;; ** Agenda
+  ;; ** Agenda
 
 
-;; ** Latex
-(setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
+  ;; ** Latex
+  (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
 
-;; ** Babel
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t) (emacs-lisp . t) (ditaa . t) (sh . t)))
-(setq org-confirm-babel-evaluate nil)
-(cond ((eq window-system 'w32)
-       (setq org-babel-sh-command "C:/cygwin/bin/sh.exe"))
-       (t
-        (setq org-babel-sh-command "sh")))
-;; this will use emacs syntax higlighting in your #+BEGIN_SRC
-;; <language> <your-code> #+END_SRC code blocks.
-(setq org-src-fontify-natively t)
-(setq org-src-window-setup 'current-window)
-(add-to-list 'org-structure-template-alist
-             '("p" "#+BEGIN_SRC python :session :results silent\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))
-;(setq org-babel-python-command "~/anaconda/bin/ipython --no-banner --classic --no-confirm-exit")
-(setq org-babel-python-command "~/anaconda/bin/python")
+  ;; ** Babel
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t) (emacs-lisp . t) (ditaa . t) (sh . t)))
+  (setq org-confirm-babel-evaluate nil)
+  (cond ((eq window-system 'w32)
+         (setq org-babel-sh-command "C:/cygwin/bin/sh.exe"))
+         (t
+          (setq org-babel-sh-command "sh")))
+  ;; this will use emacs syntax higlighting in your #+BEGIN_SRC
+  ;; <language> <your-code> #+END_SRC code blocks.
+  (setq org-src-fontify-natively t)
+  (setq org-src-window-setup 'current-window)
+  ;; add <p for python expansion
+  (add-to-list 'org-structure-template-alist
+               '("p" "#+BEGIN_SRC python\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))
+  ;; add <por for python expansion with raw output
+  (add-to-list 'org-structure-template-alist
+               '("por" "#+BEGIN_SRC python :results output raw\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))
+  ;; add <pv for python expansion with value
+  (add-to-list 'org-structure-template-alist
+               '("pv" "#+BEGIN_SRC python :results value\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))
+  ;; add <el for emacs-lisp expansion
+  (add-to-list 'org-structure-template-alist
+               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
+  ;; add <sh for shell
+  (add-to-list 'org-structure-template-alist
+               '("sh" "#+BEGIN_SRC sh\n?\n#+END_SRC" "<src lang=\"shell\">\n?\n</src>"))
+  ;(setq org-babel-python-command "~/anaconda/bin/ipython --no-banner --classic --no-confirm-exit")
 
-;; ** Clean view
-(setq org-startup-indented t)
-(setq org-indent-mode t)
-(setq org-hide-leading-stars t)
-(defun prettier-org-code-blocks-upper ()
-  (interactive)
-  (font-lock-add-keywords nil
-                          '(("\\(\+BEGIN_SRC\\)"
-                             (0 (progn (compose-region (match-beginning 1) (match-end 1) ?¦)
-                                       nil))) 
-                            ("\\(\+END_SRC\\)"
-                             (0 (progn (compose-region (match-beginning 1) (match-end 1) ?¦)
-                                       nil))))))
-(defun prettier-org-code-blocks-lower ()
-  (interactive)
-  (font-lock-add-keywords nil
-                          '(("\\(^[[:space:]]*#\\+begin_src .*[\r\n]\\)"
-                             (0 (progn (compose-region (match-beginning 1) (match-end 1) "")
-                                       nil)))
-                            ("\\(^[[:space:]]*#\\+end_src[\r\n]\\)"
-                             (0 (progn (compose-region (match-beginning 1) (match-end 1) "")
-                                       nil))))))
-(add-hook 'org-mode-hook 'prettier-org-code-blocks-lower)
-(add-hook 'org-mode-hook 'prettier-org-code-blocks-upper)
+  ;; ** Clean view
+  (setq org-startup-indented t)
+  (setq org-indent-mode t)
+  (setq org-hide-leading-stars t)
+  (defun prettier-org-code-blocks-upper ()
+    (interactive)
+    (font-lock-add-keywords nil
+                            '(("\\(\+BEGIN_SRC\\)"
+                               (0 (progn (compose-region (match-beginning 1) (match-end 1) ?¦)
+                                         nil))) 
+                              ("\\(\+END_SRC\\)"
+                               (0 (progn (compose-region (match-beginning 1) (match-end 1) ?¦)
+                                         nil))))))
+  (defun prettier-org-code-blocks-lower ()
+    (interactive)
+    (font-lock-add-keywords nil
+                            '(("\\(^[[:space:]]*#\\+begin_src .*[\r\n]\\)"
+                               (0 (progn (compose-region (match-beginning 1) (match-end 1) "")
+                                         nil)))
+                              ("\\(^[[:space:]]*#\\+end_src[\r\n]\\)"
+                               (0 (progn (compose-region (match-beginning 1) (match-end 1) "")
+                                         nil))))))
+  (add-hook 'org-mode-hook 'prettier-org-code-blocks-lower)
+  (add-hook 'org-mode-hook 'prettier-org-code-blocks-upper)
 
-;; ** Links
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key "\C-c L" 'org-insert-link-global)
-(setq org-return-follows-link t) ; <RET> will also follow the link at point
+  ;; ** Links
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key "\C-c L" 'org-insert-link-global)
+  (setq org-return-follows-link t) ; <RET> will also follow the link at point
 
-;; ** Refile
-; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 9))))
-; Use full outline paths for refile targets - we file directly with IDO
-(setq org-refile-use-outline-path t)
-; Targets complete directly with IDO
-(setq org-outline-path-complete-in-steps nil)
-; Allow refile to create parent tasks with confirmation
-(setq org-refile-allow-creating-parent-nodes (quote confirm))
-; Use IDO for both buffer and file completion and ido-everywhere to t
-(setq org-completion-use-ido t)
-(setq ido-everywhere t)
-(setq ido-max-directory-size 100000)
-(ido-mode (quote both))
-; Use the current window when visiting files and buffers with ido
-(setq ido-default-file-method 'selected-window)
-(setq ido-default-buffer-method 'selected-window)
-; Use the current window for indirect buffer display
-(setq org-indirect-buffer-display 'current-window)
-;;;; Refile settings
-; Exclude DONE state tasks from refile targets
-(defun bh/verify-refile-target ()
-  "Exclude todo keywords with a done state from refile targets"
-  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-(setq org-refile-target-verify-function 'bh/verify-refile-target)
+  ;; ** Refile
+  ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+  (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                   (org-agenda-files :maxlevel . 9))))
+  ; Use full outline paths for refile targets - we file directly with IDO
+  (setq org-refile-use-outline-path t)
+  ; Targets complete directly with IDO
+  (setq org-outline-path-complete-in-steps nil)
+  ; Allow refile to create parent tasks with confirmation
+  (setq org-refile-allow-creating-parent-nodes (quote confirm))
+  ; Use IDO for both buffer and file completion and ido-everywhere to t
+  (setq org-completion-use-ido t)
+  (setq ido-everywhere t)
+  (setq ido-max-directory-size 100000)
+  (ido-mode (quote both))
+  ; Use the current window when visiting files and buffers with ido
+  (setq ido-default-file-method 'selected-window)
+  (setq ido-default-buffer-method 'selected-window)
+  ; Use the current window for indirect buffer display
+  (setq org-indirect-buffer-display 'current-window)
+  ;;;; Refile settings
+  ; Exclude DONE state tasks from refile targets
+  (defun bh/verify-refile-target ()
+    "Exclude todo keywords with a done state from refile targets"
+    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+  (setq org-refile-target-verify-function 'bh/verify-refile-target)
 
-;; ** Org Key bindings
-(global-set-key (kbd "<f2>") (kbd "C-c '"))
-(global-set-key (kbd "<C-menu>") (kbd "C-c C-v p"))
-(global-set-key (kbd "<C-M-menu>") (kbd "C-c C-v n"))
-(global-set-key (kbd "<C-apps>") (kbd "C-c C-v p"))
-(global-set-key (kbd "<C-M-apps>") (kbd "C-c C-v n"))
-(global-set-key (kbd "<f1>") 'outline-previous-visible-heading)
-(global-set-key (kbd "M-p") 'previous-error)
-(global-set-key (kbd "M-n") 'next-error)
+  ;; ** Org Key bindings
+  (global-set-key (kbd "<f2>") (kbd "C-c '"))
+  (global-set-key (kbd "<C-menu>") (kbd "C-c C-v p"))
+  (global-set-key (kbd "<C-M-menu>") (kbd "C-c C-v n"))
+  (global-set-key (kbd "<C-apps>") (kbd "C-c C-v p"))
+  (global-set-key (kbd "<C-M-apps>") (kbd "C-c C-v n"))
+  (global-set-key (kbd "<f1>") 'outline-previous-visible-heading)
+  (global-set-key (kbd "M-p") 'previous-error)
+  (global-set-key (kbd "M-n") 'next-error)
 #+END_SRC
-
 *** zotelo (~init-mod-zotelo.el~)
 :PROPERTIES:
 :tangle:   init-mod-zotelo.el
@@ -1191,6 +1195,97 @@ Activate zotelo-minor-mode in LaTeX and org mode:
 To export a zotero collection, first associate it with the current buffer with ~C-c z c~ (~zotelo-set-collection~).
 To update the the local database with new changes from Zotero, use ~C-c z u~ (~zotelo-update-database~).
 Use ~C-c [~ to retrieve items from the bib file.
+
+*** simple-httpd (~init-mod-simple-httpd.el~)
+:PROPERTIES:
+:tangle:   init-mod-simple-httpd.el
+:END:
+Pure elisp HTTP server
+#+BEGIN_SRC elisp
+(require 'simple-httpd)
+#+END_SRC
+
+#+BEGIN_SRC elisp
+(setq httpd-root "/home/jack/web")
+#+END_SRC
+*** js2-mode (~init-mod-js2-mode.el~)
+:PROPERTIES:
+:tangle:   init-mod-js2-mode.el
+:END:
+js2-mode is a JavaScript mode for Emacs with JavaScript parser built-in which allows syntax error detection on the fly.
+#+BEGIN_SRC elisp
+(require 'js2-mode)
+#+END_SRC
+
+Enable js2-mode or js2-minor-mode.
+#+BEGIN_SRC elisp
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+#+END_SRC
+*** skewer (~init-mod-skewer.el~)
+:PROPERTIES:
+:tangle:   init-mod-skewer-mode.el
+:END:
+Skewer provides live interaction with JavaScript, CSS, and HTML in a web browser.
+#+BEGIN_SRC elisp
+(require 'skewer-mode)
+#+END_SRC
+
+Configure all of mode hooks.
+#+BEGIN_SRC elisp
+(add-hook 'js2-mode-hook 'skewer-mode)
+(add-hook 'css-mode-hook 'skewer-css-mode)
+(add-hook 'html-mode-hook 'skewer-html-mode)
+#+END_SRC
+*** gams (~init-mod-gams.el~)
+:PROPERTIES:
+:tangle:   init-mod-gams.el
+:END:
+GAMS mode for Emacs written by Shirotakeda.
+#+BEGIN_SRC elisp
+(require 'gams)
+#+END_SRC
+
+Configure mode.
+#+BEGIN_SRC elisp
+;;needed for correct coloring in multiline regions of code
+(setq jit-lock-chunk-size 50000)
+
+(setq gams-indent-on t)
+(setq gams-indent-number 4)
+(setq gams-template-file "~/.emacs.d/lisp/gams/gams-template.txt")
+(setq gams:process-command-option "ll=0 lo=3 pw=32767 ps=0")
+(setq gams-statement-upcase nil) ; Use upper case for GAMS statements
+(setq gams-dollar-control-upcase nil) ; Use upper case for dollar operations.
+(setq gams-close-double-quotation-always t)
+(setq gams-close-single-quotation-always t)
+(setq gams-eolcom-symbol-default' "#")
+;(setq font-lock-support-mode '((gams-mode . nil) (t . jit-lock-mode)))
+
+;; OS specific configuration
+(cond ((eq window-system 'w32)
+       (setq gams:process-command-name "C:/GAMS/win64/24.4/gams.exe")
+       (setq gams-system-directory "C:/GAMS/win64/24.4/")
+       (setq gams-docs-directory "C:/GAMS/win64/24.4/docs/")
+       (setq gams-docs-view-program "C:/Program Files (x86)/Adobe/Acrobat 11.0/Acrobat/AcroRd32.exe")
+       (setq gams-lxi-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi.exe")
+       (setq gams-lxi-import-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi-import.exe")
+       (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc.exe"))
+       (t
+       (setq gams:process-command-name "/opt/gams/24.2/gams")
+       (setq gams-system-directory "/opt/gams/24.2")
+       (setq gams-docs-directory "/opt/gams/24.2/docs/")
+       (setq gams-docs-view-program "evince")
+       (setq gams-lxi-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi")
+       (setq gams-lxi-import-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi-import")
+       (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc")
+))
+#+END_SRC
+
+Set GAMSDIR environment variable.
+#+BEGIN_SRC elisp
+(setenv "GAMSDIR" "/opt/gams/24.2")
+#+END_SRC
+
 ** Other 
 *** Maximize window at startup
 #+BEGIN_SRC elisp

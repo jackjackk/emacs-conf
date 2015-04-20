@@ -4,7 +4,7 @@
 
 (pending-delete-mode 1)
 
-(setq-default fill-column 79)
+(setq-default fill-column 70)
 
 (defun untabify-buffer ()
   (interactive)
@@ -35,7 +35,7 @@
   "Copy entire buffer to clipboard"
   (interactive)
   (clipboard-kill-ring-save (point-min) (point-max)))
-(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
+;(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
 
 (fset 'clone-previous-line
    [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])

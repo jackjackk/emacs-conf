@@ -23,6 +23,9 @@
 ;                     ein
                      bm
                      zotelo
+                     simple-httpd
+                     js2-mode
+                     skewer-mode
 ))
 ;; ** from local subfolders 
 (setq other-package-list '(thing-edit
