@@ -1,0 +1,16 @@
+* Startup (~init-startup.el~)
+:PROPERTIES:
+:tangle:   init-startup.el
+:END:
+
+Allow Emacs to accept client processes (e.g. an external IPython console with ~emacsclient~ as editor).
+#+BEGIN_SRC elisp
+(server-start)
+#+END_SRC
+
+Remove startup messages and clean the scratch buffer.
+#+BEGIN_SRC elisp
+(setq inhibit-startup-message t
+      inhibit-splash-screen t
+      initial-scratch-message nil)
+#+END_SRC

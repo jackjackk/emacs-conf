@@ -1,4 +1,19 @@
+* OS integration
+:PROPERTIES:
+:tangle:   init-os.el
+:END:
 
+This section is inspired by https://github.com/kosh04/emacs-lisp/blob/master/gnome-util.el.
+** Summary
+|         | *Added function*        |                                                                     |
+|---------+-------------------------+---------------------------------------------------------------------|
+|         | open-folder-in-explorer | Open explorer in the current directory selecting the current file.  |
+|         | open-cmd-at-folder      | Open cmd prompt in the directory of the file in the current buffer. |
+|         | view-buffer-in-firefox  | Open the file in the current buffer with Firefox.                   |
+| ~C-ret~ | dired-open-file         | Open the file in dired with ~C-return~.                             |
+
+Open explorer in the current directory selecting the current file.
+#+BEGIN_SRC elisp
 (defun open-folder-in-explorer ()  
   "Call when editing a file in a buffer. Open explorer in the current directory and select the current file"  
   (interactive)  
@@ -15,7 +30,10 @@
          ;; (shell-command "xdg-open .") ;; 2013-02-10 this sometimes froze emacs till the folder is closed. with nautilus
         ))
 )
-
+#+END_SRC
+** Implementation
+Open cmd prompt in the directory of the file in the current buffer.
+#+BEGIN_SRC elisp
 (defun open-cmd-at-folder ()  
   "Call when editing a file in a buffer. Open a shell in the current directory and select the current file"  
   (interactive)  
@@ -27,6 +45,10 @@
          (call-process "gnome-terminal" nil 0 nil default-directory)))
 )
 
+#+END_SRC
+
+Open the file in the current buffer with Firefox.
+#+BEGIN_SRC elisp
 (defun view-buffer-in-firefox ()  
   "Call when editing a file in a buffer. Open windows explorer in the current directory and select the current file"  
   (interactive)  
@@ -38,7 +60,10 @@
           (call-process "firefox" nil 0 nil (expand-file-name
                         (or dir default-directory)))))
 )
+#+END_SRC
 
+Open the file in dired with ~C-return~.
+#+BEGIN_SRC elisp
 (defun dired-open-file ()
   "In dired, open the file named on this line."
   (interactive)
@@ -48,9 +73,12 @@
     (message "Opening %s done" file)))
 
 (add-hook 'dired-mode-hook
-      '(lambda ()
-         (define-key dired-mode-map (kbd "<C-return>") 'dired-open-file)))
+  	  '(lambda ()
+	     (define-key dired-mode-map (kbd "<C-return>") 'dired-open-file)))
+#+END_SRC
 
+** TBD
+#+BEGIN_SRC elisp
 (defvar open-program-name
   (cond ((eq window-system 'w32)
          "open")
@@ -66,3 +94,5 @@
 (let ((default-directory (or directory default-directory)))
   (apply #'call-process open-program-name
          nil 0 nil filename params)))
+
+#+END_SRC

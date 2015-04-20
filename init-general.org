@@ -1,0 +1,86 @@
+* General (~init-general.el~)
+:PROPERTIES:
+:tangle:   init-general.el
+:END:
+
+One-character yes-no answer.
+#+BEGIN_SRC elisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+Save all tempfiles in ~$TMPDIR/emacs$UID/~.
+#+BEGIN_SRC elisp
+(defconst emacs-tmp-dir (format "%s%s%s/" temporary-file-directory "emacs" (user-uid)))
+(setq backup-directory-alist
+    `((".*" . ,emacs-tmp-dir)))
+(setq auto-save-file-name-transforms
+    `((".*" ,emacs-tmp-dir t)))
+(setq auto-save-list-file-prefix
+    emacs-tmp-dir)
+#+END_SRC
+
+Distinguish ~C-i~ and ~tab~.
+#+BEGIN_SRC elisp
+(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+#+END_SRC
+
+Enable automatic saving of the desktop (i.e. the buffers, their file names,
+major modes, buffer positions, ...) when you exit Emacs, and automatic
+restoration of the last saved desktop when Emacs starts
+#+BEGIN_SRC elisp
+(desktop-save-mode 1)
+#+END_SRC
+
+Set convenient Dired switches.
+#+BEGIN_SRC elisp
+(setq dired-listing-switches "-alh")
+#+END_SRC
+
+** Key-bindings
+| ~C-S-s~     | Save all files at once.                         |
+| ~f5~        | Revert buffer w/o confirmation.                 |
+| ~C-tab~     | Switch focus to other window.                   |
+| ~C-S-tab~   | Switch focus to other window in reverse.        |
+| ~C-0~       | Delete current window and switches to previous. |
+| ~C-1~       | Expand current window.                          |
+| ~C-S-left~  | Shrink window horizontally.                     |
+| ~C-S-right~ | Enlarge window horizontally.                    |
+| ~C-S-up~    | Shrink window vertically.                       |
+| ~C-S-down~  | Enlarge window vertically.                      |
+
+#+BEGIN_SRC elisp
+(defun save-all () (interactive) (save-some-buffers t))
+(global-set-key (kbd "C-S-s") 'save-all)
+
+(defun revert-buffer-no-confirm ()
+    "Revert buffer without confirmation."
+    (interactive) (revert-buffer t t))
+(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm)
+
+(global-set-key (kbd "<C-tab>") 'other-window)
+
+(fset 'other-window-reverse
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("-1o" 0 "%d")) arg)))
+(global-set-key (kbd "<C-S-iso-lefttab>") 'other-window-reverse)
+
+(defun delete-window-switch-previous()
+  "Delete a window and give focus to the previous window"
+  (interactive)
+  (call-interactively 'delete-window)
+  (call-interactively 'other-window-reverse)
+)
+(global-set-key (kbd "C-0") 'delete-window-switch-previous)
+
+(defun expand-window()
+  "Update current workgroup config, then delete other windows"
+  (interactive)
+;  (call-interactively 'wg-update-workgroup)
+  (delete-other-windows)
+)
+(global-set-key (kbd "C-1") 'expand-window)
+
+(global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-S-<down>") 'enlarge-window)
+(global-set-key (kbd "C-S-<up>") 'shrink-window)
+#+END_SRC

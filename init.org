@@ -1,6 +1,5 @@
+#+PROPERTY: header-args:elisp :tangle init.el
 * The main file (~init.el~)
-All conf code is self-contained in =~/.emacs.d= dir. If no =~/.emacs= file is
-found, emacs will use =~/.emacs.d/init.el=. This in turn call other files in a modular fashion.
 First, customize built-in features.
 #+BEGIN_SRC elisp
 (add-to-list 'load-path "~/.emacs.d/")
@@ -40,4 +39,3 @@ Then add extra packages, either from repositories or from local subfolders.
                              matlab))
   (load-library "init-packages.el")
 #+END_SRC
-Make sure you *select just the packages you are interested in*, otherwise be aware that all missing packages on repositories will be downloaded and installed on startup, which requires time + internet bandwidth.
