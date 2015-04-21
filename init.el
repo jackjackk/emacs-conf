@@ -1,5 +1,5 @@
 
-(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 (load-library "init-startup.el")
 (load-library "init-general.el")
@@ -30,5 +30,6 @@
 ;; ** from local subfolders 
 (setq other-package-list '(thing-edit
                            gams
-                           matlab))
+                           ;matlab
+                           ))
 (load-library "init-packages.el")

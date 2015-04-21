@@ -206,7 +206,7 @@ A prefix arg forces clock in of the default task."
 
 (setq org-agenda-files '("~/org"))
 
-(add-to-list 'load-path "~/.emacs.d/org-helpers")
+(add-to-list 'load-path "~/.emacs.d/lisp/org-helpers")
 (require 'org-helpers)
 
 (defun custom-org-agenda-mode-defaults ()

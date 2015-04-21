@@ -17,7 +17,7 @@
   (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
 
 (add-to-list 'custom-theme-load-path
-             (file-name-as-directory "~/.emacs.d/replace-colorthemes"))
+             (file-name-as-directory "~/.emacs.d/lisp/replace-colorthemes"))
 (load-theme 'dark-laptop t t)
 (enable-theme 'dark-laptop)
 (setq default-frame-alist

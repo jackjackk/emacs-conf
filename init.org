@@ -1,9 +1,15 @@
-#+PROPERTY: header-args:elisp :tangle init.el
 * The main file (~init.el~)
-First, customize built-in features.
-#+BEGIN_SRC elisp
-(add-to-list 'load-path "~/.emacs.d/")
+:PROPERTIES:
+:tangle:   init.el
+:END:
 
+Load the path with configuration files.
+#+BEGIN_SRC elisp
+(add-to-list 'load-path "~/.emacs.d/lisp")
+#+END_SRC
+
+Customize built-in features.
+#+BEGIN_SRC elisp
 (load-library "init-startup.el")
 (load-library "init-general.el")
 (load-library "init-visual.el")
@@ -36,6 +42,7 @@ Then add extra packages, either from repositories or from local subfolders.
   ;; ** from local subfolders 
   (setq other-package-list '(thing-edit
                              gams
-                             matlab))
+                             ;matlab
+                             ))
   (load-library "init-packages.el")
 #+END_SRC

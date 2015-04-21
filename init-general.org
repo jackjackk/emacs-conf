@@ -1,6 +1,6 @@
 * General (~init-general.el~)
 :PROPERTIES:
-:tangle:   init-general.el
+:tangle:   lisp/init-general.el
 :END:
 
 One-character yes-no answer.

@@ -1,6 +1,9 @@
 [submodule "replace-colorthemes"]
-	path = replace-colorthemes
+	path = lisp/replace-colorthemes
 	url = https://github.com/emacs-jp/replace-colorthemes.git
 [submodule "org-helpers"]
-	path = org-helpers
+	path = lisp/org-helpers
 	url = https://github.com/leoc/org-helpers.el.git
+[submodule "lisp/ox-wk"]
+	path = lisp/ox-wk
+	url = https://github.com/w-vi/ox-wk.el.git

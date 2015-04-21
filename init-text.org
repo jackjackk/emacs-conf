@@ -1,8 +1,29 @@
 * Text editing (~init-text.el~)
 :PROPERTIES:
-:tangle:   init-text.el
+:tangle:   lisp/init-text.el
 :END:
+** Summary
+|                    | *Variable*          |                                                        |
+|--------------------+---------------------+--------------------------------------------------------|
+|                    | default-tab-width   | Indentation = 4 spaces.                                |
+|                    | indent-tabs-mode    | Use spaces when indenting.                             |
+|                    | pending-delete-mode | Overwrite selected region when typing after selection. |
+|                    | fill-column         | Set fill-column width to 70 characters.                |
+|--------------------+---------------------+--------------------------------------------------------|
+|                    | *Function*          |                                                        |
+|--------------------+---------------------+--------------------------------------------------------|
+|                    | untabify-buffer     | Untabify buffer.                                       |
+|                    | indent-buffer       | Indent buffer.                                         |
+|                    | cleanup-buffer      | Untabify + Indent + Delete trailing spaces.            |
+|                    | erase-buffer        | Delete contents of buffer.                             |
+| ~?~                |                     | Copy whole buffer.                                     |
+| ~C-S-z~            |                     | Clone previous line.                                   |
+| ~C-x n n, C-x n w~ |                     | Restrict editing to region.                            |
+| ~C-x C-u~          |                     | Convert region to upper case.                          |
+| ~C-x C-l~          |                     | Convert region to lower case                           |
 
+
+** Implementation
 Use 4 spaces for tab indentation.
 #+BEGIN_SRC elisp
 (setq default-tab-width 4)
@@ -53,12 +74,7 @@ Enable disabled commands.
 (put 'erase-buffer 'disabled nil)
 #+END_SRC
 
-** Key-bindings
-| ~?~                | Copy whole buffer.            |
-| ~C-S-z~            | Clone previous line.          |
-| ~C-x n n, C-x n w~ | Restrict editing to region.   |
-| ~C-x C-u~          | Convert region to upper case. |
-| ~C-x C-l~          | Convert region to lower case  |
+*** Key-bindings
 
 #+BEGIN_SRC elisp
 (defun copy-whole-buffer ()

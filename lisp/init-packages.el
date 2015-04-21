@@ -23,5 +23,5 @@
   (load-library (format "init-mod-%s.el" package)))
 
 (dolist (package other-package-list)
-  (add-to-list 'load-path (format "~/.emacs.d/%s" package))
+  (add-to-list 'load-path (format "~/.emacs.d/lisp/%s" package))
   (load-library (format "init-mod-%s.el" package)))

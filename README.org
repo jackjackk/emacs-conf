@@ -23,22 +23,24 @@ will transform your emacs conf dir in a working copy of this repository.
 * Description
 ** The main file
 All conf code is self-contained in =~/.emacs.d= dir. If no =~/.emacs=
-file is found, emacs will use =~/.emacs.d/init.el= ([[init.org][init.el]]). This in
-turn call other files in a modular fashion (see [[init-packages.org][init-packages.el]]).
+file is found, emacs will use =~/.emacs.d/init.el= ([[file:init.org][init.el]]). This in
+turn call other files in a modular fashion (see [[file:init-packages.org][init-packages.el]]).
 
 Make sure you *decomment just the packages you are interested in*,
 otherwise be aware that all missing packages on repositories will be
 downloaded and installed on startup, which requires time + internet
 bandwidth.
 ** Customizing built-in features
-- Startup ([[init-startup.org][init-startup.el]])
-- General ([[init-general.org][init-general.el]])
-- Visual ([[init-visual.org][init-visual.el]])
-- Text editing ([[init-text.org][init-text.el]])
+- Startup ([[file:init-startup.org][init-startup.el]])
+- General ([[file:init-general.org][init-general.el]])
+- Visual ([[file:init-visual.org][init-visual.el]])
+- Text editing ([[file:init-text.org][init-text.el]])
+- Python ([[file:init-python.org][init-python.el]])
+- OS integration ([[file:init-os.org][init-os.el]])
 ** Customizing add-on features
 *** The loader (~init-packages.el~)
 :PROPERTIES:
-:tangle:   init-packages.el
+:tangle:   lisp/init-packages.el
 :END:
 
 Packages defined in ~package-list~ (~init.el~) are automatically installed from MELPA/gnu repositories if missing, and their respective configuration file ~init-mod-${PACKAGE_NAME}.el~ loaded.
@@ -71,14 +73,14 @@ Packages defined in ~package-list~ (~init.el~) are automatically installed from 
 Entries defined in ~other-package-list~ (~init.el~) are the names of subfolders to be included in ~load-path~, referring to packages outside the repository-based system above. Their respective configuration file ~init-mod-${SUBFOLDER_NAME}.el~ is also loaded.
 #+BEGIN_SRC elisp
 (dolist (package other-package-list)
-  (add-to-list 'load-path (format "~/.emacs.d/%s" package))
+  (add-to-list 'load-path (format "~/.emacs.d/lisp/%s" package))
   (load-library (format "init-mod-%s.el" package)))
 #+END_SRC
 *** From repository
 *** Local
 **** thing-edit (~init-mod-thing-edit.el~)
 :PROPERTIES:
-:tangle:   init-mod-thing-edit.el
+:tangle:   lisp/init-mod-thing-edit.el
 :END:
 
 #+BEGIN_SRC elisp
@@ -109,37 +111,9 @@ Entries defined in ~other-package-list~ (~init.el~) are the names of subfolders 
   the buffer file.
 - ~view-buffer-in-firefox~ opens the buffer file in Firefox.
 
-** Python (~init-python.el~)
-:PROPERTIES:
-:tangle:   init-python.el
-:END:
-Use the ~ipython~ interpreter with no arguments.
-#+BEGIN_SRC elisp
-(setq python-shell-interpreter "ipython2")
-(setq python-shell-interpreter-args "")
-#+END_SRC
-
-Set regular expressions matching the input and output prompt of the ipython shell.
-#+BEGIN_SRC elisp
-(setq python-shell-prompt-regexp "In \\[[0-9]+\\]: ")
-(setq python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
-#+END_SRC
-
-Set PYTHONPATH (~.bashrc~ not read automatically)
-#+BEGIN_SRC elisp
-(setenv "PYTHONPATH" "/home/jack/github/gdxpy")
-#+END_SRC
-
-Activate auto-completion support.
-#+BEGIN_SRC elisp
-(setq python-shell-completion-setup-code "from IPython.core.completerlib import module_completion")
-(setq python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))\n")
-(setq python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
-#+END_SRC
-
 ** MATLAB (~init-matlab.el~)
 :PROPERTIES:
-:tangle:   init-matlab.el
+:tangle:   lisp/init-matlab.el
 :END:
 #+BEGIN_SRC elisp
   (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
@@ -151,7 +125,7 @@ Activate auto-completion support.
 #+END_SRC
 ** LaTeX (~init-latex.el~)
 :PROPERTIES:
-:tangle:   init-latex.el
+:tangle:   lisp/init-latex.el
 :END:
 
 ~C-c C-c~ to run LaTeX over your document. Once it has compiled correctly, ~C-c C-c~ again to view it, or if it failed to compile ~C-c `~ to see the errors.
@@ -219,7 +193,7 @@ Configure reftex.
 
 *** expand-region (~init-mod-expand-region.el~)
 :PROPERTIES:
-:tangle:   init-mod-expand-region.el
+:tangle:   lisp/init-mod-expand-region.el
 :END:
 
 #+BEGIN_SRC elisp
@@ -259,7 +233,7 @@ You can also play around with ~er/try-expand-list~.
 #+END_SRC
 *** Visible Bookmarks (~init-mod-bm.el~)
 :PROPERTIES:
-:tangle:   init-mod-bm.el
+:tangle:   lisp/init-mod-bm.el
 :END:
 #+BEGIN_SRC elisp
 (require 'bm)
@@ -296,7 +270,7 @@ Remove bookmark after jump to it by ~bm-next~ or ~bm-previous~.
 
 *** org-mode (~init-mod-org.el~)
 :PROPERTIES:
-:tangle:   init-mod-org.el
+:tangle:   lisp/init-mod-org.el
 :END:
 Org is a mode for keeping notes, maintaining TODO lists, and doing
 project planning with a fast and effective plain-text system.
@@ -637,7 +611,7 @@ All ~org~ files under a specified directory will be included for agenda display.
 
 Include http://github.com/leoc/org-helpers, which provides many methods to configure org-mode easily for the GTD way of organizing tasks.
 #+BEGIN_SRC elisp
-(add-to-list 'load-path "~/.emacs.d/org-helpers")
+(add-to-list 'load-path "~/.emacs.d/lisp/org-helpers")
 (require 'org-helpers)
 #+END_SRC
 
@@ -950,7 +924,7 @@ Provide some convenient key bindings to access those templates directly.
 #+END_SRC
 *** zotelo (~init-mod-zotelo.el~)
 :PROPERTIES:
-:tangle:   init-mod-zotelo.el
+:tangle:   lisp/init-mod-zotelo.el
 :END:
 Zotelo helps you efficiently export and synchronize local databases (bib, rdf, html, json etc) and Zotero collections directly from emacs (https://github.com/vspinu/zotelo).
 #+BEGIN_SRC elisp
@@ -969,7 +943,7 @@ Use ~C-c [~ to retrieve items from the bib file.
 
 *** simple-httpd (~init-mod-simple-httpd.el~)
 :PROPERTIES:
-:tangle:   init-mod-simple-httpd.el
+:tangle:   lisp/init-mod-simple-httpd.el
 :END:
 Pure elisp HTTP server
 #+BEGIN_SRC elisp
@@ -981,7 +955,7 @@ Pure elisp HTTP server
 #+END_SRC
 *** js2-mode (~init-mod-js2-mode.el~)
 :PROPERTIES:
-:tangle:   init-mod-js2-mode.el
+:tangle:   lisp/init-mod-js2-mode.el
 :END:
 js2-mode is a JavaScript mode for Emacs with JavaScript parser built-in which allows syntax error detection on the fly.
 #+BEGIN_SRC elisp
@@ -994,7 +968,7 @@ Enable js2-mode or js2-minor-mode.
 #+END_SRC
 *** skewer (~init-mod-skewer.el~)
 :PROPERTIES:
-:tangle:   init-mod-skewer-mode.el
+:tangle:   lisp/init-mod-skewer-mode.el
 :END:
 Skewer provides live interaction with JavaScript, CSS, and HTML in a web browser.
 #+BEGIN_SRC elisp
@@ -1009,7 +983,7 @@ Configure all of mode hooks.
 #+END_SRC
 *** gams (~init-mod-gams.el~)
 :PROPERTIES:
-:tangle:   init-mod-gams.el
+:tangle:   lisp/init-mod-gams.el
 :END:
 GAMS mode for Emacs written by Shirotakeda.
 #+BEGIN_SRC elisp

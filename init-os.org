@@ -1,16 +1,16 @@
 * OS integration
 :PROPERTIES:
-:tangle:   init-os.el
+:tangle:   lisp/init-os.el
 :END:
-
-This section is inspired by https://github.com/kosh04/emacs-lisp/blob/master/gnome-util.el.
 ** Summary
-|         | *Added function*        |                                                                     |
+|         | *Function*              |                                                                     |
 |---------+-------------------------+---------------------------------------------------------------------|
 |         | open-folder-in-explorer | Open explorer in the current directory selecting the current file.  |
 |         | open-cmd-at-folder      | Open cmd prompt in the directory of the file in the current buffer. |
 |         | view-buffer-in-firefox  | Open the file in the current buffer with Firefox.                   |
-| ~C-ret~ | dired-open-file         | Open the file in dired with ~C-return~.                             |
+| ~C-ret~ | dired-open-file         | Open the file in dired with default window manager application.     |
+** Implementation
+This section is inspired by https://github.com/kosh04/emacs-lisp/blob/master/gnome-util.el.
 
 Open explorer in the current directory selecting the current file.
 #+BEGIN_SRC elisp
@@ -31,7 +31,7 @@ Open explorer in the current directory selecting the current file.
         ))
 )
 #+END_SRC
-** Implementation
+
 Open cmd prompt in the directory of the file in the current buffer.
 #+BEGIN_SRC elisp
 (defun open-cmd-at-folder ()  
@@ -62,7 +62,7 @@ Open the file in the current buffer with Firefox.
 )
 #+END_SRC
 
-Open the file in dired with ~C-return~.
+Open the file in dired with default window manager application (~C-ret~).
 #+BEGIN_SRC elisp
 (defun dired-open-file ()
   "In dired, open the file named on this line."
@@ -76,7 +76,6 @@ Open the file in dired with ~C-return~.
   	  '(lambda ()
 	     (define-key dired-mode-map (kbd "<C-return>") 'dired-open-file)))
 #+END_SRC
-
 ** TBD
 #+BEGIN_SRC elisp
 (defvar open-program-name
