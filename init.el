@@ -26,10 +26,12 @@
                      simple-httpd
                      js2-mode
                      skewer-mode
+                     exec-path-from-shell
 ))
 ;; ** from local subfolders 
 (setq other-package-list '(thing-edit
                            gams
+                           ox-wk
                            ;matlab
                            ))
 (load-library "init-packages.el")
