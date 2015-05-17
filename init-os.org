@@ -2,14 +2,13 @@
 :PROPERTIES:
 :tangle:   lisp/init-os.el
 :END:
-** Summary
-|         | *Function*              |                                                                     |
-|---------+-------------------------+---------------------------------------------------------------------|
-|         | open-folder-in-explorer | Open explorer in the current directory selecting the current file.  |
-|         | open-cmd-at-folder      | Open cmd prompt in the directory of the file in the current buffer. |
-|         | view-buffer-in-firefox  | Open the file in the current buffer with Firefox.                   |
-| ~C-ret~ | dired-open-file         | Open the file in dired with default window manager application.     |
-** Implementation
+
+| ~M-x open-folder-in-explorer~ | Open explorer in the current directory selecting the current file.  |
+| ~M-x open-cmd-at-folder~      | Open cmd prompt in the directory of the file in the current buffer. |
+| ~M-x view-buffer-in-firefox~  | Open the file in the current buffer with Firefox.                   |
+|-------------------------------+---------------------------------------------------------------------|
+| ~C-ret~                       | Open the file in dired with default window manager application.     |
+
 This section is inspired by https://github.com/kosh04/emacs-lisp/blob/master/gnome-util.el.
 
 Open explorer in the current directory selecting the current file.

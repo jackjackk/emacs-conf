@@ -1,0 +1,15 @@
+* magit (~init-mod-magit.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-magit.el
+:END:
+
+    M-x magit-status to see git status, and in the status buffer:
+    s to stage files
+    c c to commit (type the message then C-c C-c to actually commit)
+    b b to switch to another branch
+
+Other handy keys:
+
+    P P to do a git push
+    F F to do a git pull
+    try to press TAB

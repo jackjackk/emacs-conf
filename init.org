@@ -19,7 +19,7 @@ Customize built-in features.
 (load-library "init-latex.el")
 #+END_SRC
 
-Then add extra packages, either from repositories or from local subfolders.
+Add extra packages, either from repositories or from local subfolders.
 #+BEGIN_SRC elisp
   ;; * Extra packages
   ;; ** from repositories

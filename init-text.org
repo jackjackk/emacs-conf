@@ -2,28 +2,24 @@
 :PROPERTIES:
 :tangle:   lisp/init-text.el
 :END:
-** Summary
-|                    | *Variable*          |                                                        |
-|--------------------+---------------------+--------------------------------------------------------|
-|                    | default-tab-width   | Indentation = 4 spaces.                                |
-|                    | indent-tabs-mode    | Use spaces when indenting.                             |
-|                    | pending-delete-mode | Overwrite selected region when typing after selection. |
-|                    | fill-column         | Set fill-column width to 70 characters.                |
-|--------------------+---------------------+--------------------------------------------------------|
-|                    | *Function*          |                                                        |
-|--------------------+---------------------+--------------------------------------------------------|
-|                    | untabify-buffer     | Untabify buffer.                                       |
-|                    | indent-buffer       | Indent buffer.                                         |
-|                    | cleanup-buffer      | Untabify + Indent + Delete trailing spaces.            |
-|                    | erase-buffer        | Delete contents of buffer.                             |
-| ~?~                |                     | Copy whole buffer.                                     |
-| ~C-S-z~            |                     | Clone previous line.                                   |
-| ~C-x n n, C-x n w~ |                     | Restrict editing to region.                            |
-| ~C-x C-u~          |                     | Convert region to upper case.                          |
-| ~C-x C-l~          |                     | Convert region to lower case                           |
 
+| ~M-x copy-whole-buffer~ | Copy whole buffer.                          |
+| ~C-S-z~                 | Clone previous line.                        |
+|-------------------------+---------------------------------------------|
+| ~C-x n n, C-x n w~      | Restrict editing to region.                 |
+|-------------------------+---------------------------------------------|
+| ~C-x C-u~               | Convert region to upper case.               |
+| ~C-x C-l~               | Convert region to lower case                |
+|-------------------------+---------------------------------------------|
+| ~M-x untabify-buffer~   | Untabify buffer.                            |
+| ~M-x indent-buffer~     | Indent buffer.                              |
+| ~M-x erase-buffer~      | Delete contents of buffer.                  |
+| ~M-x cleanup-buffer~    | Untabify + Indent + Delete trailing spaces. |
+|-------------------------+---------------------------------------------|
+| ~f6 \~                  | Insert "‖".                                 |
+| ~f6 n~                  | Insert "ℕ".                                 |
+| ~f6 r~                  | Insert "ℝ".                                 |
 
-** Implementation
 Use 4 spaces for tab indentation.
 #+BEGIN_SRC elisp
 (setq default-tab-width 4)
@@ -72,23 +68,30 @@ Provide convenient hooks for programming modes (e.g. for GAMS and python) to aut
 Enable disabled commands.
 #+BEGIN_SRC elisp
 (put 'erase-buffer 'disabled nil)
-#+END_SRC
-
-*** Key-bindings
-
-#+BEGIN_SRC elisp
-(defun copy-whole-buffer ()
-  "Copy entire buffer to clipboard"
-  (interactive)
-  (clipboard-kill-ring-save (point-min) (point-max)))
-;(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
-
-(fset 'clone-previous-line
-   [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
-(global-set-key (kbd "C-S-z")  'clone-previous-line)
-
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 #+END_SRC
 
+Add math key-bindings.
+#+BEGIN_SRC elisp
+(global-set-key (kbd "<f6> \\") (lambda () (interactive) (insert "‖")))
+(global-set-key (kbd "<f6> n") (lambda () (interactive) (insert "ℕ")))
+(global-set-key (kbd "<f6> r") (lambda () (interactive) (insert "ℝ")))
+#+END_SRC
+
+Copy entire buffer to clipboard.
+#+BEGIN_SRC emacs-lisp
+(defun copy-whole-buffer ()
+  "Copy entire buffer to clipboard"
+  (interactive)
+  (clipboard-kill-ring-save (point-min) (point-max)))
+;(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
+#+END_SRC
+
+Clone previous line.
+#+BEGIN_SRC emacs-lisp
+(fset 'clone-previous-line
+   [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
+(global-set-key (kbd "C-S-z")  'clone-previous-line)
+#+END_SRC

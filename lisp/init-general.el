@@ -9,11 +9,17 @@
 (setq auto-save-list-file-prefix
     emacs-tmp-dir)
 
-(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
-
-(desktop-save-mode 1)
+;(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+(define-key input-decode-map (kbd "C-i") (kbd "H-i"))
 
 (setq dired-listing-switches "-alh")
+
+(global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-S-<down>") 'enlarge-window)
+(global-set-key (kbd "C-S-<up>") 'shrink-window)
+
+;(desktop-save-mode 1)
 
 (defun save-all () (interactive) (save-some-buffers t))
 (global-set-key (kbd "C-S-s") 'save-all)
@@ -44,8 +50,3 @@
   (delete-other-windows)
 )
 (global-set-key (kbd "C-1") 'expand-window)
-
-(global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-S-<down>") 'enlarge-window)
-(global-set-key (kbd "C-S-<up>") 'shrink-window)

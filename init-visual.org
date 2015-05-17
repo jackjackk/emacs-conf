@@ -1,0 +1,60 @@
+* Visual (~init-visual.el~)
+:PROPERTIES:
+:tangle:   lisp/init-visual.el
+:END:
+
+| ~C-x t~ | Toggle truncate lines.|
+
+Divide long logical line into two or more screen lines in ~text~ mode.
+#+BEGIN_SRC elisp
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+#+END_SRC
+
+Turn off potentially distracting things: the scroll bar, menu bar, tool bar, and the blinking of the cursor.
+#+BEGIN_SRC elisp
+(menu-bar-mode t)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(blink-cursor-mode -1)
+#+END_SRC
+
+Turn on potentially useful things: empty line markers, line/column numbers, matching parentheses highlight.
+#+BEGIN_SRC elisp
+(setq-default indicate-empty-lines t)
+(when (not indicate-empty-lines)
+  (toggle-indicate-empty-lines))
+(line-number-mode 1)
+(column-number-mode 1)
+(show-paren-mode 1)
+#+END_SRC
+
+Use buffer file name as frame title.
+#+BEGIN_SRC elisp
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+#+END_SRC
+
+Use ~dark-laptop~ color theme, with a ~black~ background and a ~grey90~ foreground.
+#+BEGIN_SRC elisp
+(add-to-list 'custom-theme-load-path
+             (file-name-as-directory "~/.emacs.d/lisp/replace-colorthemes"))
+(load-theme 'dark-laptop t t)
+(enable-theme 'dark-laptop)
+(setq default-frame-alist
+       `((background-color . "black")
+         (foreground-color . "grey90")))
+#+END_SRC
+
+Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
+#+BEGIN_SRC elisp
+(cond ((eq window-system 'w32)
+           (set-face-font 'default "Consolas-16.0:antialias=natural"))
+       (t
+           (set-face-font 'default "DejaVu Sans Mono-12.0:antialias=natural")))
+#+END_SRC
+
+Toggle truncate lines.
+#+BEGIN_SRC elisp
+(setq-default truncate-lines t)
+(global-set-key (kbd "C-x t") 'toggle-truncate-lines)
+#+END_SRC
