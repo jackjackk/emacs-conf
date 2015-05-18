@@ -41,7 +41,7 @@ bandwidth.
 - Latex ([[file:init-latex.org][init-latex.el]])
 ** Customizing add-on features
 *** From repository
-- magit (
+- magit ([[file:init-mod-magit.org][init-mod-magit.el]])
 - zotelo ([[file:init-mod-zotelo.org][init-mod-zotelo.el]])
 *** Local
 - thing-edit ([[file:init-mod-thing-edit.org][init-mod-thing-edit.el]])
