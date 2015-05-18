@@ -3,15 +3,15 @@
 :tangle:   lisp/init-mod-magit.el
 :END:
 
-| M-x magit-status | See git status. |
+| ~M-x magit-status~ | See git status. |
 
 In the status buffer:
-| ~s~     | Stage files.                                               |   |
-| ~c c~   | Commit (type the message then C-c C-c to actually commit). |   |
-| ~b b~   | Switch to another branch.                                  |   |
-| ~P P~   | Push.                                                      |   |
-| ~F F~   | Pull.                                                      |   |
-| ~<tab>~ | ?                                                          |   |
+| ~s~     | Stage files.                                               |
+| ~c c~   | Commit (type the message then C-c C-c to actually commit). |
+| ~b b~   | Switch to another branch.                                  |
+| ~P P~   | Push.                                                      |
+| ~F F~   | Pull.                                                      |
+| ~<tab>~ | ?                                                          |
 
 [[https://github.com/magit/magit][Magit]] is a front end for the Git version control system.
 #+BEGIN_SRC emacs-lisp

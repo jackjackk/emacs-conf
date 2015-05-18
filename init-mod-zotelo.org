@@ -1,0 +1,18 @@
+* zotelo (~init-mod-zotelo.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-zotelo.el
+:END:
+
+| ~C-c z c~ | zotelo-set-collection  |
+| ~C-c z u~ | zotelo-update-database |
+
+[[https://github.com/vspinu/zotelo][Zotelo]] helps you efficiently export and synchronize local bib databases and Zotero collections directly from emacs.
+#+BEGIN_SRC emacs-lisp
+(require 'zotelo)
+#+END_SRC
+
+Use it under Latex and Org mode.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'TeX-mode-hook 'zotelo-minor-mode)
+(add-hook 'org-mode-hook 'zotelo-minor-mode)
+#+END_SRC
