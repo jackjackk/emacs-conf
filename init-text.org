@@ -5,17 +5,17 @@
 
 | ~M-x copy-whole-buffer~ | Copy whole buffer.                          |
 | ~C-S-z~                 | Clone previous line.                        |
-|-------------------------+---------------------------------------------|
+
 | ~C-x n n, C-x n w~      | Restrict editing to region.                 |
-|-------------------------+---------------------------------------------|
+
 | ~C-x C-u~               | Convert region to upper case.               |
 | ~C-x C-l~               | Convert region to lower case                |
-|-------------------------+---------------------------------------------|
+
 | ~M-x untabify-buffer~   | Untabify buffer.                            |
 | ~M-x indent-buffer~     | Indent buffer.                              |
 | ~M-x erase-buffer~      | Delete contents of buffer.                  |
 | ~M-x cleanup-buffer~    | Untabify + Indent + Delete trailing spaces. |
-|-------------------------+---------------------------------------------|
+
 | ~f6 \~                  | Insert "‖".                                 |
 | ~f6 n~                  | Insert "ℕ".                                 |
 | ~f6 r~                  | Insert "ℝ".                                 |

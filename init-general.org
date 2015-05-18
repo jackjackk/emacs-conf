@@ -5,13 +5,13 @@
 
 | ~C-S-s~     | Save all files at once.                         |
 | ~f5~        | Revert buffer w/o confirmation.                 |
-|-------------+-------------------------------------------------|
+
 | ~C-tab~     | Switch focus to other window.                   |
 | ~C-S-tab~   | Switch focus to other window in reverse.        |
-|-------------+-------------------------------------------------|
+
 | ~C-0~       | Delete current window and switches to previous. |
 | ~C-1~       | Expand current window.                          |
-|-------------+-------------------------------------------------|
+
 | ~C-S-left~  | Shrink window horizontally.                     |
 | ~C-S-right~ | Enlarge window horizontally.                    |
 | ~C-S-up~    | Shrink window vertically.                       |
