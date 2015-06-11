@@ -3,22 +3,24 @@
 :tangle:   lisp/init-text.el
 :END:
 
-| ~M-x copy-whole-buffer~ | Copy whole buffer.                          |
-| ~C-S-z~                 | Clone previous line.                        |
-
-| ~C-x n n, C-x n w~      | Restrict editing to region.                 |
-
-| ~C-x C-u~               | Convert region to upper case.               |
-| ~C-x C-l~               | Convert region to lower case                |
-
-| ~M-x untabify-buffer~   | Untabify buffer.                            |
-| ~M-x indent-buffer~     | Indent buffer.                              |
-| ~M-x erase-buffer~      | Delete contents of buffer.                  |
-| ~M-x cleanup-buffer~    | Untabify + Indent + Delete trailing spaces. |
-
-| ~f6 \~                  | Insert "‖".                                 |
-| ~f6 n~                  | Insert "ℕ".                                 |
-| ~f6 r~                  | Insert "ℝ".                                 |
+| ~M-x copy-whole-buffer~ | Copy whole buffer.                                 |
+| ~C-S-z~                 | Clone previous line.                               |
+|                         |                                                    |
+| ~C-x n n, C-x n w~      | Restrict editing to region.                        |
+|                         |                                                    |
+| ~C-x C-u~               | Convert region to upper case.                      |
+| ~C-x C-l~               | Convert region to lower case.                      |
+|                         |                                                    |
+| ~M-x untabify-buffer~   | Untabify buffer.                                   |
+| ~M-x indent-buffer~     | Indent buffer.                                     |
+| ~M-x erase-buffer~      | Delete contents of buffer.                         |
+| ~M-x cleanup-buffer~    | Untabify + Indent + Delete trailing spaces.        |
+|                         |                                                    |
+| ~M-x dos2unix~          | Convert end-of-lines according to UNIX convention. |
+|                         |                                                    |
+| ~f6 \~                  | Insert "‖".                                        |
+| ~f6 n~                  | Insert "ℕ".                                        |
+| ~f6 r~                  | Insert "ℝ".                                        |
 
 Use 4 spaces for tab indentation.
 #+BEGIN_SRC elisp
@@ -50,6 +52,14 @@ Provide a ~cleanup-buffer~ function (untabify + indent + remove trailing whitesp
   (indent-buffer)
   (untabify-buffer)
   (delete-trailing-whitespace))
+#+END_SRC
+
+Provide a function to convert end-of-lines according to UNIX convention with a name easy to remember.
+#+BEGIN_SRC emacs-lisp
+(defun dos2unix ()
+      "Not exactly but it's easier to remember"
+      (interactive)
+      (set-buffer-file-coding-system 'unix 't) )
 #+END_SRC
 
 Provide convenient hooks for programming modes (e.g. for GAMS and python) to automatically untabify and set utf-8-unix coding system before saving.

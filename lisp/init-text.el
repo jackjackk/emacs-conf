@@ -1,4 +1,9 @@
 
+(defun dos2unix ()
+      "Not exactly but it's easier to remember"
+      (interactive)
+      (set-buffer-file-coding-system 'unix 't) )
+
 (defun copy-whole-buffer ()
   "Copy entire buffer to clipboard"
   (interactive)

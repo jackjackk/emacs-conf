@@ -404,8 +404,8 @@ A prefix arg forces clock in of the default task."
 
 ;; ** Refile
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 9))))
+(setq org-refile-targets (quote ((nil :maxlevel . 2)
+                                 (org-agenda-files :maxlevel . 2))))
 ; Use full outline paths for refile targets - we file directly with IDO
 (setq org-refile-use-outline-path t)
 ; Targets complete directly with IDO
@@ -438,3 +438,5 @@ A prefix arg forces clock in of the default task."
 (global-set-key (kbd "<f1>") 'outline-previous-visible-heading)
 (global-set-key (kbd "M-p") 'previous-error)
 (global-set-key (kbd "M-n") 'next-error)
+
+(setq org-export-allow-bind-keywords t)

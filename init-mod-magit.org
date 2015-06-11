@@ -17,3 +17,9 @@ In the status buffer:
 #+BEGIN_SRC emacs-lisp
 (require 'magit)
 #+END_SRC
+
+Disable warning on new magit behavior. Before running Git, Magit by default reverts all unmodified
+buffers that visit files tracked in the current repository.
+#+BEGIN_SRC emacs-lisp
+(setq magit-last-seen-setup-instructions "1.4.0")
+#+END_SRC
