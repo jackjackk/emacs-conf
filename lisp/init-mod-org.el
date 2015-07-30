@@ -1,6 +1,5 @@
 
 (require 'org)
-(require 'org-habit)
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
@@ -198,7 +197,7 @@ A prefix arg forces clock in of the default task."
 
 (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
 
-(setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00"))))
+(setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 6:00 8:00"))))
 
 (setq org-agenda-log-mode-items (quote (closed state)))
 
@@ -290,10 +289,10 @@ A prefix arg forces clock in of the default task."
 
 
 
-(global-set-key (kbd "<C-escape>") (kbd "C-c '"))
-
 (setq org-babel-python-command "ipython2 --pylab=qt5 --pdb --nosep --classic 
 --no-banner --no-confirm-exit")
+
+(global-set-key (kbd "<C-escape>") (kbd "C-c '"))
 
 (fset 'execute_ipython_src_code_around_pointer
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([28 C-S-iso-lefttab 134217790 37 112 97 115 116 101 return C-S-iso-lefttab] 0 "%d")) arg)))
@@ -307,7 +306,9 @@ A prefix arg forces clock in of the default task."
 
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "capture.org")
-               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* TODO %?" :clock-in t :clock-resume t)
+              ("p" "I was procrastinating" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
+               "* %? %i\n- [ ] Think how the task is relevant and meaningful to your interests and goals\n- [ ] Set reasonable standards to be expected from you in completing the task\n- [ ] Give the right weight to others' evaluation of your work\n- [ ] Be aware of the personal resources you can leverage on to do the job\n- [ ] Decide how much you really want to invest in the task\n- [ ] Feel ready to accept the responsibilities involved?\n- [ ] Spend enough time in defining the outcome and developing the steps needed to accomplish that outcome" :clock-in t :clock-resume t)
               ("r" "respond" entry (file "capture.org")
                "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
               ("n" "note" entry (file "capture.org")
@@ -318,8 +319,6 @@ A prefix arg forces clock in of the default task."
                "* TODO Review %c\n%U\n" :immediate-finish t)
               ("m" "Meeting" entry (file "capture.org")
                "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-              ("p" "Phone call" entry (file "capture.org")
-               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
               ("h" "Habit" entry (file "capture.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
@@ -343,10 +342,6 @@ A prefix arg forces clock in of the default task."
 (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
 
 ;; ** Babel
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t) (emacs-lisp . t) (ditaa . t) (sh . t)))
-(setq org-confirm-babel-evaluate nil)
 (cond ((eq window-system 'w32)
        (setq org-babel-sh-command "C:/cygwin/bin/sh.exe"))
        (t
@@ -404,22 +399,16 @@ A prefix arg forces clock in of the default task."
 
 ;; ** Refile
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 2)
-                                 (org-agenda-files :maxlevel . 2))))
-; Use full outline paths for refile targets - we file directly with IDO
-(setq org-refile-use-outline-path t)
-; Targets complete directly with IDO
-(setq org-outline-path-complete-in-steps nil)
 ; Allow refile to create parent tasks with confirmation
-(setq org-refile-allow-creating-parent-nodes (quote confirm))
+;(setq org-refile-allow-creating-parent-nodes (quote confirm))
 ; Use IDO for both buffer and file completion and ido-everywhere to t
-(setq org-completion-use-ido t)
-(setq ido-everywhere t)
-(setq ido-max-directory-size 100000)
-(ido-mode (quote both))
+;(setq org-completion-use-ido t)
+;(setq ido-everywhere t)
+;(setq ido-max-directory-size 100000)
+;(ido-mode (quote both))
 ; Use the current window when visiting files and buffers with ido
-(setq ido-default-file-method 'selected-window)
-(setq ido-default-buffer-method 'selected-window)
+;(setq ido-default-file-method 'selected-window)
+;(setq ido-default-buffer-method 'selected-window)
 ; Use the current window for indirect buffer display
 (setq org-indirect-buffer-display 'current-window)
 ;;;; Refile settings
@@ -440,3 +429,46 @@ A prefix arg forces clock in of the default task."
 (global-set-key (kbd "M-n") 'next-error)
 
 (setq org-export-allow-bind-keywords t)
+
+(defun yas/org-very-safe-expand ()
+  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (make-variable-buffer-local 'yas/trigger-key)
+            (setq yas/trigger-key [tab])
+            (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+            (define-key yas/keymap [tab] 'yas/next-field)))
+
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+
+(add-to-list 'org-modules 'org-habit)
+
+(add-to-list 'org-global-properties '("STYLE_ALL" . "habit"))
+
+(setq org-habit-preceding-days 7
+      org-habit-following-days 1
+      org-habit-graph-column 80
+      org-habit-show-habits-only-for-today t
+      org-habit-show-all-today t)
+
+(global-set-key (kbd "C-S-s") 'org-babel-tangle)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (emacs-lisp . t)
+   (ditaa . t)
+   (sh . t)
+   (org . t)
+   ))
+
+(setq org-confirm-babel-evaluate nil)
+
+(setq org-refile-targets (quote ((nil :maxlevel . 3)
+                                 (org-agenda-files :maxlevel . 3))))
+
+(setq org-outline-path-complete-in-steps nil)
+(setq org-refile-use-outline-path 'file)

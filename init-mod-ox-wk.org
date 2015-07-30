@@ -1,0 +1,7 @@
+* ox-wk (~init-mod-ox-wk.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-ox-wk.el
+:END:
+#+BEGIN_SRC elisp
+(require 'ox-wk)
+#+END_SRC

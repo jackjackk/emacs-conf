@@ -41,9 +41,12 @@ bandwidth.
 - Latex ([[file:init-latex.org][init-latex.el]])
 ** Customizing add-on features
 *** From repository
-- org (
-- magit ([[file:init-mod-magit.org][init-mod-magit.el]])
-- zotelo ([[file:init-mod-zotelo.org][init-mod-zotelo.el]])
+- [[file:init-mod-org.org][org]]
+- [[file:init-mod-magit.org][magit]] 
+- [[file:init-mod-zotelo.org][zotelo]]
+- [[file:init-mod-projectile.org][projectile]]
+- [[file:init-mod-helm-projectile.org][helm-projectile]]
+- [[file:init-mod-transpose-frame.org][transpose-frame]]
 *** Local
 - thing-edit ([[file:init-mod-thing-edit.org][init-mod-thing-edit.el]])
 * To be cleaned 

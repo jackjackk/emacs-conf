@@ -1,0 +1,22 @@
+* spray (~lisp/init-mod-spray.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-spray.el
+:END:
+
+| <f6>        | spray mode                      |
+| <SPC>       | pause or resume spraying        |
+| h, <left>   | pause and back to the last word |
+| l, <right>  | inverse of spray-backward-word  |
+| f           | increases speed                 |
+| s           | decreases speed                 |
+| q, <return> | quit spray-mode                 |
+
+[[https://github.com/ian-kelling/spray/][spray]] is a speed reading mode for Emacs.
+#+BEGIN_SRC emacs-lisp
+(require 'spray)
+#+END_SRC
+
+Bind ~spray-mode~ to ~f6~.
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<f6>") 'spray-mode)
+#+END_SRC

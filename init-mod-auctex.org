@@ -1,0 +1,57 @@
+* auctex (~init-mod-auctex.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-auctex.el
+:END:
+
+| C-c C-s           | Insert sectioning macros. |
+| C-c C-e           | Insert environment.       |
+| C-c C-m / C-c RET | Insert a LaTeX macro.     |
+| C-c (             | Add label.                |
+| C-c )             | Add reference.            |
+
+| C-c ;             | Comment/decomment region.            |
+| C-c %             | Comment/decomment current paragraph. |
+
+| C-c C-c | Run LaTeX.                |
+| C-c C-r | Run LaTeX only on region. |
+
+| C-c C-f C-b | Insert bold face ‘\textbf{∗}’ text.                       |
+| C-c C-f C-i | Insert italics ‘\textit{∗}’ text.                         |
+| C-c C-f C-e | Insert emphasized ‘\emph{∗}’ text.                        |
+| C-c C-f C-s | Insert slanted ‘\textsl{∗}’ text.                         |
+| C-c C-f C-r | Insert roman \textrm{∗} text.                             |
+| C-c C-f C-f | Insert sans serif ‘\textsf{∗}’ text.                      |
+| C-c C-f C-t | Insert typewriter ‘\texttt{∗}’ text.                      |
+| C-c C-f C-c | Insert SMALL CAPS ‘\textsc{∗}’ text.                      |
+| C-c C-f C-d | Delete the innermost font specification containing point. |
+
+Also needed for cdlatex.
+
+Customize Latex-math-list (https://github.com/kolesarm/Emacs-configuration).
+#+BEGIN_SRC emacs-lisp
+(defun LaTeX-math-overbar ()
+  "Insert \\overbar{}."
+  (interactive)
+  (insert "\\overbar{}")
+  (backward-char 1))
+(defun LaTeX-math-underbar ()
+  "Insert \\ubar{}."
+  (interactive)
+  (insert "\\ubar{}")
+  (backward-char 1))
+(defun LaTeX-math-Beta ()
+  "Insert \\Beta."
+  (interactive)
+  (insert "\\Beta"))
+(defun LaTeX-math-Eta ()
+  "Insert \\Eta."
+  (interactive)
+  (insert "\\Eta"))
+
+(setq LaTeX-math-list '((?_ LaTeX-math-underbar nil)
+                        (?= LaTeX-math-overbar nil)
+                        (?B LaTeX-math-Beta nil)
+                        (?H LaTeX-math-Eta nil)))
+#+END_SRC
+
+

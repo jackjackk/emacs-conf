@@ -1,0 +1,18 @@
+* cdlatex (~init-mod-cdlatex.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-cdlatex.el
+:END:
+
+| C-c {                        | Insert environment templates.                                                                                          |
+| TAB                          | Template expansion if the cursor is inside a LaTeX fragment (e.g fr to \frac{}{}) or at beginning of a line (e.g equ). |
+| M-x cdlatex-command-help RET | List of all abbreviations.                                                                                             |
+| _ and ^                      | Insert characters together with {} inside a LaTeX fragment.                                                            |
+| `                            | Insert math macro if followed by a character (otherwise show help pop up).                                             |
+| '                            | Modify the symbol before point with an accent or a font if followed by a character (only inside LaTeX fragments).      |
+
+Fast input methods for LaTeX environments and math.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+#+END_SRC
+

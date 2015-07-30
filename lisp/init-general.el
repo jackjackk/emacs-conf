@@ -22,7 +22,6 @@
 ;(desktop-save-mode 1)
 
 (defun save-all () (interactive) (save-some-buffers t))
-(global-set-key (kbd "C-S-s") 'save-all)
 
 (defun revert-buffer-no-confirm ()
     "Revert buffer without confirmation."
@@ -34,6 +33,8 @@
 (fset 'other-window-reverse
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("-1o" 0 "%d")) arg)))
 (global-set-key (kbd "<C-S-iso-lefttab>") 'other-window-reverse)
+
+(winner-mode 1)
 
 (defun delete-window-switch-previous()
   "Delete a window and give focus to the previous window"
@@ -50,3 +51,5 @@
   (delete-other-windows)
 )
 (global-set-key (kbd "C-1") 'expand-window)
+
+(windmove-default-keybindings)

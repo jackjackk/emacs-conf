@@ -21,18 +21,30 @@
                      org2blog
 ;                     websocket
 ;                     ein
-                     bm
+;                     bm
                      zotelo
                      simple-httpd
                      js2-mode
                      skewer-mode
                      exec-path-from-shell
+                     projectile
+                     helm-projectile
+                     transpose-frame
+;                     elpy
+                     spray
+                     ;image+
+                     eimp
+                     auctex
+                     cdlatex
 ))
 ;; ** from local subfolders 
 (setq other-package-list '(thing-edit
                            gams
                            ox-wk
                            ;matlab
+                           ;speedread
+                           org-checklist
+                           org-bullets
                            ))
 (load-library "init-packages.el")
 (custom-set-variables
@@ -40,12 +52,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values
-   (quote
-    ((zotero-collection .
-                        #("91" 0 2
-                          (name "Big_Data")))
-     (zotero-collection . "103")))))
+ '(safe-local-variable-values (quote ((zotero-collection . #("103" 0 3 (name "Enel")))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

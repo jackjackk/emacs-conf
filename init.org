@@ -33,18 +33,30 @@ Add extra packages, either from repositories or from local subfolders.
                        org2blog
   ;                     websocket
   ;                     ein
-                       bm
+  ;                     bm
                        zotelo
                        simple-httpd
                        js2-mode
                        skewer-mode
                        exec-path-from-shell
+                       projectile
+                       helm-projectile
+                       transpose-frame
+  ;                     elpy
+                       spray
+                       ;image+
+                       eimp
+                       auctex
+                       cdlatex
   ))
   ;; ** from local subfolders 
   (setq other-package-list '(thing-edit
                              gams
                              ox-wk
                              ;matlab
+                             ;speedread
+                             org-checklist
+                             org-bullets
                              ))
   (load-library "init-packages.el")
 #+END_SRC

@@ -4,7 +4,7 @@
 :END:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default TeX-master t)
+(setq-default TeX-master nil)
 
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)

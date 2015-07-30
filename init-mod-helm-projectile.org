@@ -1,0 +1,13 @@
+* helm-projectile (~lisp/init-mod-helm-projectile.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-helm-projectile.el
+:END:
+
+Integrate helm with Projectile.
+
+| ~C-?~ | Helm with Projectile. |
+
+Assign convenient key.
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-?") 'helm-projectile)
+#+END_SRC

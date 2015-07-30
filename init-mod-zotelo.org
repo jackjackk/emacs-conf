@@ -1,4 +1,4 @@
-* zotelo (~init-mod-zotelo.el~)
+* zotelo (~lisp/init-mod-zotelo.el~)
 :PROPERTIES:
 :tangle:   lisp/init-mod-zotelo.el
 :END:

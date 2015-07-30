@@ -3,7 +3,8 @@
 :tangle:   lisp/init-general.el
 :END:
 
-| ~C-S-s~     | Save all files at once.                         |
+| ~M-x save-all~ | Save all files at once. |
+
 | ~f5~        | Revert buffer w/o confirmation.                 |
 
 | ~C-tab~     | Switch focus to other window.                   |
@@ -47,7 +48,7 @@ Set convenient Dired switches.
 Save all files at once.
 #+BEGIN_SRC emacs-lisp
 (defun save-all () (interactive) (save-some-buffers t))
-(global-set-key (kbd "C-S-s") 'save-all)
+
 #+END_SRC
 
 Revert buffer w/o confirmation.
@@ -65,6 +66,12 @@ Switch focus between windows.
 (fset 'other-window-reverse
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("-1o" 0 "%d")) arg)))
 (global-set-key (kbd "<C-S-iso-lefttab>") 'other-window-reverse)
+#+END_SRC
+
+Winner mode is a global minor mode that records the changes in the
+window configuration, so that you can “undo” them. ~C-c left~ (~winner-undo~) undoes the last window configuration change. ~C-c right~ (~M-x winner-redo~) redos the changes.
+#+BEGIN_SRC emacs-lisp
+(winner-mode 1)
 #+END_SRC
 
 Delete current window and switches to previous.
@@ -96,6 +103,12 @@ Shrink/enlarge window.
 (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "C-S-<down>") 'enlarge-window)
 (global-set-key (kbd "C-S-<up>") 'shrink-window)
+#+END_SRC
+
+The Windmove package defines commands for moving directionally
+between neighboring windows in a frame. ~windmove-default-keybindings~ binds these commands to ‘S-right’ etc., disabling shift selection for those keys.
+#+BEGIN_SRC emacs-lisp
+(windmove-default-keybindings)
 #+END_SRC
 ** Not used
 Enable automatic saving of the desktop (i.e. the buffers, their file names,

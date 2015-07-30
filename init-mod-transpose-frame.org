@@ -1,0 +1,18 @@
+* transpose-frame
+:PROPERTIES:
+:tangle:   lisp/init-mod-transpose-frame.el
+:END:
+
+Interactive functions to transpose windows arrangement in currently
+selected frame (http://www.emacswiki.org/emacs/TransposeFrame).
+
+| ~M-x transpose-frame~             | Swap x-direction and y-direction |
+| ~M-x flip-frame~                  | Flip vertically                  |
+| ~M-x flop-frame~                  | Flop horizontally                |
+| ~M-x rotate-frame~                | Rotate 180 degrees               |
+| ~M-x rotate-frame-clockwise~      | Rotate 90 degrees clockwise      |
+| ~M-x rotate-frame-anti-clockwise~ | Rotate 90 degrees anti-clockwise |
+
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
