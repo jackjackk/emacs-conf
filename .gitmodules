@@ -7,9 +7,6 @@
 [submodule "lisp/ox-wk"]
 	path = lisp/ox-wk
 	url = https://github.com/w-vi/ox-wk.el.git
-[submodule "lisp/speedread"]
-	path = lisp/speedread
-	url = https://github.com/vapniks/speedread.git
 [submodule "lisp/org-bullets"]
 	path = lisp/org-bullets
 	url = https://github.com/sabof/org-bullets
