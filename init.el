@@ -36,26 +36,17 @@
                      eimp
                      auctex
                      cdlatex
+                     latex-preview-pane
+                     ;org-beautify-theme
+                     android-mode
 ))
 ;; ** from local subfolders 
 (setq other-package-list '(thing-edit
                            gams
                            ox-wk
                            ;matlab
-                           ;speedread
+                           speedread
                            org-checklist
                            org-bullets
                            ))
 (load-library "init-packages.el")
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((zotero-collection . #("103" 0 3 (name "Enel")))))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

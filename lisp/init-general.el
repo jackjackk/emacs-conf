@@ -53,3 +53,5 @@
 (global-set-key (kbd "C-1") 'expand-window)
 
 (windmove-default-keybindings)
+
+(add-hook 'after-init-hook 'global-company-mode)

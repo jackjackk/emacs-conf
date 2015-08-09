@@ -110,6 +110,11 @@ between neighboring windows in a frame. ~windmove-default-keybindings~ binds the
 #+BEGIN_SRC emacs-lisp
 (windmove-default-keybindings)
 #+END_SRC
+
+Activate company mode.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
 ** Not used
 Enable automatic saving of the desktop (i.e. the buffers, their file names,
 major modes, buffer positions, ...) when you exit Emacs, and automatic

@@ -48,13 +48,16 @@ Add extra packages, either from repositories or from local subfolders.
                        eimp
                        auctex
                        cdlatex
+                       latex-preview-pane
+                       ;org-beautify-theme
+                       android-mode
   ))
   ;; ** from local subfolders 
   (setq other-package-list '(thing-edit
                              gams
                              ox-wk
                              ;matlab
-                             ;speedread
+                             speedread
                              org-checklist
                              org-bullets
                              ))

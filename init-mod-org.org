@@ -5,7 +5,27 @@
 Org is a mode for keeping notes, maintaining TODO lists, and doing
 project planning with a fast and effective plain-text system.
 
-** Shortcuts
+General
+| M-p           | metaup                       |
+| M-n           | metadown                     |
+| C-p           | Previous src block           |
+| C-n           | Next src block               |
+| <prior>       | Previous link                |
+| <next>        | Next link                    |
+| n (speed-key) | Show next heading tidily     |
+| p (speed-key) | Show previous heading tidily |
+
+Tasks
+| C-c C-t | Choose keyword |
+
+Clock
+| ~F11~     | clock in a task (show menu with prefix) |
+| ~S-F11~   | clock out of task                       |
+| ~M-F11~   | Punch Clock In                          |
+| ~M-S-F11~ | Punch Clock Out                         |
+| ~C-F11~   | go to the currently clocked item        |
+| ~C-S-F11~ | show clocked items history              |
+
 Babel
 | ~C-S-s~    | Tangle file.                                                            |
 | ~C-Esc~    | Source block editing.                                                   |
@@ -256,13 +276,7 @@ as the default task."
 
 #+END_SRC
 
-Add the following key beindings:
-| ~F11~   | clock in a task (show menu with prefix) |
-| ~S-F11~ | clock out of task |
-| ~M-F11~ | Punch Clock In                          |
-| ~M-S-F11~ | Punch Clock Out                         |
-| ~C-F11~ | go to the currently clocked item        |
-| ~C-S-F11~ | show clocked items history |
+Add convenient key beindings.
 #+BEGIN_SRC elisp
 (global-set-key (kbd "<f11>") 'org-clock-in)
 (global-set-key (kbd "S-<f11>") 'org-clock-out)
@@ -532,8 +546,9 @@ After an item has been shown from the agenda, show all of its text in the buffer
 #+END_SRC
 
 ** Latex
+Scale up previewed Latex fragments.
 #+BEGIN_SRC elisp
-
+(plist-put org-format-latex-options :scale 2)
 #+END_SRC
 ** Babel
 Make org play nicely with ~ipython~

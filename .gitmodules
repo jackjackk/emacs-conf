@@ -10,3 +10,6 @@
 [submodule "lisp/org-bullets"]
 	path = lisp/org-bullets
 	url = https://github.com/sabof/org-bullets
+[submodule "lisp/speedread"]
+	path = lisp/speedread
+	url = https://github.com/vapniks/speedread.git

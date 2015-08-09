@@ -3,7 +3,7 @@
 :tangle:   lisp/init-mod-magit.el
 :END:
 
-| ~M-x magit-status~ | See git status. |
+| ~F8~ | See git status. |
 
 In the status buffer:
 | ~s~     | Stage files.                                               |
@@ -38,4 +38,9 @@ Automatically kill all magit buffers after push.
         do (and (is-magit-buffer buffer) (kill-buffer buffer))))
         
 (add-hook 'magit-quit-session 'kill-magit-buffers)
+#+END_SRC
+
+Convenient key binding for magit-status.
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<f8>") 'magit-status)
 #+END_SRC

@@ -287,7 +287,7 @@ A prefix arg forces clock in of the default task."
 
 (add-hook 'org-agenda-after-show-hook 'show-all)
 
-
+(plist-put org-format-latex-options :scale 2)
 
 (setq org-babel-python-command "ipython2 --pylab=qt5 --pdb --nosep --classic 
 --no-banner --no-confirm-exit")
