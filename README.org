@@ -1,9 +1,5 @@
 #+OPTIONS: toc:t h:4 num:nil
 #+PROPERTY: header-args :results silent
-* My emacs configuration
-Cumulated over years, all the elisp configuration lines I found interesting for
-my workflow in their tidiest form I could come up with, both for Windows and
-Linux.
 * Usage
 Given the modular structure of this conf, you may take just those
 parts that are of interest to you.
@@ -32,15 +28,16 @@ otherwise be aware that all missing packages on repositories will be
 downloaded and installed on startup, which requires time + internet
 bandwidth.
 ** Customizing built-in features
-- Startup ([[file:init-startup.org][init-startup.el]])
-- General ([[file:init-general.org][init-general.el]])
-- Visual ([[file:init-visual.org][init-visual.el]])
-- Text editing ([[file:init-text.org][init-text.el]])
-- OS integration ([[file:init-os.org][init-os.el]])
-- Python ([[file:init-python.org][init-python.el]])
-- Latex ([[file:init-latex.org][init-latex.el]])
+- [[file:init-startup.org][Startup]]
+- [[file:init-general.org][General]]
+- [[file:init-visual.org][Visual]]
+- [[file:init-text.org][Text editing]]
+- [[file:init-os.org][OS integration]]
+- [[file:init-python.org][Python]]
+- [[file:init-latex.org][Latex]]
 ** Customizing add-on features
 *** From repository
+- [[file:init-mod-helm.org][helm]]
 - [[file:init-mod-org.org][org]]
 - [[file:init-mod-magit.org][magit]] 
 - [[file:init-mod-zotelo.org][zotelo]]
@@ -339,6 +336,8 @@ Set GAMSDIR environment variable.
 ;(grep-apply-setting 'grep-command "grep -r --include=\"!\" -nH -e ! .")
 ;(setq grep-command  "grep -r --include=\"!\" -nH -e ! .")
 #+END_SRC
+* Useful references
+- http://www.emacswiki.org/emacs/Reference_Sheet_by_Aaron_Hawley
 * DISCLAIMER
 
 THIS SOFTWARE IS PRIVIDED "AS IS" AND COMES WITH NO WARRANTY. USE AT YOUR OWN RISK. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OR CORRUPTION OF DATA). USE AT YOUR OWN RISK.

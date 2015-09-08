@@ -548,7 +548,15 @@ After an item has been shown from the agenda, show all of its text in the buffer
 ** Latex
 Scale up previewed Latex fragments.
 #+BEGIN_SRC elisp
-(plist-put org-format-latex-options :scale 2)
+  (plist-put org-format-latex-options :scale 2)
+#+END_SRC
+
+Insert within-paragraph Latex snippets with "@@l:...@@".
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook
+        '(lambda ()
+           (add-to-list 'org-export-snippet-translation-alist
+                 '("l" . "latex"))))
 #+END_SRC
 ** Babel
 Make org play nicely with ~ipython~

@@ -1,4 +1,4 @@
 
 (projectile-global-mode)
 
-(setq projectile-keymap-prefix (kbd "C-."))
+(setq projectile-keymap-prefix [(control ?\;)])

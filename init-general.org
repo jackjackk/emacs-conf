@@ -10,6 +10,9 @@
 | ~C-tab~     | Switch focus to other window.                   |
 | ~C-S-tab~   | Switch focus to other window in reverse.        |
 
+| ~C-left~  | Previous window configuration. |
+| ~C-right~ | Next window configuration.     |
+
 | ~C-0~       | Delete current window and switches to previous. |
 | ~C-1~       | Expand current window.                          |
 
@@ -69,7 +72,9 @@ Switch focus between windows.
 #+END_SRC
 
 Winner mode is a global minor mode that records the changes in the
-window configuration, so that you can “undo” them. ~C-c left~ (~winner-undo~) undoes the last window configuration change. ~C-c right~ (~M-x winner-redo~) redos the changes.
+window configuration, so that you can “undo” them. ~C-c left~
+(~winner-undo~) undoes the last window configuration change. ~C-c
+right~ (~M-x winner-redo~) redos the changes.
 #+BEGIN_SRC emacs-lisp
 (winner-mode 1)
 #+END_SRC
@@ -114,6 +119,11 @@ between neighboring windows in a frame. ~windmove-default-keybindings~ binds the
 Activate company mode.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+
+Show % battery remaining in modeline.
+#+BEGIN_SRC emacs-lisp
+(display-battery-mode 1)
 #+END_SRC
 ** Not used
 Enable automatic saving of the desktop (i.e. the buffers, their file names,

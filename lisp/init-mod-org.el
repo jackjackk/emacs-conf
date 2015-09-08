@@ -230,7 +230,7 @@ A prefix arg forces clock in of the default task."
           (tags-todo "/NEXT"
                      ((org-agenda-overriding-header "Next Tasks")
                       (org-agenda-skip-function
-                       '(oh/agenda-skip :subtree-if '(inactive project habit scheduled deadline)))
+                       '(oh/agenda-skip :subtree-if '(inactive habit))) ; project habit scheduled deadline)))
                       (org-tags-match-list-sublevels t)
                       (org-agenda-sorting-strategy '(todo-state-down effort-up category-keep))))
           (tags-todo "/!-CANCELLED-NEXT-HOLD-WAITING"
@@ -453,6 +453,11 @@ A prefix arg forces clock in of the default task."
       org-habit-graph-column 80
       org-habit-show-habits-only-for-today t
       org-habit-show-all-today t)
+
+(add-hook 'org-mode-hook
+      '(lambda ()
+         (add-to-list 'org-export-snippet-translation-alist
+               '("l" . "latex"))))
 
 (global-set-key (kbd "C-S-s") 'org-babel-tangle)
 

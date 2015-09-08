@@ -1,13 +1,11 @@
-;; * Helm
 
 (require 'helm)
 (require 'helm-config)
 
 (setq helm-moccur-always-search-in-current t)
 
-;; Only if not in Windows use locate
 (cond ( (eq window-system 'w32)
-		(setq helm-locate-command "es %s %s")
+        (setq helm-locate-command "es %s %s")
         (setq helm-for-files-preferred-list
               '(helm-source-buffers-list
                 helm-source-recentf
@@ -16,7 +14,7 @@
                 helm-source-files-in-current-dir
                 ;; helm-source-locate
                 helm-source-moccur)))
-	  (t
+      (t
         (setq helm-locate-command "locate %s -e -A --regex %s")
         (setq helm-for-files-preferred-list
               '(helm-source-buffers-list
@@ -27,28 +25,26 @@
                 helm-source-locate
                 helm-source-moccur))))
 
+; Open helm buffer inside current window, not occupy whole other window.
+(setq helm-split-window-in-side-p           t)
+; Move to end or beginning of source when reaching top or bottom of source.
+(setq helm-move-to-line-cycle-in-source     t)
+; Search for library in `require' and `declare-function' sexp.
+(setq helm-ff-search-library-in-sexp        t)
+; Scroll 8 lines other window using M-<next>/M-<prior>
+(setq helm-scroll-amount                    8)
+; Use `recentf-list' instead of `file-name-history' in `helm-find-files'.
+(setq helm-ff-file-name-history-use-recentf t)
 
-;; Generic config
-(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-      helm-ff-file-name-history-use-recentf t)
-
-;; Fuzzy-matching
 (setq helm-M-x-fuzzy-match t
       helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match    t
       helm-semantic-fuzzy-match t
       helm-imenu-fuzzy-match    t)
 
-;; Grepping
 (when (executable-find "ack-grep")
   (setq helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f"
         helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
-
-
-;; Key bindings
 
 (global-set-key (kbd "C-`") 'helm-for-files)
 (global-set-key (kbd "C-~") 'helm-find-files)
@@ -61,7 +57,6 @@
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
 (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 
-;; ** Navigation
 (defun switch-to-buffer-other-window-vertical()
   "Select a buffer in a window obtained by vertically splitting the current one"
   (interactive)
@@ -130,6 +125,5 @@
 )
 (global-set-key (kbd "C-%") 'my-find-file-other-window-reverse)
 
-; Enable helm and semantic mode
 (helm-mode 1)
 (semantic-mode 1)
