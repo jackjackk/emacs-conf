@@ -83,13 +83,6 @@ Enable disabled commands.
 (put 'downcase-region 'disabled nil)
 #+END_SRC
 
-Add math key-bindings.
-#+BEGIN_SRC elisp
-(global-set-key (kbd "<f6> \\") (lambda () (interactive) (insert "‖")))
-(global-set-key (kbd "<f6> n") (lambda () (interactive) (insert "ℕ")))
-(global-set-key (kbd "<f6> r") (lambda () (interactive) (insert "ℝ")))
-#+END_SRC
-
 Copy entire buffer to clipboard.
 #+BEGIN_SRC emacs-lisp
 (defun copy-whole-buffer ()
@@ -104,4 +97,11 @@ Clone previous line.
 (fset 'clone-previous-line
    [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
 (global-set-key (kbd "C-S-z")  'clone-previous-line)
+#+END_SRC
+
+Add math key-bindings.
+#+BEGIN_SRC elisp
+(global-set-key (kbd "<f6> \\") (lambda () (interactive) (insert "‖")))
+(global-set-key (kbd "<f6> n") (lambda () (interactive) (insert "ℕ")))
+(global-set-key (kbd "<f6> r") (lambda () (interactive) (insert "ℝ")))
 #+END_SRC

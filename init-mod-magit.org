@@ -42,5 +42,5 @@ Automatically kill all magit buffers after push.
 
 Convenient key binding for magit-status.
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<f8>") 'magit-status)
+(global-set-key [f9] 'magit-status)
 #+END_SRC

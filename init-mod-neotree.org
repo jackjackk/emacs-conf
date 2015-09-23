@@ -1,0 +1,25 @@
+* neotree (~init-mod-neotree.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-neotree.el
+:END:
+
+| <F8> | Toggle neotree. | 
+
+#+BEGIN_SRC emacs-lisp
+(require 'neotree)
+#+END_SRC
+
+Add global keybinding.
+#+BEGIN_SRC emacs-lisp
+(global-set-key [f8] 'neotree-toggle)
+#+END_SRC
+
+Change root when switching project in projectile.
+#+BEGIN_SRC emacs-lisp
+(setq projectile-switch-project-action 'neotree-projectile-action)
+#+END_SRC
+
+Set width.
+#+BEGIN_SRC emacs-lisp
+(setq neo-window-width 40)
+#+END_SRC

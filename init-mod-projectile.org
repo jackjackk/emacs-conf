@@ -1,29 +1,29 @@
-* projectile (~lisp/init-mod-projectile.el~)
+* Projectile [[lisp/init-mod-projectile.el][.el]]
 :PROPERTIES:
 :tangle:   lisp/init-mod-projectile.el
 :END:
 
 [[http://batsov.com/projectile/][Projectile]] is a project interaction library for Emacs.
 
-| ~C-. f~   | Display project files. With ~C-u~ clear the cache first.         |
-| ~C-. d~   | Display project directories. With ~C-u~ clear the cache first.   |
-| ~C-. T~   | Display project test files(specs, features, etc).                |
-| ~C-. l~   | Display files in a directory (that's not necessarily a project). |
-| ~C-. g~   | grep on project files.                                           |
-| ~C-. b~   | Display all project buffers currently open.                      |
-| ~C-. o~   | multi-occur on all project buffers currently open.               |
-| ~C-. r~   | Interactive query-replace on all files in the projects.          |
-| ~C-. i~   | Invalidate the project cache (if existing).                      |
-| ~C-. R~   | Regenerate the projects TAGS file.                               |
-| ~C-. k~   | Kill all project buffers.                                        |
-| ~C-. D~   | Open the root of the project in dired.                           |
-| ~C-. e~   | Shows a list of recently visited project files.                  |
-| ~C-. a~   | Run ack on the project (requires ack-and-a-half).                |
-| ~C-. c~   | Run a standard compilation command for your type of project.     |
-| ~C-. p~   | Run a standard test command for your type of project.            |
-| ~C-. z~   | Add the currently visited to the cache.                          |
-| ~C-. s~   | Display a list of known projects you can switch to.              |
-| ~C-. C-h~ | Keybindings help.                                                |
+| ~C-; f~   | Display project files. With ~C-u~ clear the cache first.         |
+| ~C-; d~   | Display project directories. With ~C-u~ clear the cache first.   |
+| ~C-; T~   | Display project test files(specs, features, etc).                |
+| ~C-; l~   | Display files in a directory (that's not necessarily a project). |
+| ~C-; g~   | grep on project files.                                           |
+| ~C-; b~   | Display all project buffers currently open.                      |
+| ~C-; o~   | multi-occur on all project buffers currently open.               |
+| ~C-; r~   | Interactive query-replace on all files in the projects.          |
+| ~C-; i~   | Invalidate the project cache (if existing).                      |
+| ~C-; R~   | Regenerate the projects TAGS file.                               |
+| ~C-; k~   | Kill all project buffers.                                        |
+| ~C-; D~   | Open the root of the project in dired.                           |
+| ~C-; e~   | Shows a list of recently visited project files.                  |
+| ~C-; a~   | Run ack on the project (requires ack-and-a-half).                |
+| ~C-; c~   | Run a standard compilation command for your type of project.     |
+| ~C-; p~   | Run a standard test command for your type of project.            |
+| ~C-; z~   | Add the currently visited to the cache.                          |
+| ~C-; s~   | Display a list of known projects you can switch to.              |
+| ~C-; C-h~ | Keybindings help.                                                |
 
 Enable Projectile globally.
 #+BEGIN_SRC emacs-lisp
@@ -32,5 +32,5 @@ Enable Projectile globally.
 
 Make Projectile more accessible.
 #+BEGIN_SRC emacs-lisp
-(setq projectile-keymap-prefix (kbd "C-."))
+(setq projectile-keymap-prefix [(control ?\;)])
 #+END_SRC

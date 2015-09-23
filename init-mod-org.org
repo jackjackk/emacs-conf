@@ -469,75 +469,75 @@ agenda dispatcher ~C-c a~ provide some convenient GTD-friendly views.
 |     |                             | - subprojects under restricted view                                |
 | w   | Waiting and Postponed Tasks | WAITING/HOLD non-project items                                     |
 #+BEGIN_SRC elisp
-(setq org-agenda-custom-commands
-      '(("a" "Agenda"
-       ((agenda "" nil)
-          (alltodo ""
-                   ((org-agenda-overriding-header "Tasks to Refile")
-                    (org-agenda-files '("~/org/capture.org"))
-                    (org-agenda-skip-function
-                     '(oh/agenda-skip :headline-if-restricted-and '(todo)))))
-          (tags-todo "/!-CANCELLED-HOLD-WAITING"
-                     ((org-agenda-overriding-header "Stuck Projects")
+  (setq org-agenda-custom-commands
+        '(("a" "Agenda"
+         ((agenda "" nil)
+            (alltodo ""
+                     ((org-agenda-overriding-header "Tasks to Refile")
+                      (org-agenda-files '("~/org/capture.org"))
                       (org-agenda-skip-function
-                       '(oh/agenda-skip :subtree-if '(inactive non-project non-stuck-project habit scheduled deadline)))))
-          (tags-todo "/NEXT"
-                     ((org-agenda-overriding-header "Next Tasks")
-                      (org-agenda-skip-function
-                       '(oh/agenda-skip :subtree-if '(inactive project habit scheduled deadline)))
-                      (org-tags-match-list-sublevels t)
-                      (org-agenda-sorting-strategy '(todo-state-down effort-up category-keep))))
-          (tags-todo "/!-CANCELLED-NEXT-HOLD-WAITING"
-                     ((org-agenda-overriding-header "Available Tasks")
-                      (org-agenda-skip-function
-                       '(oh/agenda-skip :headline-if '(project)
-                                        :subtree-if '(inactive habit scheduled deadline)
-                                        :subtree-if-unrestricted-and '(subtask)
-                                        :subtree-if-restricted-and '(single-task)))
-                      (org-agenda-sorting-strategy '(category-keep))))
-          (tags-todo "/!-CANCELLED"
-                     ((org-agenda-overriding-header "Currently Active Projects")
-                      (org-agenda-skip-function
-                       '(oh/agenda-skip :subtree-if '(non-project stuck-project inactive habit)
-                                        :headline-if-unrestricted-and '(subproject)
-                                        :headline-if-restricted-and '(top-project)))
-                      (org-agenda-sorting-strategy '(category-keep))))
-          (tags-todo "/!WAITING|HOLD"
-                     ((org-agenda-overriding-header "Waiting and Postponed Tasks")
-                      (org-agenda-skip-function
-                       '(oh/agenda-skip :subtree-if '(project habit))))))
-         nil)
-        ("r" "Tasks to Refile" alltodo ""
-         ((org-agenda-overriding-header "Tasks to Refile")
-          (org-agenda-files '("~/org/capture.org"))))
-        ("#" "Stuck Projects" tags-todo "/!-CANCELLED-HOLD-WAITING"
-         ((org-agenda-overriding-header "Stuck Projects")
-          (org-agenda-skip-function
-           '(oh/agenda-skip :subtree-if '(inactive non-project non-stuck-project
-                                          habit scheduled deadline)))))
-        ("n" "Next Tasks" tags-todo "/NEXT"
-         ((org-agenda-overriding-header "Next Tasks")
-          (org-agenda-skip-function
-           '(oh/agenda-skip :subtree-if '(inactive project habit scheduled deadline)))
-          (org-tags-match-list-sublevels t)
-          (org-agenda-sorting-strategy '(todo-state-down effort-up category-keep))))
-        ("R" "Tasks" tags-todo "/!-CANCELLED-NEXT-HOLD-WAITING"
-         ((org-agenda-overriding-header "Available Tasks")
-          (org-agenda-skip-function
-           '(oh/agenda-skip :headline-if '(project)
-                            :subtree-if '(inactive habit scheduled deadline)
-                            :subtree-if-unrestricted-and '(subtask)
-                            :subtree-if-restricted-and '(single-task)))
-          (org-agenda-sorting-strategy '(category-keep))))
-        ("p" "Projects" tags-todo "/!-CANCELLED"
-         ((org-agenda-overriding-header "Currently Active Projects")
-          (org-agenda-skip-function
-           '(oh/agenda-skip :subtree-if '(non-project inactive habit)))
-              (org-agenda-sorting-strategy '(category-keep))
-              (org-tags-match-list-sublevels 'indented)))
-        ("w" "Waiting Tasks" tags-todo "/!WAITING|HOLD"
-         ((org-agenda-overriding-header "Waiting and Postponed Tasks")
-          (org-agenda-skip-function '(oh/agenda-skip :subtree-if '(project habit)))))))
+                       '(oh/agenda-skip :headline-if-restricted-and '(todo)))))
+            (tags-todo "/!-CANCELLED-HOLD-WAITING"
+                       ((org-agenda-overriding-header "Stuck Projects")
+                        (org-agenda-skip-function
+                         '(oh/agenda-skip :subtree-if '(inactive non-project non-stuck-project habit scheduled deadline)))))
+            (tags-todo "/NEXT"
+                       ((org-agenda-overriding-header "Next Tasks")
+                        (org-agenda-skip-function
+                         '(oh/agenda-skip :subtree-if '(inactive habit))) ; project habit scheduled deadline)))
+                        (org-tags-match-list-sublevels t)
+                        (org-agenda-sorting-strategy '(todo-state-down effort-up category-keep))))
+            (tags-todo "/!-CANCELLED-NEXT-HOLD-WAITING"
+                       ((org-agenda-overriding-header "Available Tasks")
+                        (org-agenda-skip-function
+                         '(oh/agenda-skip :headline-if '(project)
+                                          :subtree-if '(inactive habit scheduled deadline)
+                                          :subtree-if-unrestricted-and '(subtask)
+                                          :subtree-if-restricted-and '(single-task)))
+                        (org-agenda-sorting-strategy '(category-keep))))
+            (tags-todo "/!-CANCELLED"
+                       ((org-agenda-overriding-header "Currently Active Projects")
+                        (org-agenda-skip-function
+                         '(oh/agenda-skip :subtree-if '(non-project stuck-project inactive habit)
+                                          :headline-if-unrestricted-and '(subproject)
+                                          :headline-if-restricted-and '(top-project)))
+                        (org-agenda-sorting-strategy '(category-keep))))
+            (tags-todo "/!WAITING|HOLD"
+                       ((org-agenda-overriding-header "Waiting and Postponed Tasks")
+                        (org-agenda-skip-function
+                         '(oh/agenda-skip :subtree-if '(project habit))))))
+           nil)
+          ("r" "Tasks to Refile" alltodo ""
+           ((org-agenda-overriding-header "Tasks to Refile")
+            (org-agenda-files '("~/org/capture.org"))))
+          ("#" "Stuck Projects" tags-todo "/!-CANCELLED-HOLD-WAITING"
+           ((org-agenda-overriding-header "Stuck Projects")
+            (org-agenda-skip-function
+             '(oh/agenda-skip :subtree-if '(inactive non-project non-stuck-project
+                                            habit scheduled deadline)))))
+          ("n" "Next Tasks" tags-todo "/NEXT"
+           ((org-agenda-overriding-header "Next Tasks")
+            (org-agenda-skip-function
+             '(oh/agenda-skip :subtree-if '(inactive project habit scheduled deadline)))
+            (org-tags-match-list-sublevels t)
+            (org-agenda-sorting-strategy '(todo-state-down effort-up category-keep))))
+          ("R" "Tasks" tags-todo "/!-CANCELLED-NEXT-HOLD-WAITING"
+           ((org-agenda-overriding-header "Available Tasks")
+            (org-agenda-skip-function
+             '(oh/agenda-skip :headline-if '(project)
+                              :subtree-if '(inactive habit scheduled deadline)
+                              :subtree-if-unrestricted-and '(subtask)
+                              :subtree-if-restricted-and '(single-task)))
+            (org-agenda-sorting-strategy '(category-keep))))
+          ("p" "Projects" tags-todo "/!-CANCELLED"
+           ((org-agenda-overriding-header "Currently Active Projects")
+            (org-agenda-skip-function
+             '(oh/agenda-skip :subtree-if '(non-project inactive habit)))
+                (org-agenda-sorting-strategy '(category-keep))
+                (org-tags-match-list-sublevels 'indented)))
+          ("w" "Waiting Tasks" tags-todo "/!WAITING|HOLD"
+           ((org-agenda-overriding-header "Waiting and Postponed Tasks")
+            (org-agenda-skip-function '(oh/agenda-skip :subtree-if '(project habit)))))))
 #+END_SRC
 
 After an item has been shown from the agenda, show all of its text in the buffer.

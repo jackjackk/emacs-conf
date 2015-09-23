@@ -15,4 +15,4 @@
         
 (add-hook 'magit-quit-session 'kill-magit-buffers)
 
-(global-set-key (kbd "<f8>") 'magit-status)
+(global-set-key [f9] 'magit-status)

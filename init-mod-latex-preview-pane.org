@@ -1,0 +1,10 @@
+* latex-preview-pane (~init-mod-latex-preview-pane.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-latex-preview-pane.el
+:END:
+
+[[https://github.com/jsinglet/latex-preview-pane][latex-preview-pane]] is a minor mode for Emacs that enables you to preview LaTeX files.
+#+BEGIN_SRC emacs-lisp
+(latex-preview-pane-enable)
+#+END_SRC
+

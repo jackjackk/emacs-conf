@@ -30,14 +30,14 @@ Add extra packages, either from repositories or from local subfolders.
                        org
   ;                     org-redmine
                        org-pomodoro
-                       org2blog
+  ;                     org2blog
   ;                     websocket
   ;                     ein
   ;                     bm
                        zotelo
-                       simple-httpd
+  ;                     simple-httpd
                        js2-mode
-                       skewer-mode
+   ;                    skewer-mode
                        exec-path-from-shell
                        projectile
                        helm-projectile
@@ -50,7 +50,9 @@ Add extra packages, either from repositories or from local subfolders.
                        cdlatex
                        latex-preview-pane
                        ;org-beautify-theme
-                       android-mode
+   ;                    android-mode
+                       neotree
+                       auctex-latexmk
   ))
   ;; ** from local subfolders 
   (setq other-package-list '(thing-edit

@@ -1,0 +1,18 @@
+* auctex-latexmk (~init-mod-auctex-latexmk.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-auctex-latexmk.el
+:END:
+
+| C-c C-c | Provide LatexMk option to compile TeX source |
+
+Add LatexMk support to AUCTeX.
+#+BEGIN_SRC emacs-lisp
+(require 'auctex-latexmk)
+(auctex-latexmk-setup)
+#+END_SRC
+
+Pass the -pdf flag when TeX-PDF-mode is active add.
+#+BEGIN_SRC emacs-lisp
+(setq auctex-latexmk-inherit-TeX-PDF-mode t)
+#+END_SRC
+

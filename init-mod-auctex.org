@@ -27,6 +27,12 @@
 
 Also needed for cdlatex.
 
+Compile documents to PDF by default.
+#+BEGIN_SRC emacs-lisp
+(require 'tex)
+(TeX-global-PDF-mode t)
+#+END_SRC
+
 Customize Latex-math-list (https://github.com/kolesarm/Emacs-configuration).
 #+BEGIN_SRC emacs-lisp
 (defun LaTeX-math-overbar ()
