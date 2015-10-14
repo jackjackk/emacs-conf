@@ -2,8 +2,10 @@
 :PROPERTIES:
 :tangle:   lisp/init-mod-exec-path-from-shell.el
 :END:
-Ensure that the environment variables ~PATH~ and ~PYTHONPATH~  inside Emacs look the same as in the user's shell.
+Ensure that the environment variables ~PATH~ and ~PYTHONPATH~  inside Emacs look the same as in the user's shell (not in Windows though).
 #+BEGIN_SRC elisp
-(exec-path-from-shell-copy-env "PATH")
-(exec-path-from-shell-copy-env "PYTHONPATH")
+  (cond ((eq window-system 'w32))
+         (t
+          (exec-path-from-shell-copy-env "PATH")
+          (exec-path-from-shell-copy-env "PYTHONPATH")))
 #+END_SRC
