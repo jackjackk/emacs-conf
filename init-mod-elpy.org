@@ -1,0 +1,14 @@
+* elpy (~init-mod-elpy.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-elpy.el
+:END:
+
+Emacs Python Development Environment
+#+BEGIN_SRC emacs-lisp
+(require 'elpy)
+#+END_SRC
+
+Enable elpy in all python buffers.
+#+BEGIN_SRC emacs-lisp
+(elpy-enable)
+#+END_SRC

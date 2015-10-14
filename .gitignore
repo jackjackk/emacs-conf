@@ -1,4 +1,5 @@
 .mc-lists.el
+anaconda-mode
 elpa
 org-clock-save.el
 projectile-bookmarks.eld

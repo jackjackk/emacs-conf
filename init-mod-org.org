@@ -576,13 +576,6 @@ Convenient shortcut for tangling files.
   (global-set-key (kbd "C-S-s") 'org-babel-tangle)
 #+END_SRC
 
-Convenient shortcut for copying surrounding region and sending a ~%paste~ command to the adjacent buffer (used for python programming).
-#+BEGIN_SRC elisp
-(fset 'execute_ipython_src_code_around_pointer
-   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([28 C-S-iso-lefttab 134217790 37 112 97 115 116 101 return C-S-iso-lefttab] 0 "%d")) arg)))
-(global-set-key (kbd "C-|")  'execute_ipython_src_code_around_pointer)
-#+END_SRC
-
 Load commonly used languages.
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages

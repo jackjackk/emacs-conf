@@ -1,0 +1,26 @@
+* anaconda-mode (~init-mod-anaconda-mode.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-anaconda-mode.el
+:END:
+
+| C-M-i | 	anaconda-mode-complete         |
+| M-.   | 	anaconda-mode-find-definitions |
+| M-,   | 	anaconda-mode-find-assignments |
+| M-r   | 	anaconda-mode-find-references  |
+| M-*   | 	anaconda-mode-go-back          |
+| M-?   | 	anaconda-mode-show-doc         |
+
+Code navigation, documentation lookup and completion for Python.
+#+BEGIN_SRC emacs-lisp
+(require 'anaconda-mode)
+#+END_SRC
+
+Automatically enable anaconda-mode in all python buffers.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'python-mode-hook 'anaconda-mode)
+#+END_SRC
+
+Enable eldoc-mode to use provided documentation.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'python-mode-hook 'eldoc-mode)
+#+END_SRC

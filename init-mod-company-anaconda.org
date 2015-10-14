@@ -1,0 +1,16 @@
+* company-anaconda (~init-mod-company-anaconda.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-company-anaconda.el
+:END:
+
+Anaconda backend for company-mode.
+#+BEGIN_SRC emacs-lisp
+(require 'company-anaconda)
+#+END_SRC
+
+Add company-anaconda to allowed company-mode backends list.
+#+BEGIN_SRC emacs-lisp
+(eval-after-load "company"
+ '(progn
+   (add-to-list 'company-backends 'company-anaconda)))
+#+END_SRC

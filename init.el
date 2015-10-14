@@ -1,4 +1,3 @@
-
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
 (load-library "init-startup.el")
@@ -19,6 +18,7 @@
                      org
 ;                     org-redmine
                      org-pomodoro
+                     org-bullets
 ;                     org2blog
 ;                     websocket
 ;                     ein
@@ -31,7 +31,7 @@
                      projectile
                      helm-projectile
                      transpose-frame
-;                     elpy
+                     elpy
                      spray
                      ;image+
                      eimp
@@ -42,6 +42,8 @@
  ;                    android-mode
                      neotree
                      auctex-latexmk
+;                     anaconda-mode
+;                     company-anaconda
 ))
 ;; ** from local subfolders 
 (setq other-package-list '(thing-edit
@@ -50,6 +52,5 @@
                            ;matlab
                            ;speedread
                            org-checklist
-                           org-bullets
                            ))
 (load-library "init-packages.el")
