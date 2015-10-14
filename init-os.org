@@ -9,7 +9,12 @@
 
 | ~C-ret~                       | Open the file in dired with default window manager application.     |
 
-This section is inspired by https://github.com/kosh04/emacs-lisp/blob/master/gnome-util.el.
+Avoid using "find" when using grep (Windows uses by default a non-POSIX-compatible find).
+#+BEGIN_SRC emacs-lisp
+(setq grep-find-command "grep -r -nH -e ")
+#+END_SRC
+
+The section below is inspired by https://github.com/kosh04/emacs-lisp/blob/master/gnome-util.el.
 
 Open explorer in the current directory selecting the current file.
 #+BEGIN_SRC elisp

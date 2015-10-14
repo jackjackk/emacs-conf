@@ -66,3 +66,5 @@
 (let ((default-directory (or directory default-directory)))
   (apply #'call-process open-program-name
          nil 0 nil filename params)))
+
+(setq grep-find-command "grep -r -nH -e ")
