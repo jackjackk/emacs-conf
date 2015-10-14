@@ -1,0 +1,14 @@
+* company (~init-mod-company.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-company.el
+:END:
+
+Modular text completion framework.
+#+BEGIN_SRC emacs-lisp
+(require 'company)
+#+END_SRC
+
+Activate company mode globally.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
