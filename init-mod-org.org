@@ -379,12 +379,16 @@ Use ~l R~ to add the log report (without clocking data lines).
 ** Habits
 Enable tracking of a special type of TODOs: habits.
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'org-modules 'org-habit)
+  (add-hook 'org-load-hook
+            '(lambda ()
+               (add-to-list 'org-modules 'org-habit)))
 #+END_SRC
 
 The habit TODOs must have a property STYLE set to the value ~habit~.
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'org-global-properties '("STYLE_ALL" . "habit"))
+  (add-hook 'org-load-hook
+            '(lambda ()
+			   (add-to-list 'org-global-properties '("STYLE_ALL" . "habit"))))
 #+END_SRC
 
 They also need a scheduled date with a:
@@ -701,10 +705,10 @@ Choose refiling targets in one step, showing levels as paths including the name 
     (interactive)
     (font-lock-add-keywords nil
                             '(("\\(\+BEGIN_SRC\\)"
-                               (0 (progn (compose-region (match-beginning 1) (match-end 1) ?¦)
+                               (0 (progn (compose-region (match-beginning 1) (match-end 1) "")
                                          nil))) 
                               ("\\(\+END_SRC\\)"
-                               (0 (progn (compose-region (match-beginning 1) (match-end 1) ?¦)
+                               (0 (progn (compose-region (match-beginning 1) (match-end 1) "")
                                          nil))))))
   (defun prettier-org-code-blocks-lower ()
     (interactive)
