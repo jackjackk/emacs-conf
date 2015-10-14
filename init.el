@@ -48,7 +48,7 @@
                            gams
                            ox-wk
                            ;matlab
-                           speedread
+                           ;speedread
                            org-checklist
                            org-bullets
                            ))

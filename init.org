@@ -60,7 +60,7 @@ Add extra packages, either from repositories or from local subfolders.
                              gams
                              ox-wk
                              ;matlab
-                             speedread
+                             ;speedread
                              org-checklist
                              org-bullets
                              ))
