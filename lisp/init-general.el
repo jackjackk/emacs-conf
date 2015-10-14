@@ -54,6 +54,4 @@
 
 (windmove-default-keybindings)
 
-(add-hook 'after-init-hook 'global-company-mode)
-
 (display-battery-mode 1)

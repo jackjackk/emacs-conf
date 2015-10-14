@@ -116,11 +116,6 @@ between neighboring windows in a frame. ~windmove-default-keybindings~ binds the
 (windmove-default-keybindings)
 #+END_SRC
 
-Activate company mode.
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'after-init-hook 'global-company-mode)
-#+END_SRC
-
 Show % battery remaining in modeline.
 #+BEGIN_SRC emacs-lisp
 (display-battery-mode 1)

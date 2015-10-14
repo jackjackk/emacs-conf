@@ -11,7 +11,8 @@
 
 ;; * Extra packages
 ;; ** from repositories
-(setq package-list '(helm
+(setq package-list '(company
+                     helm
                      yasnippet
                      expand-region
                      multiple-cursors
