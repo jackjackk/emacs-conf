@@ -1,4 +1,3 @@
-
 (defun open-folder-in-explorer ()  
   "Call when editing a file in a buffer. Open explorer in the current directory and select the current file"  
   (interactive)  
@@ -67,4 +66,4 @@
   (apply #'call-process open-program-name
          nil 0 nil filename params)))
 
-(setq grep-find-command "grep -r -nH -e ")
+(setq grep-find-command "egrep -nHIr ")

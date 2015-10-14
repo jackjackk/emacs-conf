@@ -14,9 +14,13 @@
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
-(add-to-list 'org-modules 'org-habit)
+(add-hook 'org-load-hook
+          '(lambda ()
+             (add-to-list 'org-modules 'org-habit)))
 
-(add-to-list 'org-global-properties '("STYLE_ALL" . "habit"))
+(add-hook 'org-load-hook
+          '(lambda ()
+             (add-to-list 'org-global-properties '("STYLE_ALL" . "habit"))))
 
 (setq org-habit-preceding-days 7
       org-habit-following-days 1
@@ -420,10 +424,10 @@ A prefix arg forces clock in of the default task."
   (interactive)
   (font-lock-add-keywords nil
                           '(("\\(\+BEGIN_SRC\\)"
-                             (0 (progn (compose-region (match-beginning 1) (match-end 1) ?Â¦)
+                             (0 (progn (compose-region (match-beginning 1) (match-end 1) "")
                                        nil))) 
                             ("\\(\+END_SRC\\)"
-                             (0 (progn (compose-region (match-beginning 1) (match-end 1) ?Â¦)
+                             (0 (progn (compose-region (match-beginning 1) (match-end 1) "")
                                        nil))))))
 (defun prettier-org-code-blocks-lower ()
   (interactive)
