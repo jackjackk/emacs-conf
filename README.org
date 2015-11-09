@@ -315,12 +315,6 @@ Configure mode.
        (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc")
 ))
 #+END_SRC
-
-Set GAMSDIR environment variable.
-#+BEGIN_SRC elisp
-(setenv "GAMSDIR" "/opt/gams/24.2")
-#+END_SRC
-
 ** Other 
 *** Maximize window at startup
 #+BEGIN_SRC elisp

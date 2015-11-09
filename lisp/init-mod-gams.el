@@ -1,4 +1,3 @@
-
 (require 'gams)
 
 ;;needed for correct coloring in multiline regions of code
@@ -33,5 +32,3 @@
        (setq gams-lxi-import-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi-import")
        (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc")
 ))
-
-(setenv "GAMSDIR" "/opt/gams/24.2")

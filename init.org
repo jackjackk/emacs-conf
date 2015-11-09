@@ -29,32 +29,33 @@ Add extra packages, either from repositories or from local subfolders.
                        expand-region
                        multiple-cursors
                        org
-  ;                     org-redmine
+  ;;                     org-redmine
                        org-pomodoro
                        org-bullets
-  ;                     org2blog
-  ;                     websocket
-  ;                     ein
-  ;                     bm
+  ;;                     org2blog
+  ;;                     websocket
+  ;;                     ein
+  ;;                     bm
                        zotelo
-  ;                     simple-httpd
-                       js2-mode
-   ;                    skewer-mode
-                       exec-path-from-shell
+  ;;                     simple-httpd
+  ;                     js2-mode
+  ; ;                    skewer-mode
+  ;                     exec-path-from-shell
                        projectile
                        helm-projectile
                        transpose-frame
                        elpy
-                       spray
+  ;                     spray
                        ;image+
-                       eimp
+  ;                     eimp
                        auctex
                        cdlatex
                        latex-preview-pane
                        ;org-beautify-theme
    ;                    android-mode
-                       neotree
+  ;                     neotree
                        auctex-latexmk
+                       toc-org
   ;                     anaconda-mode
   ;                     company-anaconda
   ))

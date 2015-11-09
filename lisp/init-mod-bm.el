@@ -1,4 +1,3 @@
-
 (require 'bm)
 
 (global-set-key (kbd "<C-f1>") 'bm-toggle)

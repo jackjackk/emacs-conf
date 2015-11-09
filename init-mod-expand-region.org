@@ -1,9 +1,24 @@
+* expand-region
+:PROPERTIES:
+:tangle:   lisp/init-mod-expand-region.el
+:END:
 
+| C-= | Expand region.   |
+| C-+ | Contract region. |
+
+[[https://github.com/magnars/expand-region.el][expand-region]] increases selected region by semantic units.
+#+BEGIN_SRC emacs-lisp
 (require 'expand-region)
+#+END_SRC
 
+Define global key bindings.
+#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-+") 'er/contract-region)
+#+END_SRC
 
+Add text-mode expansions to python mode.
+#+BEGIN_SRC emacs-lisp
 (defun er/add-text-mode-expansions ()
   (make-variable-buffer-local 'er/try-expand-list)
   (setq er/try-expand-list (append
@@ -14,10 +29,14 @@
   ;                            mark-page))
 )
 (er/enable-mode-expansions 'python-mode 'er/add-text-mode-expansions)
+#+END_SRC
 
+Optionally, provide other languages extensions.
+#+BEGIN_SRC emacs-lisp
 ;(require 'html-mode-expansions)
 ;(require 'latex-mode-expansions)
 ;(require 'octave-expansions)
 ;(require 'python-mode-expansions)
 ;(require 'text-mode-expansions)
 ;(require 'the-org-mode-expansions)
+#+END_SRC

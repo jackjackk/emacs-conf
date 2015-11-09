@@ -1,0 +1,21 @@
+* toc-org (~init-mod-toc-org.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-toc-org.el
+:END:
+
+Emacs utility to have an up-to-date table of contents in the org files without exporting.
+#+BEGIN_SRC emacs-lisp
+(require 'toc-org nil t)
+(add-hook 'org-mode-hook 'toc-org-enable)
+#+END_SRC
+
+Add a shortcut for inserting a TOC tag.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-tag-alist '("TOC" . ?T))
+#+END_SRC
+
+The first headline with a :TOC: tag (~C-c C-q T RET~) will be updated with the current table of contents.
+
+
+
+

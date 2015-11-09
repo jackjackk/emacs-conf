@@ -1,4 +1,3 @@
-
 (setq-default TeX-master t)
 
 (setq TeX-auto-save t)
