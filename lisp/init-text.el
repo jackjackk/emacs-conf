@@ -1,25 +1,13 @@
 
-(defun dos2unix ()
-      "Not exactly but it's easier to remember"
-      (interactive)
-      (set-buffer-file-coding-system 'unix 't) )
-
-(defun copy-whole-buffer ()
-  "Copy entire buffer to clipboard"
-  (interactive)
-  (clipboard-kill-ring-save (point-min) (point-max)))
-;(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
-
-(fset 'clone-previous-line
-   [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
-(global-set-key (kbd "C-S-z")  'clone-previous-line)
-
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 
 (pending-delete-mode 1)
 
-(setq-default fill-column 70)
+(setq-default fill-column 79)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+(add-hook 'python-mode-hook 'turn-on-auto-fill)
 
 (defun untabify-buffer ()
   (interactive)
@@ -52,3 +40,18 @@
 (global-set-key (kbd "<f6> \\") (lambda () (interactive) (insert "‖")))
 (global-set-key (kbd "<f6> n") (lambda () (interactive) (insert "ℕ")))
 (global-set-key (kbd "<f6> r") (lambda () (interactive) (insert "ℝ")))
+
+(defun dos2unix ()
+      "Not exactly but it's easier to remember"
+      (interactive)
+      (set-buffer-file-coding-system 'unix 't) )
+
+(defun copy-whole-buffer ()
+  "Copy entire buffer to clipboard"
+  (interactive)
+  (clipboard-kill-ring-save (point-min) (point-max)))
+;(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
+
+(fset 'clone-previous-line
+   [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
+(global-set-key (kbd "C-S-z")  'clone-previous-line)

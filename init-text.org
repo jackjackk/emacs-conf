@@ -33,9 +33,12 @@ Overwrite selected region when typing after selection.
 (pending-delete-mode 1)
 #+END_SRC
 
-Set fill-column width to 70 characters.
+Set fill-column width to 70 characters, and add Autofill to text, org & python modes.
 #+BEGIN_SRC elisp
-(setq-default fill-column 70)
+(setq-default fill-column 79)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+(add-hook 'python-mode-hook 'turn-on-auto-fill)
 #+END_SRC
 
 Provide a ~cleanup-buffer~ function (untabify + indent + remove trailing whitespaces).

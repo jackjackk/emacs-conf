@@ -58,6 +58,7 @@ Add extra packages, either from repositories or from local subfolders.
                        toc-org
   ;                     anaconda-mode
   ;                     company-anaconda
+                       column-marker
   ))
   ;; ** from local subfolders 
   (setq other-package-list '(thing-edit

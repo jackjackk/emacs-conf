@@ -46,6 +46,7 @@
                      toc-org
 ;                     anaconda-mode
 ;                     company-anaconda
+                     column-marker
 ))
 ;; ** from local subfolders 
 (setq other-package-list '(thing-edit

@@ -1,0 +1,14 @@
+* column-marker
+:PROPERTIES:
+:tangle:   lisp/init-mod-column-marker.el
+:END:
+
+Emacs Python Development Environment
+#+BEGIN_SRC emacs-lisp
+(require 'column-marker)
+#+END_SRC
+
+Enable column-marker in all python buffers.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'python-mode-hook (lambda () (interactive) (column-marker-1 fill-column)))
+#+END_SRC
