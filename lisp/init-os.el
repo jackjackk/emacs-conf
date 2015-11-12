@@ -1,3 +1,4 @@
+
 (defun open-folder-in-explorer ()  
   "Call when editing a file in a buffer. Open explorer in the current directory and select the current file"  
   (interactive)  
@@ -43,7 +44,10 @@
   (interactive)
   (let* ((file (dired-get-filename nil t)))
     (message "Opening %s..." file)
-    (call-process "gnome-open" nil 0 nil file)
+    (cond ((eq window-system 'w32)
+           (w32-shell-execute "open" file))
+          (t
+           (call-process "gnome-open" nil 0 nil file)))
     (message "Opening %s done" file)))
 
 (add-hook 'dired-mode-hook

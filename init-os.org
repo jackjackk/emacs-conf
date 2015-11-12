@@ -68,17 +68,20 @@ Open the file in the current buffer with Firefox.
 
 Open the file in dired with default window manager application (~C-ret~).
 #+BEGIN_SRC elisp
-(defun dired-open-file ()
-  "In dired, open the file named on this line."
-  (interactive)
-  (let* ((file (dired-get-filename nil t)))
-    (message "Opening %s..." file)
-    (call-process "gnome-open" nil 0 nil file)
-    (message "Opening %s done" file)))
+  (defun dired-open-file ()
+    "In dired, open the file named on this line."
+    (interactive)
+    (let* ((file (dired-get-filename nil t)))
+      (message "Opening %s..." file)
+      (cond ((eq window-system 'w32)
+             (w32-shell-execute "open" file))
+            (t
+             (call-process "gnome-open" nil 0 nil file)))
+      (message "Opening %s done" file)))
 
-(add-hook 'dired-mode-hook
-  	  '(lambda ()
-	     (define-key dired-mode-map (kbd "<C-return>") 'dired-open-file)))
+  (add-hook 'dired-mode-hook
+        '(lambda ()
+           (define-key dired-mode-map (kbd "<C-return>") 'dired-open-file)))
 #+END_SRC
 ** TBD
 #+BEGIN_SRC elisp
