@@ -3,6 +3,9 @@
 :tangle:   lisp/init-mod-elpy.el
 :END:
 
+| ~C-c C-z~ | Bring shell up.                  |
+| ~C-'~     | Send current paragraph to shell. |
+
 Emacs Python Development Environment
 #+BEGIN_SRC emacs-lisp
 (require 'elpy)
@@ -11,4 +14,9 @@ Emacs Python Development Environment
 Enable elpy in all python buffers.
 #+BEGIN_SRC emacs-lisp
 (elpy-enable)
+#+END_SRC
+
+Key binding for sending current paragraph to shell.
+#+BEGIN_SRC emacs-lisp
+(define-key elpy-mode-map (kbd "C-'") 'send-par-to-python)
 #+END_SRC

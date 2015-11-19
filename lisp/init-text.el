@@ -1,4 +1,32 @@
 
+(defun dos2unix ()
+      "Not exactly but it's easier to remember"
+      (interactive)
+      (set-buffer-file-coding-system 'unix 't) )
+
+(defun copy-whole-buffer ()
+  "Copy entire buffer to clipboard"
+  (interactive)
+  (clipboard-kill-ring-save (point-min) (point-max)))
+;(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
+
+(fset 'clone-previous-line
+   [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
+(global-set-key (kbd "C-S-z")  'clone-previous-line)
+
+(defun save-macro (name)
+   "save a macro. Take a name as argument
+    and save the last defined macro under
+    this name at the end of your .emacs"
+    (interactive "SName of the macro :")  ; ask for the name of the macro
+    (kmacro-name-last-macro name)         ; use this name for the macro
+    (find-file user-init-file)            ; open ~/.emacs or other user init file
+    (goto-char (point-max))               ; go to the end of the .emacs
+    (newline)                             ; insert a newline
+    (insert-kbd-macro name)               ; copy the macro
+    (newline)                             ; insert a newline
+    (switch-to-buffer nil))               ; return to the initial buffer
+
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 
@@ -40,18 +68,3 @@
 (global-set-key (kbd "<f6> \\") (lambda () (interactive) (insert "‖")))
 (global-set-key (kbd "<f6> n") (lambda () (interactive) (insert "ℕ")))
 (global-set-key (kbd "<f6> r") (lambda () (interactive) (insert "ℝ")))
-
-(defun dos2unix ()
-      "Not exactly but it's easier to remember"
-      (interactive)
-      (set-buffer-file-coding-system 'unix 't) )
-
-(defun copy-whole-buffer ()
-  "Copy entire buffer to clipboard"
-  (interactive)
-  (clipboard-kill-ring-save (point-min) (point-max)))
-;(global-set-key (kbd "C-x C-a")  'copy-whole-buffer)
-
-(fset 'clone-previous-line
-   [up ?\C-a ?\C-k ?\C-y down ?\C-a ?\C-y ?\C-a])
-(global-set-key (kbd "C-S-z")  'clone-previous-line)

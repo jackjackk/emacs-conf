@@ -8,6 +8,7 @@
 (load-library "init-os.el")
 (load-library "init-python.el")
 (load-library "init-latex.el")
+(load-library "macros.el")
 
 ;; * Extra packages
 ;; ** from repositories

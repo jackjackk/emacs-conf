@@ -17,6 +17,7 @@ Customize built-in features.
 (load-library "init-os.el")
 (load-library "init-python.el")
 (load-library "init-latex.el")
+(load-library "macros.el")
 #+END_SRC
 
 Add extra packages, either from repositories or from local subfolders.

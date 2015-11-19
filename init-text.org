@@ -21,6 +21,8 @@
 | ~f6 \~                  | Insert "‖".                                        |
 | ~f6 n~                  | Insert "ℕ".                                        |
 | ~f6 r~                  | Insert "ℝ".                                        |
+|                         |                                                    |
+| ~save-macro~            | Save last macro into macros.el                     |
 
 Use 4 spaces for tab indentation.
 #+BEGIN_SRC elisp
@@ -107,4 +109,20 @@ Add math key-bindings.
 (global-set-key (kbd "<f6> \\") (lambda () (interactive) (insert "‖")))
 (global-set-key (kbd "<f6> n") (lambda () (interactive) (insert "ℕ")))
 (global-set-key (kbd "<f6> r") (lambda () (interactive) (insert "ℝ")))
+#+END_SRC
+
+Automate process for saving last macro into ~/.emacs.d/macros.el.
+#+BEGIN_SRC emacs-lisp
+ (defun save-macro (name)
+    "save a macro. Take a name as argument
+     and save the last defined macro under
+     this name at the end of your .emacs"
+     (interactive "SName of the macro :")  ; ask for the name of the macro
+     (kmacro-name-last-macro name)         ; use this name for the macro
+     (find-file "~/.emacs.d/macros.el")    ; open conf file
+     (goto-char (point-max))               ; go to the end of the .emacs
+     (newline)                             ; insert a newline
+     (insert-kbd-macro name)               ; copy the macro
+     (newline)                             ; insert a newline
+     (switch-to-buffer nil))               ; return to the initial buffer
 #+END_SRC
