@@ -58,3 +58,15 @@ Toggle truncate lines.
 (setq-default truncate-lines t)
 (global-set-key (kbd "C-x t") 'toggle-truncate-lines)
 #+END_SRC
+
+Toggle display time mode.
+#+BEGIN_SRC emacs-lisp
+(setq display-time-interval 1)
+(display-time-mode t)
+#+END_SRC
+
+Interpreter input/output causes window to scroll.
+#+BEGIN_SRC emacs-lisp
+(setq comint-scroll-to-bottom-on-input t)
+(setq comint-scroll-to-bottom-on-output t)
+#+END_SRC

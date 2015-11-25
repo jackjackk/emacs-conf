@@ -1,4 +1,10 @@
 
+(setq display-time-interval 1)
+(display-time-mode t)
+
+(setq comint-scroll-to-bottom-on-input t)
+(setq comint-scroll-to-bottom-on-output t)
+
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (menu-bar-mode t)
