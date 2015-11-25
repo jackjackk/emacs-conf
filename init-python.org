@@ -10,13 +10,12 @@ Use IPython (w/ Python v.2) as the default Python interpreter for shell, with no
         (t
          (setq python-shell-interpreter "ipython2")
          ))
-  (setq python-shell-interpreter-args "console --matplotlib=qt")
 #+END_SRC
 
 Set regular expressions matching top level input and output IPython prompt.
 #+BEGIN_SRC elisp
-(setq python-shell-prompt-regexp "In \\[[0-9]+\\]: ")
-(setq python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
+;(setq python-shell-prompt-regexp "In \\[[0-9]+\\]: ")
+;(setq python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
 #+END_SRC
 
 Setup auto-completion in inferior IPython processes.
@@ -29,8 +28,8 @@ Setup auto-completion in inferior IPython processes.
 
 Convenient shortcut for copying surrounding region and sending a ~%paste~ command to the adjacent buffer (used for python programming).
 #+BEGIN_SRC elisp
-(fset 'execute_ipython_src_code_around_pointer
-   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([28 C-S-iso-lefttab 134217790 37 112 97 115 116 101 return C-S-iso-lefttab] 0 "%d")) arg)))
+;(fset 'execute_ipython_src_code_around_pointer
+;   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([28 C-S-iso-lefttab 134217790 37 112 97 115 116 101 return C-S-iso-lefttab] 0 "%d")) arg)))
 ;(global-set-key (kbd "C-|")  'execute_ipython_src_code_around_pointer)
 #+END_SRC
 
