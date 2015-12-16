@@ -3,19 +3,16 @@
 :tangle:   lisp/init-python.el
 :END:
 
-Use IPython (w/ Python v.2) as the default Python interpreter for shell, with no arguments.
-#+BEGIN_SRC elisp
-  (cond ((eq window-system 'w32)
-         (setq python-shell-interpreter "ipython"))
-        (t
-         (setq python-shell-interpreter "ipython2")
-         ))
+Use a Jupyter console as the default Python interpreter for shell.
+#+BEGIN_SRC emacs-lisp
+(setq python-shell-interpreter "jupyter")
+(setq python-shell-interpreter-args "console")
 #+END_SRC
 
 Set regular expressions matching top level input and output IPython prompt.
 #+BEGIN_SRC elisp
-;(setq python-shell-prompt-regexp "In \\[[0-9]+\\]: ")
-;(setq python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
+(setq python-shell-prompt-input-regexp "In \\[[0-9]+\\]: ")
+(setq python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
 #+END_SRC
 
 Setup auto-completion in inferior IPython processes.
@@ -33,4 +30,19 @@ Convenient shortcut for copying surrounding region and sending a ~%paste~ comman
 ;(global-set-key (kbd "C-|")  'execute_ipython_src_code_around_pointer)
 #+END_SRC
 
+Refactor spaces around commas.
+#+BEGIN_SRC emacs-lisp
+(fset 'my-python-refactor-commas
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([134217788 201326629 92 40 91 94 32 17 10 93 92 41 44 92 40 91 94 32 17 10 93 92 41 return 92 49 44 32 92 50 return 33 21 67108896 21 67108896] 0 "%d")) arg)))
+#+END_SRC
 
+Refactor trailing spaces.
+#+BEGIN_SRC emacs-lisp
+(fset 'my-python-refactor-trailing-spaces
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([134217788 201326629 91 91 58 115 112 97 99 101 58 93 93 43 17 10 return 17 10 return 33 21 67108896 21 67108896] 0 "%d")) arg)))
+#+END_SRC
+
+Disable warnings when detection of prompts fail.
+#+BEGIN_SRC emacs-lisp
+(setq python-shell-prompt-detect-failure-warning nil)
+#+END_SRC

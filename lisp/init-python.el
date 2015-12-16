@@ -1,13 +1,14 @@
 
-(cond ((eq window-system 'w32)
-       (setq python-shell-interpreter "ipython"))
-      (t
-       (setq python-shell-interpreter "ipython2")
-       ))
-(setq python-shell-interpreter-args "console --matplotlib=qt")
+(setq python-shell-interpreter "jupyter")
+(setq python-shell-interpreter-args "console")
 
-;(setq python-shell-prompt-regexp "In \\[[0-9]+\\]: ")
-;(setq python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
+(fset 'my-python-refactor-commas
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([134217788 201326629 92 40 91 94 32 17 10 93 92 41 44 92 40 91 94 32 17 10 93 92 41 return 92 49 44 32 92 50 return 33 21 67108896 21 67108896] 0 "%d")) arg)))
+
+(setq python-shell-prompt-detect-failure-warning nil)
+
+(setq python-shell-prompt-input-regexp "In \\[[0-9]+\\]: ")
+(setq python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
 
 ;
 ;(setq python-shell-completion-setup-code "from IPython.core.completerlib import module_completion")
