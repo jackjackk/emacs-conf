@@ -14,6 +14,46 @@
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
+(defun org-repair-export-blocks ()
+  "Repair export blocks and INCLUDE keywords in current buffer."
+  (when (eq major-mode 'org-mode)
+    (let ((case-fold-search t)
+          (back-end-re (regexp-opt
+                        '("HTML" "ASCII" "LATEX" "ODT" "MARKDOWN" "MD" "ORG"
+                          "MAN" "BEAMER" "TEXINFO" "GROFF" "KOMA-LETTER")
+                        t)))
+      (org-with-wide-buffer
+       (goto-char (point-min))
+       (let ((block-re (concat "^[ \t]*#\\+BEGIN_" back-end-re)))
+         (save-excursion
+           (while (re-search-forward block-re nil t)
+             (let ((element (save-match-data (org-element-at-point))))
+               (when (eq (org-element-type element) 'special-block)
+                 (save-excursion
+                   (goto-char (org-element-property :end element))
+                   (save-match-data (search-backward "_"))
+                   (forward-char)
+                   (insert "EXPORT")
+                   (delete-region (point) (line-end-position)))
+                 (replace-match "EXPORT \\1" nil nil nil 1))))))
+       (let ((include-re
+              (format "^[ \t]*#\\+INCLUDE: .*?%s[ \t]*$" back-end-re)))
+         (while (re-search-forward include-re nil t)
+           (let ((element (save-match-data (org-element-at-point))))
+             (when (and (eq (org-element-type element) 'keyword)
+                        (string= (org-element-property :key element) 
+                                 "INCLUDE"))
+               (replace-match "EXPORT \\1" nil nil nil 1)))))))))
+
+(defun open-id (id)
+  (org-id-goto id)
+  (message "%s" (current-buffer)))
+
+(add-to-list 'image-type-file-name-regexps '("\\.pdf\\'" . imagemagick))
+(add-to-list 'image-file-name-extensions "pdf")
+(setq imagemagick-types-inhibit (remove 'PDF imagemagick-types-inhibit))
+(setq org-image-actual-width 600)
+
 (add-hook 'org-load-hook
           '(lambda ()
              (add-to-list 'org-modules 'org-habit)))
@@ -59,11 +99,6 @@
 (setq org-use-speed-commands t)
 
 (setq org-pretty-entities t)
-
-(add-hook 'org-mode-hook
-      '(lambda ()
-         (delete '("\\.pdf\\'" . default) org-file-apps)
-         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 
 (defun custom-org-mode-defaults ()
 "Executed as org-mode-hook."
@@ -342,8 +377,17 @@ A prefix arg forces clock in of the default task."
 
 (plist-put org-format-latex-options :scale 2)
 
-(setq org-babel-python-command "ipython2 --pylab=qt5 --pdb --nosep --classic 
---no-banner --no-confirm-exit")
+; use ipython in org mode
+(setq org-babel-python-command "ipython --no-banner --classic
+--no-confirm-exit")
+
+; use %cpaste to paste code into ipython in org mode
+(defadvice org-babel-python-evaluate-session
+(before org-python-use-cpaste
+(session body &optional result-type result-params) activate)
+"Add a %cpaste and '--' to the body, so that ipython does the right
+thing."
+(setq body (concat "%cpaste -q\n" body "\n--")))
 
 (global-set-key (kbd "<C-escape>") (kbd "C-c '"))
 
@@ -411,9 +455,15 @@ A prefix arg forces clock in of the default task."
 ;; add <el for emacs-lisp expansion
 (add-to-list 'org-structure-template-alist
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
+;; add <o for org expansion
+(add-to-list 'org-structure-template-alist
+             '("o" "#+BEGIN_SRC org\n?\n#+END_SRC" "<src lang=\"org\">\n?\n</src>"))
 ;; add <sh for shell
 (add-to-list 'org-structure-template-alist
              '("sh" "#+BEGIN_SRC sh\n?\n#+END_SRC" "<src lang=\"shell\">\n?\n</src>"))
+;; add <g for gams expansion
+(add-to-list 'org-structure-template-alist
+             '("g" "#+BEGIN_SRC gams\n?\n#+END_SRC" "<src lang=\"gams\">\n?\n</src>"))
 ;(setq org-babel-python-command "~/anaconda/bin/ipython --no-banner --classic --no-confirm-exit")
 
 ;; ** Clean view

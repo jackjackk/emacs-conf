@@ -55,14 +55,18 @@ Add extra packages, either from repositories or from local subfolders.
    ;                    android-mode
   ;                     neotree
                        auctex-latexmk
+                       org-ref
                        toc-org
   ;                     anaconda-mode
   ;                     company-anaconda
                        column-marker
+                       ox-textile
+                       magit
   ))
   ;; ** from local subfolders 
   (setq other-package-list '(thing-edit
                              gams
+                             ob-gams
                              ox-wk
                              ;matlab
                              ;speedread

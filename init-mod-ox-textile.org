@@ -1,0 +1,14 @@
+* ox-textile (~init-mod-ox-textile.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-ox-textile.el
+:END:
+#+BEGIN_SRC elisp
+(require 'ox-textile)
+#+END_SRC
+
+
+Cleanup macro.
+#+BEGIN_SRC emacs-lisp
+(fset 'textile-cleanup
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([134217765 124 94 46 17 10 return return 33 134217788 134217765 124 45 46 17 10 return return 33 134217788] 0 "%d")) arg)))
+#+END_SRC

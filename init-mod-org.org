@@ -51,14 +51,6 @@ Show entities as UTF8 characters.
 (setq org-pretty-entities t)    
 #+END_SRC
 
-Open PDFs in Evince (and not in the default choice) http://stackoverflow.com/a/8836108/789593.
-#+BEGIN_SRC elisp
-(add-hook 'org-mode-hook
-      '(lambda ()
-         (delete '("\\.pdf\\'" . default) org-file-apps)
-         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
-#+END_SRC
-
 Allow local variable definitions.
 #+BEGIN_SRC emacs-lisp
 (setq org-export-allow-bind-keywords t)
@@ -134,6 +126,64 @@ Speed keys ~n~ and ~p~ are rebind to a tidier view of next/previous entries.
     (show-children)))
 (add-to-list 'org-speed-commands-user 
              '("p" ded/org-show-previous-heading-tidily))
+#+END_SRC
+
+Update Org document to new export blocks syntax (2015/12), i.e. 
+#+BEGIN_SRC org :tangle no
+  ,#+BEGIN_EXPORT backend
+  ...
+  ,#+END_EXPORT
+
+  ,#+INCLUDE: "file.org" export html
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+    (defun org-repair-export-blocks ()
+      "Repair export blocks and INCLUDE keywords in current buffer."
+      (when (eq major-mode 'org-mode)
+        (let ((case-fold-search t)
+              (back-end-re (regexp-opt
+                            '("HTML" "ASCII" "LATEX" "ODT" "MARKDOWN" "MD" "ORG"
+                              "MAN" "BEAMER" "TEXINFO" "GROFF" "KOMA-LETTER")
+                            t)))
+          (org-with-wide-buffer
+           (goto-char (point-min))
+           (let ((block-re (concat "^[ \t]*#\\+BEGIN_" back-end-re)))
+             (save-excursion
+               (while (re-search-forward block-re nil t)
+                 (let ((element (save-match-data (org-element-at-point))))
+                   (when (eq (org-element-type element) 'special-block)
+                     (save-excursion
+                       (goto-char (org-element-property :end element))
+                       (save-match-data (search-backward "_"))
+                       (forward-char)
+                       (insert "EXPORT")
+                       (delete-region (point) (line-end-position)))
+                     (replace-match "EXPORT \\1" nil nil nil 1))))))
+           (let ((include-re
+                  (format "^[ \t]*#\\+INCLUDE: .*?%s[ \t]*$" back-end-re)))
+             (while (re-search-forward include-re nil t)
+               (let ((element (save-match-data (org-element-at-point))))
+                 (when (and (eq (org-element-type element) 'keyword)
+                            (string= (org-element-property :key element) 
+                                     "INCLUDE"))
+                   (replace-match "EXPORT \\1" nil nil nil 1)))))))))
+#+END_SRC
+
+Switch buffer to visit an entry given its ID.
+#+BEGIN_SRC emacs-lisp
+(defun open-id (id)
+  (org-id-goto id)
+  (message "%s" (current-buffer)))
+#+END_SRC
+** Display
+When outputting a pdf from a src block, use imagemagick to make
+org-display-inline-images work with pdf.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'image-type-file-name-regexps '("\\.pdf\\'" . imagemagick))
+(add-to-list 'image-file-name-extensions "pdf")
+(setq imagemagick-types-inhibit (remove 'PDF imagemagick-types-inhibit))
+(setq org-image-actual-width 600)
 #+END_SRC
 ** Tasks
 Add a time stamp to the task when moved to DONE.
@@ -565,8 +615,17 @@ Insert within-paragraph Latex snippets with "@@l:...@@".
 ** Babel
 Make org play nicely with ~ipython~
 #+BEGIN_SRC elisp
-  (setq org-babel-python-command "ipython2 --pylab=qt5 --pdb --nosep --classic 
-  --no-banner --no-confirm-exit")
+; use ipython in org mode
+(setq org-babel-python-command "ipython --no-banner --classic
+--no-confirm-exit")
+
+; use %cpaste to paste code into ipython in org mode
+(defadvice org-babel-python-evaluate-session
+(before org-python-use-cpaste
+(session body &optional result-type result-params) activate)
+"Add a %cpaste and '--' to the body, so that ipython does the right
+thing."
+(setq body (concat "%cpaste -q\n" body "\n--")))
 #+END_SRC
 
 Convenient key-bindings for source blocks navigation.
@@ -596,6 +655,50 @@ Load commonly used languages.
 Avoid confirmation before evaluation.
 #+BEGIN_SRC emacs-lisp
 (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+*** Examples
+    :PROPERTIES:
+    :tangle:
+    :END:
+**** Elisp
+#+BEGIN_SRC org
+  ,#+name: my-input
+  | el | value      | expected |
+  |----+------------+----------|
+  | 5  | '(5 5 5 5) | 4        |
+  | ...etc...                  |
+
+  ,#+BEGIN_SRC elisp :var input=my-input :results table
+  ;; Code that does the calculations in your tblfm line
+  ;; `input' is a variable holding your input table
+  ,#+END_SRC
+#+END_SRC
+**** Python
+#+BEGIN_SRC org :tangle no
+  ,#+NAME: checkfilename
+  ,#+HEADER: :var fileout="test--checkfilename.pdf"
+  ,#+BEGIN_SRC+BEGIN_SRC python :session :results file
+  import numpy as np
+  import matplotlib.pyplot as plt
+  fig, ax = plt.subplots(1, 1)
+  X = np.linspace(1, 10)
+  Y = np.sin(X)
+  ax.plot(X, Y)
+  fig.savefig(fileout)
+  plt.close(fig)
+  fileout
+  ,#+END_SRC
+#+END_SRC
+**** Maxima
+#+BEGIN_SRC org :tangle no
+  ,#+name: 3d-maxima
+  ,#+header: :file maxima-3d.png
+  ,#+header: :exports results
+  ,#+header: :results graphics
+  ,#+BEGIN_SRC maxima 
+    programmode: false;
+    plot3d(atan(-x^2+y^3/4),[x,-4,4],[y,-4,4],[grid,50,50],[gnuplot_pm3d,true]);
+  ,#+END_SRC
 #+END_SRC
 ** Capture
 Assign the global key ~F9~ for capture (1 key less than the more popular ~C-c c~).
@@ -692,9 +795,15 @@ Choose refiling targets in one step, showing levels as paths including the name 
   ;; add <el for emacs-lisp expansion
   (add-to-list 'org-structure-template-alist
                '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
+  ;; add <o for org expansion
+  (add-to-list 'org-structure-template-alist
+               '("o" "#+BEGIN_SRC org\n?\n#+END_SRC" "<src lang=\"org\">\n?\n</src>"))
   ;; add <sh for shell
   (add-to-list 'org-structure-template-alist
                '("sh" "#+BEGIN_SRC sh\n?\n#+END_SRC" "<src lang=\"shell\">\n?\n</src>"))
+  ;; add <g for gams expansion
+  (add-to-list 'org-structure-template-alist
+               '("g" "#+BEGIN_SRC gams\n?\n#+END_SRC" "<src lang=\"gams\">\n?\n</src>"))
   ;(setq org-babel-python-command "~/anaconda/bin/ipython --no-banner --classic --no-confirm-exit")
 
   ;; ** Clean view

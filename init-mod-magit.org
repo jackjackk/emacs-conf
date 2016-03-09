@@ -3,7 +3,7 @@
 :tangle:   lisp/init-mod-magit.el
 :END:
 
-| ~F8~ | See git status. |
+| ~F9~ | See git status. |
 
 In the status buffer:
 | ~s~     | Stage files.                                               |

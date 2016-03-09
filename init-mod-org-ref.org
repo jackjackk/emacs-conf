@@ -1,0 +1,28 @@
+* org-ref (~init-mod-org-ref.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-org-ref.el
+:END:
+
+Citations, cross-references, indexes, glossaries and bibtex utilities for org-mode.
+#+BEGIN_SRC emacs-lisp
+  (require 'org-ref)
+#+END_SRC
+
+Configure variables.
+#+BEGIN_SRC emacs-lisp
+(setq reftex-default-bibliography '("~/org/research-references.bib"))
+
+(setq org-ref-bibliography-notes "~/org/research-references.org"
+      org-ref-default-bibliography '("~/org/research-references.bib")
+      org-ref-pdf-directory "~/archive/zotero")
+
+(setq helm-bibtex-bibliography "~/org/research-references.bib")
+(setq helm-bibtex-library-path "~/archive/zotero")
+#+END_SRC
+
+Set convenient keys for working in your bibtex file.
+#+BEGIN_SRC emacs-lisp
+  (global-set-key [f10] 'org-ref-open-bibtex-notes)
+  (global-set-key [f11] 'org-ref-open-bibtex-pdf)
+  (global-set-key [f12] 'org-ref-open-in-browser)
+#+END_SRC

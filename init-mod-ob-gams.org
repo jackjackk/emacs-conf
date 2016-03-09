@@ -1,0 +1,13 @@
+* ob-gams (~init-mod-ob-gams.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-ob-gams.el
+:END:
+
+Support for gams in org-mode.
+#+BEGIN_SRC emacs-lisp
+  (require 'ob-gams)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((gams . t)))
+#+END_SRC
+

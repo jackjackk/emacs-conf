@@ -1,4 +1,3 @@
-
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
 (load-library "init-startup.el")
@@ -8,7 +7,6 @@
 (load-library "init-os.el")
 (load-library "init-python.el")
 (load-library "init-latex.el")
-(load-library "macros.el")
 
 ;; * Extra packages
 ;; ** from repositories
@@ -44,14 +42,18 @@
  ;                    android-mode
 ;                     neotree
                      auctex-latexmk
+                     org-ref
                      toc-org
 ;                     anaconda-mode
 ;                     company-anaconda
                      column-marker
+                     ox-textile
+                     magit
 ))
 ;; ** from local subfolders 
 (setq other-package-list '(thing-edit
                            gams
+                           ob-gams
                            ox-wk
                            ;matlab
                            ;speedread

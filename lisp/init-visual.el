@@ -1,4 +1,3 @@
-
 (setq display-time-interval 1)
 (display-time-mode t)
 
@@ -31,7 +30,7 @@
          (foreground-color . "grey90")))
 
 (cond ((eq window-system 'w32)
-           (set-face-font 'default "Consolas-16.0:antialias=natural"))
+           (set-face-font 'default "Consolas-12.0:antialias=natural"))
        (t
            (set-face-font 'default "DejaVu Sans Mono-12.0:antialias=natural")))
 
