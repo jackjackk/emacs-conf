@@ -27,17 +27,23 @@ buffers that visit files tracked in the current repository.
 
 Automatically kill all magit buffers after push.
 #+BEGIN_SRC emacs-lisp
-(defun is-magit-buffer (buffer)
-  (let ((name (buffer-name buffer)))
-    (and (= ?* (aref name 0))
-         (not (string-match "^\\*magit\\*" name)))))
+  (defun is-magit-buffer (buffer)
+    (let ((name (buffer-name buffer)))
+      (and (= ?* (aref name 0))
+           (not (string-match "^\\*magit\\*" name)))))
  
-(defun kill-magit-buffers ()
-  (interactive)
-  (loop for buffer being the buffers
-        do (and (is-magit-buffer buffer) (kill-buffer buffer))))
+  (defun kill-magit-buffers ()
+    (interactive)
+    (loop for buffer being the buffers
+          do (and (is-magit-buffer buffer) (kill-buffer buffer))))
+
+  (defun magit-quit-session ()
+    "Kill magit buffers and reduce current window"
+    (interactive)
+    (kill-magit-buffers)
+    (delete-window-switch-previous))
         
-(define-key magit-status-mode-map (kbd "q") 'kill-magit-buffers)
+  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 #+END_SRC
 
 Convenient key binding for magit-status.

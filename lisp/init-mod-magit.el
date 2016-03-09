@@ -11,7 +11,13 @@
   (interactive)
   (loop for buffer being the buffers
         do (and (is-magit-buffer buffer) (kill-buffer buffer))))
-        
-(define-key magit-status-mode-map (kbd "q") 'kill-magit-buffers)
+
+(defun magit-quit-session ()
+  "Kill magit buffers and reduce current window"
+  (interactive)
+  (kill-magit-buffers)
+  (delete-window-switch-previous))
+      
+(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
 (global-set-key [f9] 'magit-status)
