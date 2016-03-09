@@ -12,6 +12,6 @@
   (loop for buffer being the buffers
         do (and (is-magit-buffer buffer) (kill-buffer buffer))))
         
-(add-hook 'magit-quit-session 'kill-magit-buffers)
+(define-key magit-status-mode-map (kbd "q") 'kill-magit-buffers)
 
 (global-set-key [f9] 'magit-status)
