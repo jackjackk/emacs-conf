@@ -612,6 +612,16 @@ Insert within-paragraph Latex snippets with "@@l:...@@".
            (add-to-list 'org-export-snippet-translation-alist
                  '("l" . "latex"))))
 #+END_SRC
+
+Put every inline image in \begin{center} ... \end{center}.
+#+BEGIN_SRC emacs-lisp
+(advice-add 'org-latex--inline-image :around
+            (lambda (orig link info)
+              (concat
+               "\\begin{center}"
+               (funcall orig link info)
+               "\\end{center}")))
+#+END_SRC
 ** Babel
 Make org play nicely with ~ipython~
 #+BEGIN_SRC elisp
@@ -660,6 +670,13 @@ Avoid confirmation before evaluation.
     :PROPERTIES:
     :tangle:
     :END:
+**** C
+#+BEGIN_SRC org
+  ,#+BEGIN_SRC C :includes '(<math.h> <stdio.h>) :flags -lm
+  int i=9;
+  printf("%d\n",(int)sqrt(i));
+  ,#+END_SRC
+#+END_SRC
 **** Elisp
 #+BEGIN_SRC org
   ,#+name: my-input
@@ -674,7 +691,7 @@ Avoid confirmation before evaluation.
   ,#+END_SRC
 #+END_SRC
 **** Python
-#+BEGIN_SRC org :tangle no
+#+BEGIN_SRC org
   ,#+NAME: checkfilename
   ,#+HEADER: :var fileout="test--checkfilename.pdf"
   ,#+BEGIN_SRC+BEGIN_SRC python :session :results file
@@ -690,7 +707,7 @@ Avoid confirmation before evaluation.
   ,#+END_SRC
 #+END_SRC
 **** Maxima
-#+BEGIN_SRC org :tangle no
+#+BEGIN_SRC org
   ,#+name: 3d-maxima
   ,#+header: :file maxima-3d.png
   ,#+header: :exports results

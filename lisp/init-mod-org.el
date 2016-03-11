@@ -73,6 +73,13 @@
          (add-to-list 'org-export-snippet-translation-alist
                '("l" . "latex"))))
 
+(advice-add 'org-latex--inline-image :around
+            (lambda (orig link info)
+              (concat
+               "\\begin{center}"
+               (funcall orig link info)
+               "\\end{center}")))
+
 (global-set-key (kbd "C-S-s") 'org-babel-tangle)
 
 (org-babel-do-load-languages
