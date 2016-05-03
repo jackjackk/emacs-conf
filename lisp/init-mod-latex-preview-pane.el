@@ -1,2 +1,0 @@
-
-(latex-preview-pane-enable)

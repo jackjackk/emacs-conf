@@ -1,0 +1,47 @@
+* C
+#+BEGIN_SRC org
+  ,#+BEGIN_SRC C :includes '(<math.h> <stdio.h>) :flags -lm
+  int i=9;
+  printf("%d\n",(int)sqrt(i));
+  ,#+END_SRC
+#+END_SRC
+* Elisp
+#+BEGIN_SRC org
+  ,#+name: my-input
+  | el | value      | expected |
+  |----+------------+----------|
+  | 5  | '(5 5 5 5) | 4        |
+  | ...etc...                  |
+
+  ,#+BEGIN_SRC elisp :var input=my-input :results table
+  ;; Code that does the calculations in your tblfm line
+  ;; `input' is a variable holding your input table
+  ,#+END_SRC
+#+END_SRC
+* Python
+#+BEGIN_SRC org
+  ,#+NAME: checkfilename
+  ,#+HEADER: :var fileout="test--checkfilename.pdf"
+  ,#+BEGIN_SRC+BEGIN_SRC python :session :results file
+  import numpy as np
+  import matplotlib.pyplot as plt
+  fig, ax = plt.subplots(1, 1)
+  X = np.linspace(1, 10)
+  Y = np.sin(X)
+  ax.plot(X, Y)
+  fig.savefig(fileout)
+  plt.close(fig)
+  fileout
+  ,#+END_SRC
+#+END_SRC
+* Maxima
+#+BEGIN_SRC org
+  ,#+name: 3d-maxima
+  ,#+header: :file maxima-3d.png
+  ,#+header: :exports results
+  ,#+header: :results graphics
+  ,#+BEGIN_SRC maxima 
+    programmode: false;
+    plot3d(atan(-x^2+y^3/4),[x,-4,4],[y,-4,4],[grid,50,50],[gnuplot_pm3d,true]);
+  ,#+END_SRC
+#+END_SRC

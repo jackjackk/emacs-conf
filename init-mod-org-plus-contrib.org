@@ -1,6 +1,6 @@
-* org-mode (~init-mod-org.el~)
+* org-mode (~init-mod-org-plus-contrib.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-org.el
+:tangle:   lisp/init-mod-org-plus-contrib.el
 :END:
 Org is a mode for keeping notes, maintaining TODO lists, and doing
 project planning with a fast and effective plain-text system.
@@ -33,6 +33,7 @@ Babel
 ** General
 #+BEGIN_SRC elisp
 (require 'org)
+(require 'org-contribdir)
 #+END_SRC
 
 Use org as the default mode for .org, .org_archive, and .txt files.
@@ -185,6 +186,13 @@ org-display-inline-images work with pdf.
 (setq imagemagick-types-inhibit (remove 'PDF imagemagick-types-inhibit))
 (setq org-image-actual-width 600)
 #+END_SRC
+
+Show org-mode bullets as UTF-8 characters.
+#+BEGIN_SRC emacs-lisp
+  ;(add-hook 'org-load-hook '(lambda () (add-to-list 'org-modules 'org-bullets)))
+  (require 'org-bullets)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+END_SRC
 ** Tasks
 Add a time stamp to the task when moved to DONE.
 #+BEGIN_SRC elisp
@@ -205,6 +213,17 @@ Set the default workflow keywords (~C-c C-t~ to choose) and their faces.
         ("HOLD"      :foreground "#9b859d" :weight bold)
         ("SOMEDAY"   :foreground "#808080" :weight bold)
         ("CANCELLED" :foreground "#9eb9a7" :weight bold)))
+#+END_SRC
+
+[[http://orgmode.org/worg/org-contrib/org-checklist.html][org-checklist]] provides two actions which can be triggered when a task is marked done:
+- clearing the state of all checkboxes in the task (~:RESET_CHECK_BOXES: t~);
+- creating, and optionally printing, a file containing a copy of the task with
+  all items in the checked state removed.
+#+BEGIN_SRC emacs-lisp
+  ;(add-hook 'org-load-hook
+  ;          '(lambda ()
+  ;             (add-to-list 'org-modules 'org-checklist)))
+  (require 'org-checklist)
 #+END_SRC
 ** Clock setup
 :LOGBOOK:  
@@ -429,9 +448,10 @@ Use ~l R~ to add the log report (without clocking data lines).
 ** Habits
 Enable tracking of a special type of TODOs: habits.
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'org-load-hook
-            '(lambda ()
-               (add-to-list 'org-modules 'org-habit)))
+  ;(add-hook 'org-load-hook
+  ;          '(lambda ()
+  ;             (add-to-list 'org-modules 'org-habit)))
+  (require 'org-habit)
 #+END_SRC
 
 The habit TODOs must have a property STYLE set to the value ~habit~.
@@ -623,19 +643,19 @@ Put every inline image in \begin{center} ... \end{center}.
                "\\end{center}")))
 #+END_SRC
 ** Babel
-Make org play nicely with ~ipython~
+Make org play nicely with ~ipython~ (commented now).
 #+BEGIN_SRC elisp
 ; use ipython in org mode
-(setq org-babel-python-command "ipython --no-banner --classic
---no-confirm-exit")
+;(setq org-babel-python-command "ipython --no-banner --classic
+;--no-confirm-exit")
 
 ; use %cpaste to paste code into ipython in org mode
-(defadvice org-babel-python-evaluate-session
-(before org-python-use-cpaste
-(session body &optional result-type result-params) activate)
-"Add a %cpaste and '--' to the body, so that ipython does the right
-thing."
-(setq body (concat "%cpaste -q\n" body "\n--")))
+;(defadvice org-babel-python-evaluate-session
+;(before org-python-use-cpaste
+;(session body &optional result-type result-params) activate)
+;"Add a %cpaste and '--' to the body, so that ipython does the right
+;thing."
+;(setq body (concat "%cpaste -q\n" body "\n--")))
 #+END_SRC
 
 Convenient key-bindings for source blocks navigation.
@@ -666,57 +686,6 @@ Avoid confirmation before evaluation.
 #+BEGIN_SRC emacs-lisp
 (setq org-confirm-babel-evaluate nil)
 #+END_SRC
-*** Examples
-    :PROPERTIES:
-    :tangle:
-    :END:
-**** C
-#+BEGIN_SRC org
-  ,#+BEGIN_SRC C :includes '(<math.h> <stdio.h>) :flags -lm
-  int i=9;
-  printf("%d\n",(int)sqrt(i));
-  ,#+END_SRC
-#+END_SRC
-**** Elisp
-#+BEGIN_SRC org
-  ,#+name: my-input
-  | el | value      | expected |
-  |----+------------+----------|
-  | 5  | '(5 5 5 5) | 4        |
-  | ...etc...                  |
-
-  ,#+BEGIN_SRC elisp :var input=my-input :results table
-  ;; Code that does the calculations in your tblfm line
-  ;; `input' is a variable holding your input table
-  ,#+END_SRC
-#+END_SRC
-**** Python
-#+BEGIN_SRC org
-  ,#+NAME: checkfilename
-  ,#+HEADER: :var fileout="test--checkfilename.pdf"
-  ,#+BEGIN_SRC+BEGIN_SRC python :session :results file
-  import numpy as np
-  import matplotlib.pyplot as plt
-  fig, ax = plt.subplots(1, 1)
-  X = np.linspace(1, 10)
-  Y = np.sin(X)
-  ax.plot(X, Y)
-  fig.savefig(fileout)
-  plt.close(fig)
-  fileout
-  ,#+END_SRC
-#+END_SRC
-**** Maxima
-#+BEGIN_SRC org
-  ,#+name: 3d-maxima
-  ,#+header: :file maxima-3d.png
-  ,#+header: :exports results
-  ,#+header: :results graphics
-  ,#+BEGIN_SRC maxima 
-    programmode: false;
-    plot3d(atan(-x^2+y^3/4),[x,-4,4],[y,-4,4],[grid,50,50],[gnuplot_pm3d,true]);
-  ,#+END_SRC
-#+END_SRC
 ** Capture
 Assign the global key ~F9~ for capture (1 key less than the more popular ~C-c c~).
 #+BEGIN_SRC elisp
@@ -740,6 +709,8 @@ Here are capture templates for: TODO tasks, Notes, appointments, phone calls, me
                "* TODO %?" :clock-in t :clock-resume t)
               ("p" "I was procrastinating" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
                "* %? %i\n- [ ] Think how the task is relevant and meaningful to your interests and goals\n- [ ] Set reasonable standards to be expected from you in completing the task\n- [ ] Give the right weight to others' evaluation of your work\n- [ ] Be aware of the personal resources you can leverage on to do the job\n- [ ] Decide how much you really want to invest in the task\n- [ ] Feel ready to accept the responsibilities involved?\n- [ ] Spend enough time in defining the outcome and developing the steps needed to accomplish that outcome" :clock-in t :clock-resume t)
+              ("l" "I was lazy" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
+               "* %? Prova: %^{PROMPT}" :clock-in t :clock-resume t)
               ("r" "respond" entry (file "capture.org")
                "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
               ("n" "note" entry (file "capture.org")
@@ -778,6 +749,13 @@ Choose refiling targets in one step, showing levels as paths including the name 
 #+BEGIN_SRC emacs-lisp
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-use-outline-path 'file)
+#+END_SRC
+** Other exporters
+#+BEGIN_SRC emacs-lisp
+  ;(add-hook 'org-load-hook
+  ;          '(lambda ()
+  ;             (add-to-list 'org-modules 'ox-odt)))
+  (require 'ox-odt)
 #+END_SRC
 ** Rest
 #+BEGIN_SRC elisp

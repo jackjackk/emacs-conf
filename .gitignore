@@ -8,3 +8,5 @@ semanticdb
 server
 .org-id-locations
 bookmarks
+*.cache
+init*.el

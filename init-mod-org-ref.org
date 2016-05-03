@@ -10,13 +10,13 @@ Citations, cross-references, indexes, glossaries and bibtex utilities for org-mo
 
 Configure variables.
 #+BEGIN_SRC emacs-lisp
-(setq reftex-default-bibliography '("~/org/research-references.bib"))
+(setq reftex-default-bibliography '("~/org/research-bibliography.bib"))
 
-(setq org-ref-bibliography-notes "~/org/research-references.org"
-      org-ref-default-bibliography '("~/org/research-references.bib")
+(setq org-ref-bibliography-notes "~/org/research-bibliography.org"
+      org-ref-default-bibliography '("~/org/research-bibliography.bib")
       org-ref-pdf-directory "~/archive/zotero")
 
-(setq helm-bibtex-bibliography "~/org/research-references.bib")
+(setq helm-bibtex-bibliography "~/org/research-bibliography.bib")
 (setq helm-bibtex-library-path "~/archive/zotero")
 #+END_SRC
 

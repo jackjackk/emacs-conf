@@ -27,10 +27,26 @@
 
 Also needed for cdlatex.
 
+Open all *.tex files with AUCTeX LaTeX mode.
+#+BEGIN_SRC emacs-lisp
+;  (add-hook 'after-init-hook
+;      (function (lambda()
+;          (add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode)))))
+#+END_SRC
+
 Compile documents to PDF by default.
 #+BEGIN_SRC emacs-lisp
 (require 'tex)
 (TeX-global-PDF-mode t)
+#+END_SRC
+
+Add environments.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'LaTeX-mode-hook 'add-my-latex-environments)
+(defun add-my-latex-environments ()
+  (LaTeX-add-environments
+   '("align" LaTeX-env-label)
+   '("align*" LaTeX-env-label)))
 #+END_SRC
 
 Customize Latex-math-list (https://github.com/kolesarm/Emacs-configuration).

@@ -5,8 +5,9 @@
 
 Set repositories from which to fetch Emacs packages.
 #+BEGIN_SRC emacs-lisp
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                           ("melpa" . "http://melpa.milkbox.net/packages/")
+                           ("org"         . "http://orgmode.org/elpa/")))
 #+END_SRC
 
 Initialize the package manager.

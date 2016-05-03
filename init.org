@@ -15,7 +15,7 @@ Customize built-in features.
 (load-library "init-visual.el")
 (load-library "init-text.el")
 (load-library "init-os.el")
-(load-library "init-python.el")
+;(load-library "init-python.el")
 (load-library "init-latex.el")
 #+END_SRC
 
@@ -28,23 +28,22 @@ Add extra packages, either from repositories or from local subfolders.
                        yasnippet
                        expand-region
                        multiple-cursors
-                       org
+                       org-plus-contrib
   ;;                     org-redmine
-                       org-pomodoro
-                       org-bullets
+  ;;                     org-pomodoro
   ;;                     org2blog
   ;;                     websocket
   ;;                     ein
   ;;                     bm
                        zotelo
   ;;                     simple-httpd
-  ;                     js2-mode
-  ; ;                    skewer-mode
-  ;                     exec-path-from-shell
+  ;;                     js2-mode
+  ;;                     skewer-mode
+  ;;                     exec-path-from-shell
                        projectile
                        helm-projectile
                        transpose-frame
-                       elpy
+  ;                     elpy
   ;                     spray
                        ;image+
   ;                     eimp
@@ -55,7 +54,7 @@ Add extra packages, either from repositories or from local subfolders.
    ;                    android-mode
   ;                     neotree
                        auctex-latexmk
-                       org-ref
+  ;                     org-ref
                        toc-org
   ;                     anaconda-mode
   ;                     company-anaconda
@@ -70,7 +69,6 @@ Add extra packages, either from repositories or from local subfolders.
                              ox-wk
                              ;matlab
                              ;speedread
-                             org-checklist
                              ))
   (load-library "init-packages.el")
 #+END_SRC
