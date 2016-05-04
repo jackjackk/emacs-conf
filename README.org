@@ -196,6 +196,7 @@ Call [[file:init-packages.org][init-packages]] to load modules defined above.
 #+END_SRC
 * Useful references
 - http://www.emacswiki.org/emacs/Reference_Sheet_by_Aaron_Hawley
+- https://org-babel.readthedocs.io/en/latest/
 * DISCLAIMER
 
 THIS SOFTWARE IS PRIVIDED "AS IS" AND COMES WITH NO WARRANTY. USE AT YOUR OWN RISK. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OR CORRUPTION OF DATA). USE AT YOUR OWN RISK.
