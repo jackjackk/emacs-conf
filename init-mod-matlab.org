@@ -1,0 +1,14 @@
+* Matlab (~init-mod-matlab.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-matlab.el
+:END:
+
+Matlab support.
+#+BEGIN_SRC emacs-lisp
+  (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
+  (add-to-list
+   'auto-mode-alist
+   '("\\.m$" . matlab-mode))
+  (setq matlab-indent-function t)
+  (setq matlab-shell-command "/usr/local/bin/matlab --nodesktop")
+#+END_SRC

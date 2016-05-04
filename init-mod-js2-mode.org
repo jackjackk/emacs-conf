@@ -1,0 +1,15 @@
+* js2-mode (~lisp/init-mod-js2-mode.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-js2-mode.el
+:END:
+
+js2-mode is a JavaScript mode for Emacs with JavaScript parser
+built-in which allows syntax error detection on the fly.
+#+BEGIN_SRC elisp
+(require 'js2-mode)
+#+END_SRC
+
+Enable js2-mode or js2-minor-mode.
+#+BEGIN_SRC elisp
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+#+END_SRC

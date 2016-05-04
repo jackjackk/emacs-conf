@@ -12,8 +12,8 @@
 | C-c ;             | Comment/decomment region.            |
 | C-c %             | Comment/decomment current paragraph. |
 
-| C-c C-c | Run LaTeX.                |
-| C-c C-r | Run LaTeX only on region. |
+| C-c C-c | Run LaTeX ( ~C-c C-c~ again to view, or ~C-c `~ to see the errors). |
+| C-c C-r | Run LaTeX only on region.                                           |
 
 | C-c C-f C-b | Insert bold face ‘\textbf{∗}’ text.                       |
 | C-c C-f C-i | Insert italics ‘\textit{∗}’ text.                         |

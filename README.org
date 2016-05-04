@@ -87,67 +87,55 @@ Load the path with configuration files.
   (setq package-list '(
 #+END_SRC
 
-**** [[file:init-mod-company.org][company]]
+**** Text ([[file:init-mod-company.org][company]], [[file:init-mod-yasnippet.org][yasnippet]], [[file:init-mod-expand-region.org][expand-region]], [[file:init-mod-multiple-cursors.org][multiple-cursors]], [[file:init-mod-column-marker.org][column-marker]], +[[file:init-mod-bm.org][bm]]+)
 #+BEGIN_SRC elisp
                        company
+                       yasnippet
+                       expand-region
+                       multiple-cursors
+                       column-marker
+  ;                    bm
 #+END_SRC
 
-**** [[file:init-mod-helm.org][helm]]
+**** Navigation ([[file:init-mod-helm.org][helm]], [[file:init-mod-projectile.org][projectile]], [[file:init-mod-helm-projectile.org][helm-projectile]], [[file:init-mod-transpose-frame.org][transpose-frame]], +[[file:init-mod-neotree.org][neotree]]+)
 #+BEGIN_SRC elisp
                        helm
+                       projectile
+                       helm-projectile
+                       transpose-frame
+  ;                    neotree
 #+END_SRC
 
-**** [[file:init-mod-yasnippet.org][yasnippet]]
-#+BEGIN_SRC elisp
-                       yasnippet
-#+END_SRC
-
-**** [[file:init-mod-expand-region.org][expand-region]]
-#+BEGIN_SRC elisp
-                       expand-region
-#+END_SRC
-
-**** [[file:init-mod-multiple-cursors.org][multiple-cursors]]
-#+BEGIN_SRC elisp
-                       multiple-cursors
-#+END_SRC
-
-**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
+**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], [[file:init-mod-toc-org.org][toc-org]], [[file:init-mod-cdlatex.org][cdlatex]], +[[file:init-mod-org-ref.org][org-ref]]+, +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
 #+BEGIN_SRC elisp
                        org-plus-contrib
                        ox-textile
+                       toc-org
+                       cdlatex
+  ;                    org-ref
   ;                    org-redmine
   ;                    org-pomodoro
   ;                    org2blog
 #+END_SRC
 
-
-- [ ]
+**** LaTeX dev ([[file:init-mod-auctex.org][auctex]], [[file:init-mod-latex-preview-pane.org][latex-preview-pane]], [[file:init-mod-zotelo.org][zotelo]], [[file:init-mod-auctex-latexmk.org][auctex-latexmk]])
 #+BEGIN_SRC elisp
+                       auctex
+                       latex-preview-pane
                        zotelo
+                       auctex-latexmk
 #+END_SRC
 
-**** +Web dev+ ([[file:init-mod-simple-httpd.org][simple-httpd]], [[file:init-mod-js2-mode.org][js2-mode]], [[file:init-mod-skewer-mode.org][skewer-mode]])
+**** Tools ([[file:init-mod-magit.org][magit]], +[[file:init-mod-exec-path-from-shell.org][exec-path-from-shell]]+, +[[file:init-mod-eimp.org][eimp]]+, +[[file:init-mod-spray.org][spray]]+) 
 #+BEGIN_SRC elisp
-  ;;                     simple-httpd
-  ;;                     js2-mode
-  ;;                     skewer-mode
-#+END_SRC
-
-**** +[[file:init-mod-exec-path-from-shell.org][exec-path-from-shell]]+
-#+BEGIN_SRC elisp
-  ;;                     exec-path-from-shell
-#+END_SRC
-
-**** [[file:init-mod-projectile.org][projectile]], [[file:init-mod-helm-projectile.org][helm-projectile]]
-#+BEGIN_SRC elisp
-                       projectile
-                       helm-projectile
+                       magit
+  ;                    exec-path-from-shell
+  ;                    eimp
+  ;                    spray
 #+END_SRC
 
 - [ ]
 #+BEGIN_SRC elisp
-                       transpose-frame
 #+END_SRC
 
 **** +Python dev+ ([[file:init-mod-elpy.org][elpy]], [[file:init-mod-anaconda-mode.org][anaconda-mode]], [[file:init-mod-company-anaconda.org][company-anaconda]], [[file:init-mod-websocket.org][websocket]] + [[file:init-mod-ein.org][ein]])
@@ -159,424 +147,58 @@ Load the path with configuration files.
   ;                    ein
 #+END_SRC
 
-- [ ] 
+**** +Web dev+ ([[file:init-mod-simple-httpd.org][simple-httpd]], [[file:init-mod-js2-mode.org][js2-mode]], [[file:init-mod-skewer-mode.org][skewer-mode]])
 #+BEGIN_SRC elisp
-  ;                     spray
+  ;                    simple-httpd
+  ;                    js2-mode
+  ;                    skewer-mode
 #+END_SRC
 
-- [ ]
-#+BEGIN_SRC elisp
-                       ;image+
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-  ;                     eimp
-#+END_SRC
-
-**** LaTeX dev ([[file:init-mod-auctex.org][auctex]], [[file:init-mod-latex-preview-pane.org][latex-preview-pane]], [[file:init-mod-cdlatex.org][cdlatex]]
-#+BEGIN_SRC elisp
-                       auctex
-                       latex-preview-pane
-                       cdlatex
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-                       ;org-beautify-theme
-#+END_SRC
-
-- [ ]
+**** +[[file:init-mod-android-mode.org][android-mode]]+
 #+BEGIN_SRC elisp
    ;                    android-mode
 #+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-  ;                     neotree
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-                       auctex-latexmk
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-  ;                     org-ref
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-                       toc-org
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-                       column-marker
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-                       magit
-#+END_SRC
-
-
-- [ ]
-#+BEGIN_SRC elisp
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-  ;;                     bm
-#+END_SRC
-
-From local subfolders.
+*** From local subfolders
 #+BEGIN_SRC elisp
   ))
   (setq other-package-list '(
 #+END_SRC
 
-- [ ]
+**** [[file:init-mod-thing-edit.org][thing-edit]]
 #+BEGIN_SRC elisp
-
                              thing-edit
+#+END_SRC
+
+**** [[file:init-mod-gams.org][gams]]
+#+BEGIN_SRC elisp
                              gams
-                             ob-gams
+#+END_SRC
+
+
+**** Org-mode ([[file:init-mod-ox-wk.org][ox-wk]], +[[file:init-mod-ob-gams.org][ob-gams]]+)
+#+BEGIN_SRC elisp
                              ox-wk
-                             ;matlab
-                             ;speedread
-                             ))
+  ;                          ob-gams
+#+END_SRC
+
+**** +[[file:init-mod-matlab.org][matlab]]+
+#+BEGIN_SRC elisp
+  ;                          matlab
+#+END_SRC
+
+**** +[[file:init-mod-speedread.org][speedread]]+
+#+BEGIN_SRC elisp
+  ;                          speedread
+#+END_SRC
+
+**** Finally
+#+BEGIN_SRC elisp
+  ))
 #+END_SRC
 
 Call [[file:init-packages.org][init-packages]] to load modules defined above.
 #+BEGIN_SRC elisp
   (load-library "init-packages.el")
-#+END_SRC
-**** The main file
-
-**** Customizing built-in features
-- [[file:init-startup.org][Startup]]
-- [[file:init-general.org][General]]
-- [[file:init-visual.org][Visual]]
-- [[file:init-text.org][Text editing]]
-- [[file:init-os.org][OS integration]]
-- [[file:init-python.org][Python]]
-- [[file:init-latex.org][Latex]]
-**** Customizing add-on features
-***** From repository
-- [[file:init-mod-helm.org][helm]]
-- [[file:init-mod-org.org][org]]
-- [[file:init-mod-magit.org][magit]] 
-- [[file:init-mod-zotelo.org][zotelo]]
-- [[file:init-mod-projectile.org][projectile]]
-- [[file:init-mod-helm-projectile.org][helm-projectile]]
-- [[file:init-mod-transpose-frame.org][transpose-frame]]
-***** Local
-- thing-edit ([[file:init-mod-thing-edit.org][init-mod-thing-edit.el]])
-* To be cleaned 
-** OS integration configuration (~init-os.el~)
-
-- ~open-folder-in-explorer~ opens folder of the buffer file either in Windows
-  Explorer or nautilus.
-- ~open-cmd-at-folder~ opens a command line (Windows or gnome) at the folder of
-  the buffer file.
-- ~view-buffer-in-firefox~ opens the buffer file in Firefox.
-
-** MATLAB (~init-matlab.el~)
-:PROPERTIES:
-:tangle:   lisp/init-matlab.el
-:END:
-#+BEGIN_SRC elisp
-  (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
-  (add-to-list
-   'auto-mode-alist
-   '("\\.m$" . matlab-mode))
-  (setq matlab-indent-function t)
-  (setq matlab-shell-command "/usr/local/bin/matlab --nodesktop")
-#+END_SRC
-** LaTeX (~init-latex.el~)
-:PROPERTIES:
-:tangle:   lisp/init-latex.el
-:END:
-
-~C-c C-c~ to run LaTeX over your document. Once it has compiled correctly, ~C-c C-c~ again to view it, or if it failed to compile ~C-c `~ to see the errors.
-
-When you have a "master" file including other files with the TeX macro "\input" or the LaTeX macro "\include", to format the document you must run the commands on the top level master file. Assume the current file is a master file itself.
-#+BEGIN_SRC elisp
-(setq-default TeX-master t)
-#+END_SRC
-
-If ~TeX-master~ is set to ~nil~, you will be queried for a master file unless the following text is present at the end of your files.
-#+BEGIN_EXAMPLE
-%%% Local Variables:
-%%% TeX-master: "master"
-%%% End:
-#+END_EXAMPLE
-
-Enable parsing of buffers at save and load events for extracting meta information, which will be stored in an ~auto~ subdirectory.
-#+BEGIN_SRC elisp
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-#+END_SRC
-
-Activate some useful hooks.
-#+BEGIN_SRC elisp
-(add-hook 'LaTeX-mode-hook 'visual-line-mode)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-#+END_SRC
-
-Configure reftex.
-#+BEGIN_SRC elisp
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-(setq reftex-default-bibliography 
-(quote
-("~/org/jacklibrary.bib"))) 
-#+END_SRC
-** Modules
-*** helm (~init-mod-helm.el~)
-
-- helm configuration:
-  - show buffers list, recent files, files in current dir, and moccur
-  - don't use locate under Windows (I haven't been able to find something that doesn't freeze
-    up my system)
-- helm replacements for common things:
-  - ~M-x~ uses helm version
-  - ~M-y~ shows kill ring
-  - ~Ctrl-h SPC~ shows all mark rings
-- helm navigation between buffers and files:
-  - ~Ctrl-`~ looks for and opens buffer
-  - ~Ctrl-M-`~ looks for and go to semantic section
-  - ~Ctrl-\~~ looks for and opens file
-  - ~Ctrl-2~ splits window vertically, then switches to buffer in other window
-  - ~Ctrl-@~ splits window vertically, then finds file in other window
-  - ~Ctrl-3~ splits window horizontally, then switches to buffer in other window
-  - ~Ctrl-#~ splits window horizontally, then finds file in other window
-  - ~Ctrl-4~ switches to buffer in other window
-  - ~Ctrl-$~ finds file in other window
-  - ~Ctrl-5~ switches to buffer in other window in reverse order
-  - ~Ctrl-%~ finds file in other window
-
-*** yasnippet (~init-mod-yasnippet.el~)
-
--
-
-*** expand-region (~init-mod-expand-region.el~)
-:PROPERTIES:
-:tangle:   lisp/init-mod-expand-region.el
-:END:
-
-#+BEGIN_SRC elisp
-(require 'expand-region)
-#+END_SRC
-
-Customize the list of functions that are tried when expanding regions to support specific modes.
-#+BEGIN_SRC elisp
-(require 'html-mode-expansions)
-(require 'latex-mode-expansions)
-(require 'octave-expansions)
-(require 'python-mode-expansions)
-(require 'text-mode-expansions)
-(require 'the-org-mode-expansions)
-#+END_SRC
-
-You can also play around with ~er/try-expand-list~.
-#+BEGIN_SRC elisp
-;(defun er/add-text-mode-expansions ()
-;  (make-variable-buffer-local 'er/try-expand-list)
-;  (setq er/try-expand-list (append
-;                            er/try-expand-list
-;                            '(mark-paragraph
-;                              mark-page)))
-;  ;(setq er/try-expand-list '(mark-paragraph
-;  ;                            mark-page))
-;)
-;(er/enable-mode-expansions 'python-mode 'er/add-text-mode-expansions)
-#+END_SRC
-**** Key-bindings
-| ~C-=~ | Expand region.                                  |
-| ~C-+~ | Contract region.                                |
-
-#+BEGIN_SRC elisp
-(global-set-key (kbd "C-=") 'er/expand-region)
-(global-set-key (kbd "C-+") 'er/contract-region)
-#+END_SRC
-*** Visible Bookmarks (~init-mod-bm.el~)
-:PROPERTIES:
-:tangle:   lisp/init-mod-bm.el
-:END:
-#+BEGIN_SRC elisp
-(require 'bm)
-#+END_SRC
-
-Navigate bookmarks with assigned keys.
-#+BEGIN_SRC elisp
-(global-set-key (kbd "<C-f1>") 'bm-toggle)
-(global-set-key (kbd "<C-f2>")   'bm-next)
-(global-set-key (kbd "<C-f3>") 'bm-previous)
-#+END_SRC
-
-Click on fringe to toggle bookmarks, and use mouse wheel to move between them.
-#+BEGIN_SRC elisp
-(global-set-key (kbd "<left-fringe> <mouse-5>") 'bm-next-mouse)
-(global-set-key (kbd "<left-fringe> <mouse-4>") 'bm-previous-mouse)
-(global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
-#+END_SRC
-
-Cycle bookmark in LIFO order.
-#+BEGIN_SRC elisp
-(setq bm-in-lifo-order t)
-#+END_SRC
-
-Cycle through bookmarks in all open buffers.
-#+BEGIN_SRC 
-(setq bm-cycle-all-buffers t)
-#+END_SRC
-
-Remove bookmark after jump to it by ~bm-next~ or ~bm-previous~.
-#+BEGIN_SRC elisp
-(setq temporary-bookmark-p t)
-#+END_SRC
-
-*** zotelo (~init-mod-zotelo.el~)
-:PROPERTIES:
-:tangle:   lisp/init-mod-zotelo.el
-:END:
-Zotelo helps you efficiently export and synchronize local databases (bib, rdf, html, json etc) and Zotero collections directly from emacs (https://github.com/vspinu/zotelo).
-#+BEGIN_SRC elisp
-(require 'zotelo)
-#+END_SRC
-
-Activate zotelo-minor-mode in LaTeX and org mode:
-#+BEGIN_SRC elisp
-(add-hook 'TeX-mode-hook 'zotelo-minor-mode)
-(add-hook 'org-mode-hook 'zotelo-minor-mode)
-#+END_SRC
-
-To export a zotero collection, first associate it with the current buffer with ~C-c z c~ (~zotelo-set-collection~).
-To update the the local database with new changes from Zotero, use ~C-c z u~ (~zotelo-update-database~).
-Use ~C-c [~ to retrieve items from the bib file.
-
-*** simple-httpd (~init-mod-simple-httpd.el~)
-:PROPERTIES:
-:tangle:   lisp/init-mod-simple-httpd.el
-:END:
-Pure elisp HTTP server
-#+BEGIN_SRC elisp
-(require 'simple-httpd)
-#+END_SRC
-
-#+BEGIN_SRC elisp
-(setq httpd-root "/home/jack/web")
-#+END_SRC
-*** js2-mode (~init-mod-js2-mode.el~)
-:PROPERTIES:
-:tangle:   lisp/init-mod-js2-mode.el
-:END:
-js2-mode is a JavaScript mode for Emacs with JavaScript parser built-in which allows syntax error detection on the fly.
-#+BEGIN_SRC elisp
-(require 'js2-mode)
-#+END_SRC
-
-Enable js2-mode or js2-minor-mode.
-#+BEGIN_SRC elisp
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-#+END_SRC
-*** skewer (~init-mod-skewer.el~)
-:PROPERTIES:
-:tangle:   lisp/init-mod-skewer-mode.el
-:END:
-Skewer provides live interaction with JavaScript, CSS, and HTML in a web browser.
-#+BEGIN_SRC elisp
-(require 'skewer-mode)
-#+END_SRC
-
-Configure all of mode hooks.
-#+BEGIN_SRC elisp
-(add-hook 'js2-mode-hook 'skewer-mode)
-(add-hook 'css-mode-hook 'skewer-css-mode)
-(add-hook 'html-mode-hook 'skewer-html-mode)
-#+END_SRC
-*** gams (~init-mod-gams.el~)
-:PROPERTIES:
-:tangle:   lisp/init-mod-gams.el
-:END:
-GAMS mode for Emacs written by Shirotakeda.
-#+BEGIN_SRC elisp
-(require 'gams)
-#+END_SRC
-
-Configure mode.
-#+BEGIN_SRC elisp
-;;needed for correct coloring in multiline regions of code
-(setq jit-lock-chunk-size 50000)
-
-(setq gams-indent-on t)
-(setq gams-indent-number 4)
-(setq gams-template-file "~/.emacs.d/lisp/gams/gams-template.txt")
-(setq gams:process-command-option "ll=0 lo=3 pw=32767 ps=0")
-(setq gams-statement-upcase nil) ; Use upper case for GAMS statements
-(setq gams-dollar-control-upcase nil) ; Use upper case for dollar operations.
-(setq gams-close-double-quotation-always t)
-(setq gams-close-single-quotation-always t)
-(setq gams-eolcom-symbol-default' "#")
-;(setq font-lock-support-mode '((gams-mode . nil) (t . jit-lock-mode)))
-
-;; OS specific configuration
-(cond ((eq window-system 'w32)
-       (setq gams:process-command-name "C:/GAMS/win64/24.4/gams.exe")
-       (setq gams-system-directory "C:/GAMS/win64/24.4/")
-       (setq gams-docs-directory "C:/GAMS/win64/24.4/docs/")
-       (setq gams-docs-view-program "C:/Program Files (x86)/Adobe/Acrobat 11.0/Acrobat/AcroRd32.exe")
-       (setq gams-lxi-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi.exe")
-       (setq gams-lxi-import-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi-import.exe")
-       (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc.exe"))
-       (t
-       (setq gams:process-command-name "/opt/gams/24.2/gams")
-       (setq gams-system-directory "/opt/gams/24.2")
-       (setq gams-docs-directory "/opt/gams/24.2/docs/")
-       (setq gams-docs-view-program "evince")
-       (setq gams-lxi-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi")
-       (setq gams-lxi-import-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi-import")
-       (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc")
-))
-#+END_SRC
-** Other 
-*** Maximize window at startup
-#+BEGIN_SRC elisp
-;(defun toggle-full-screen () (interactive) (shell-command "%APPDATA%/.emacs.d/emacs_fullscreen.exe"))
-;(global-set-key (kbd "M-<f11>") 'toggle-full-screen)
-;(add-hook 'window-setup-hook 'toggle-full-screen)
-#+END_SRC
-*** Grepping
-#+BEGIN_SRC elisp
-;; ** Grepping
-;(keyboard-translate ?\C-i ?\H-i)
-;(global-set-key [?\H-i] 'grep-find)
-;(grep-apply-setting 'grep-command "grep -r --include=\"!\" -nH -e ! .")
-;(setq grep-command  "grep -r --include=\"!\" -nH -e ! .")
 #+END_SRC
 * Useful references
 - http://www.emacswiki.org/emacs/Reference_Sheet_by_Aaron_Hawley

@@ -19,6 +19,23 @@
 | C-5 | my-switch-to-buffer-other-window-reverse |
 | C-% | my-find-file-other-window-reverse        |
 
+In other words:
+- ~Ctrl-`~ looks for and opens buffer
+- ~Ctrl-M-`~ looks for and go to semantic section
+- ~Ctrl-\~~ looks for and opens file
+- ~Ctrl-2~ splits window vertically, then switches to buffer in other window
+- ~Ctrl-@~ splits window vertically, then finds file in other window
+- ~Ctrl-3~ splits window horizontally, then switches to buffer in other window
+- ~Ctrl-#~ splits window horizontally, then finds file in other window
+- ~Ctrl-4~ switches to buffer in other window
+- ~Ctrl-$~ finds file in other window
+- ~Ctrl-5~ switches to buffer in other window in reverse order
+- ~Ctrl-%~ finds file in other window
+- ~M-x~ uses helm version
+- ~M-y~ shows kill ring
+- ~Ctrl-h SPC~ shows all mark rings
+
+
 #+BEGIN_SRC emacs-lisp
 (require 'helm)
 (require 'helm-config)
@@ -29,7 +46,10 @@ Helm multi occur always search in current buffer.
 (setq helm-moccur-always-search-in-current t)
 #+END_SRC
 
-Only if not in Windows use locate
+Helm configuration:
+- show buffers list, recent files, files in current dir, and moccur;
+- don't use locate under Windows (I haven't been able to find something that doesn't freeze
+  up my system).
 #+BEGIN_SRC emacs-lisp
 (cond ( (eq window-system 'w32)
 		(setq helm-locate-command "es %s %s")

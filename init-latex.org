@@ -3,19 +3,44 @@
 :tangle:   lisp/init-latex.el
 :END:
 
-#+BEGIN_SRC emacs-lisp
-(setq-default TeX-master nil)
+See also [[file:init-mod-auctex.org][auctex]].
 
+When you have a "master" file including other files with the TeX macro
+"\input" or the LaTeX macro "\include", to format the document you
+must run the commands on the top level master file. If ~TeX-master~ is
+set to ~t~, assume the current file is a master file itself. If
+~TeX-master~ is set to ~nil~, you will be queried for a master file
+unless the following text is present at the end of your files.
+#+BEGIN_EXAMPLE
+%%% Local Variables:
+%%% TeX-master: "master"
+%%% End:
+#+END_EXAMPLE
+
+#+BEGIN_SRC elisp
+;(setq-default TeX-master t)
+(setq-default TeX-master nil)
+#+END_SRC
+
+Enable parsing of buffers at save and load events for extracting meta
+information, which will be stored in an ~auto~ subdirectory.
+#+BEGIN_SRC elisp
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
+#+END_SRC
 
+Activate some useful hooks.
+#+BEGIN_SRC elisp
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+#+END_SRC
 
+Configure reftex.
+#+BEGIN_SRC emacs-lisp
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
 (setq reftex-default-bibliography 
 (quote
-("~/org/jacklibrary.bib")))
+("~/org/research-bibliography.bib")))
 #+END_SRC

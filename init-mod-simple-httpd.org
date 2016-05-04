@@ -1,0 +1,13 @@
+* simple-httpd (~lisp/init-mod-simple-httpd.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-simple-httpd.el
+:END:
+
+Pure elisp HTTP server
+#+BEGIN_SRC elisp
+(require 'simple-httpd)
+#+END_SRC
+
+#+BEGIN_SRC elisp
+(setq httpd-root "~/web")
+#+END_SRC

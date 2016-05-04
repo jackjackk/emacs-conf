@@ -14,6 +14,14 @@ Avoid using "find" when using grep (Windows uses by default a non-POSIX-compatib
 (setq grep-find-command "egrep -nHIr ")
 #+END_SRC
 
+Other grep settings TO BE CHECKED.
+#+BEGIN_SRC emacs-lisp
+;(keyboard-translate ?\C-i ?\H-i)
+;(global-set-key [?\H-i] 'grep-find)
+;(grep-apply-setting 'grep-command "grep -r --include=\"!\" -nH -e ! .")
+;(setq grep-command  "grep -r --include=\"!\" -nH -e ! .")
+#+END_SRC
+
 The section below is inspired by https://github.com/kosh04/emacs-lisp/blob/master/gnome-util.el.
 
 Open explorer in the current directory selecting the current file.

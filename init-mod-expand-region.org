@@ -34,9 +34,9 @@ Add text-mode expansions to python mode.
 Optionally, provide other languages extensions.
 #+BEGIN_SRC emacs-lisp
 ;(require 'html-mode-expansions)
-;(require 'latex-mode-expansions)
+(require 'latex-mode-expansions)
 ;(require 'octave-expansions)
 ;(require 'python-mode-expansions)
-;(require 'text-mode-expansions)
-;(require 'the-org-mode-expansions)
+(require 'text-mode-expansions)
+(require 'the-org-mode-expansions)
 #+END_SRC

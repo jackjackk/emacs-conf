@@ -14,3 +14,10 @@ Remove startup messages and clean the scratch buffer.
       inhibit-splash-screen t
       initial-scratch-message nil)
 #+END_SRC
+
+Maximize window at startup (commented).
+#+BEGIN_SRC elisp
+;(defun toggle-full-screen () (interactive) (shell-command "~/.emacs.d/emacs_fullscreen.exe"))
+;(global-set-key (kbd "M-<f11>") 'toggle-full-screen)
+;(add-hook 'window-setup-hook 'toggle-full-screen)
+#+END_SRC

@@ -6,7 +6,15 @@
 | ~C-c z c~ | zotelo-set-collection  |
 | ~C-c z u~ | zotelo-update-database |
 
-[[https://github.com/vspinu/zotelo][Zotelo]] helps you efficiently export and synchronize local bib databases and Zotero collections directly from emacs.
+[[https://github.com/vspinu/zotelo][Zotelo]] helps you efficiently export and synchronize local bib
+databases and Zotero collections directly from emacs.
+
+To export a zotero collection, first associate it with the current
+buffer with ~C-c z c~ (~zotelo-set-collection~).  To update the the
+local database with new changes from Zotero, use ~C-c z u~
+(~zotelo-update-database~).  Use ~C-c [~ to retrieve items from the
+bib file.
+
 #+BEGIN_SRC emacs-lisp
 (require 'zotelo)
 #+END_SRC

@@ -1,0 +1,16 @@
+* skewer (~lisp/init-mod-skewer.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-skewer.el
+:END:
+
+Skewer provides live interaction with JavaScript, CSS, and HTML in a web browser.
+#+BEGIN_SRC elisp
+(require 'skewer-mode)
+#+END_SRC
+
+Configure all of mode hooks.
+#+BEGIN_SRC elisp
+(add-hook 'js2-mode-hook 'skewer-mode)
+(add-hook 'css-mode-hook 'skewer-css-mode)
+(add-hook 'html-mode-hook 'skewer-html-mode)
+#+END_SRC
