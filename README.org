@@ -17,7 +17,6 @@ Other strategies to merge an existing directory with a git repo can be found [[h
 git clone https://github.com/jackjackk/emacs-conf.git ~/.emacs.d/.git --mirror --config core.bare=false
 #+END_SRC
 will transform your emacs conf dir in a working copy of this repository.
-* Description
 * The main file (~init.el~)
 :PROPERTIES:
 :tangle:   init.el
