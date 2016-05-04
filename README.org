@@ -104,24 +104,24 @@ Load the path with configuration files.
   ;                    neotree
 #+END_SRC
 
-**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], [[file:init-mod-toc-org.org][toc-org]], [[file:init-mod-cdlatex.org][cdlatex]], +[[file:init-mod-org-ref.org][org-ref]]+, +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
+**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], [[file:init-mod-toc-org.org][toc-org]], +[[file:init-mod-org-ref.org][org-ref]]+, +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
 #+BEGIN_SRC elisp
                        org-plus-contrib
                        ox-textile
                        toc-org
-                       cdlatex
   ;                    org-ref
   ;                    org-redmine
   ;                    org-pomodoro
   ;                    org2blog
 #+END_SRC
 
-**** LaTeX dev ([[file:init-mod-auctex.org][auctex]], [[file:init-mod-latex-preview-pane.org][latex-preview-pane]], [[file:init-mod-zotelo.org][zotelo]], [[file:init-mod-auctex-latexmk.org][auctex-latexmk]])
+**** LaTeX dev ([[file:init-mod-auctex.org][auctex]], [[file:init-mod-latex-preview-pane.org][latex-preview-pane]], [[file:init-mod-zotelo.org][zotelo]], [[file:init-mod-auctex-latexmk.org][auctex-latexmk]], [[file:init-mod-cdlatex.org][cdlatex]])
 #+BEGIN_SRC elisp
                        auctex
                        latex-preview-pane
                        zotelo
                        auctex-latexmk
+                       cdlatex
 #+END_SRC
 
 **** Tools ([[file:init-mod-magit.org][magit]], +[[file:init-mod-exec-path-from-shell.org][exec-path-from-shell]]+, +[[file:init-mod-eimp.org][eimp]]+, +[[file:init-mod-spray.org][spray]]+) 
