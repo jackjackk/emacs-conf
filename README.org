@@ -9,7 +9,7 @@ current configuration and cloning this repository in its place.
 #+BEGIN_SRC sh
 mv ~/.emacs.d ~/.emacs.d.bak
 mv ~/.emacs ~/.emacs.bak
-git clone https://github.com/jackjackk/emacs-conf.git ~/.emacs.d
+git clone --recursive https://github.com/jackjackk/emacs-conf.git ~/.emacs.d
 #+END_SRC
 
 Other strategies to merge an existing directory with a git repo can be found [[http://stackoverflow.com/questions/5377960/whats-the-best-practice-to-git-clone-into-an-existing-folder][here]]. In particular:
