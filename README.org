@@ -186,7 +186,7 @@ Load the path with configuration files.
   ;                          speedread
 #+END_SRC
 
-**** Finally
+** Finish
 #+BEGIN_SRC elisp
   ))
 #+END_SRC
