@@ -37,26 +37,22 @@ Load the path with configuration files.
 (add-to-list 'load-path "~/.emacs.d/lisp")
 #+END_SRC
 ** Customize built-in features
-**** [[file:init-startup.org][startup]]
+**** [[file:init-startup.org][Startup]]
 #+BEGIN_SRC elisp
 (load-library "init-startup.el")
-(load-library "init-text.el")
-(load-library "init-os.el")
-;(load-library "init-python.el")
-(load-library "init-latex.el")
 #+END_SRC
 
-**** [[file:init-general.org][general]]
+**** [[file:init-general.org][General]]
 #+BEGIN_SRC elisp
 (load-library "init-general.el")
 #+END_SRC
 
-**** [[file:init-visual.org][visual]]
+**** [[file:init-visual.org][Visual]]
 #+BEGIN_SRC elisp
 (load-library "init-visual.el")
 #+END_SRC
 
-**** [[file:init-text.org][text]]
+**** [[file:init-text.org][Text]]
 #+BEGIN_SRC elisp
 (load-library "init-text.el")
 #+END_SRC
@@ -68,7 +64,17 @@ Load the path with configuration files.
 
 **** [[file:init-latex.org][LaTeX]]
 #+BEGIN_SRC elisp
-;(load-library "init-latex.el")
+(load-library "init-latex.el")
+#+END_SRC
+
+**** [[file:init-net.org][Network]]
+#+BEGIN_SRC elisp
+(load-library "init-net.el")
+#+END_SRC
+
+**** [[file:macros.el][Macros]]
+#+BEGIN_SRC elisp
+(load-library "macros.el")
 #+END_SRC
 
 **** +[[file:init-python.org][Python]]+
@@ -106,43 +112,36 @@ Load the path with configuration files.
                        multiple-cursors
 #+END_SRC
 
-**** +[[file:init-mod-org-plus-contrib.org][org-plus-contrib]]+
+**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
 #+BEGIN_SRC elisp
                        org-plus-contrib
+                       ox-textile
+  ;                    org-redmine
+  ;                    org-pomodoro
+  ;                    org2blog
 #+END_SRC
+
 
 - [ ]
 #+BEGIN_SRC elisp
                        zotelo
 #+END_SRC
 
-- [ ]
+**** +Web dev+ ([[file:init-mod-simple-httpd.org][simple-httpd]], [[file:init-mod-js2-mode.org][js2-mode]], [[file:init-mod-skewer-mode.org][skewer-mode]])
 #+BEGIN_SRC elisp
   ;;                     simple-httpd
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
   ;;                     js2-mode
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
   ;;                     skewer-mode
 #+END_SRC
 
-- [ ]
+**** +[[file:init-mod-exec-path-from-shell.org][exec-path-from-shell]]+
 #+BEGIN_SRC elisp
   ;;                     exec-path-from-shell
 #+END_SRC
 
-- [ ]
+**** [[file:init-mod-projectile.org][projectile]], [[file:init-mod-helm-projectile.org][helm-projectile]]
 #+BEGIN_SRC elisp
                        projectile
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
                        helm-projectile
 #+END_SRC
 
@@ -151,12 +150,16 @@ Load the path with configuration files.
                        transpose-frame
 #+END_SRC
 
-- [ ]
+**** +Python dev+ ([[file:init-mod-elpy.org][elpy]], [[file:init-mod-anaconda-mode.org][anaconda-mode]], [[file:init-mod-company-anaconda.org][company-anaconda]], [[file:init-mod-websocket.org][websocket]] + [[file:init-mod-ein.org][ein]])
 #+BEGIN_SRC elisp
-  ;                     elpy
+  ;                    elpy
+  ;                    anaconda-mode
+  ;                    company-anaconda
+  ;                    websocket
+  ;                    ein
 #+END_SRC
 
-- [ ]
+- [ ] 
 #+BEGIN_SRC elisp
   ;                     spray
 #+END_SRC
@@ -171,19 +174,15 @@ Load the path with configuration files.
   ;                     eimp
 #+END_SRC
 
-- [ ]
+**** LaTeX dev ([[file:init-mod-auctex.org][auctex]], [[file:init-mod-latex-preview-pane.org][latex-preview-pane]], [[file:init-mod-cdlatex.org][cdlatex]]
 #+BEGIN_SRC elisp
                        auctex
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
+                       latex-preview-pane
                        cdlatex
 #+END_SRC
 
 - [ ]
 #+BEGIN_SRC elisp
-                       latex-preview-pane
 #+END_SRC
 
 - [ ]
@@ -218,12 +217,10 @@ Load the path with configuration files.
 
 - [ ]
 #+BEGIN_SRC elisp
-  ;                     anaconda-mode
 #+END_SRC
 
 - [ ]
 #+BEGIN_SRC elisp
-  ;                     company-anaconda
 #+END_SRC
 
 - [ ]
@@ -233,7 +230,6 @@ Load the path with configuration files.
 
 - [ ]
 #+BEGIN_SRC elisp
-                       ox-textile
 #+END_SRC
 
 - [ ]
@@ -241,29 +237,13 @@ Load the path with configuration files.
                        magit
 #+END_SRC
 
+
 - [ ]
 #+BEGIN_SRC elisp
-  ;;                     org-redmine
 #+END_SRC
 
 - [ ]
 #+BEGIN_SRC elisp
-  ;;                     org-pomodoro
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-  ;;                     org2blog
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-  ;;                     websocket
-#+END_SRC
-
-- [ ]
-#+BEGIN_SRC elisp
-  ;;                     ein
 #+END_SRC
 
 - [ ]
