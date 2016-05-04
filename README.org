@@ -37,7 +37,7 @@ Load the path with configuration files.
 (add-to-list 'load-path "~/.emacs.d/lisp")
 #+END_SRC
 ** Customize built-in features
-- [X] [[file:init-startup.org][startup]]
+**** [[file:init-startup.org][startup]]
 #+BEGIN_SRC elisp
 (load-library "init-startup.el")
 (load-library "init-text.el")
@@ -46,32 +46,32 @@ Load the path with configuration files.
 (load-library "init-latex.el")
 #+END_SRC
 
-- [X] [[file:init-general.org][general]]
+**** [[file:init-general.org][general]]
 #+BEGIN_SRC elisp
 (load-library "init-general.el")
 #+END_SRC
 
-- [X] [[file:init-visual.org][visual]]
+**** [[file:init-visual.org][visual]]
 #+BEGIN_SRC elisp
 (load-library "init-visual.el")
 #+END_SRC
 
-- [X] [[file:init-text.org][text]]
+**** [[file:init-text.org][text]]
 #+BEGIN_SRC elisp
 (load-library "init-text.el")
 #+END_SRC
 
-- [X] [[file:init-os.org][OS integration]]
+**** [[file:init-os.org][OS integration]]
 #+BEGIN_SRC elisp
 (load-library "init-os.el")
 #+END_SRC
 
-- [X] [[file:init-latex.org][LaTeX]]
+**** [[file:init-latex.org][LaTeX]]
 #+BEGIN_SRC elisp
 ;(load-library "init-latex.el")
 #+END_SRC
 
-- [ ] [[file:init-python.org][Python]]
+**** +[[file:init-python.org][Python]]+
 #+BEGIN_SRC elisp
 ;(load-library "init-python.el")
 #+END_SRC
