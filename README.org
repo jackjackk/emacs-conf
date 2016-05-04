@@ -75,38 +75,38 @@ Load the path with configuration files.
 #+BEGIN_SRC elisp
 ;(load-library "init-python.el")
 #+END_SRC
-** Add extra packages, either from repositories or from local subfolders.
-*** From official repositories.
+** Add extra packages
+*** From official repositories
 #+BEGIN_SRC elisp
   (setq package-list '(
 #+END_SRC
 
-- [X] [[file:init-mod-company.org][company]]
+**** [[file:init-mod-company.org][company]]
 #+BEGIN_SRC elisp
                        company
 #+END_SRC
 
-- [X] [[file:init-mod-helm.org][helm]]
+**** [[file:init-mod-helm.org][helm]]
 #+BEGIN_SRC elisp
                        helm
 #+END_SRC
 
-- [X] [[file:init-mod-yasnippet.org][yasnippet]]
+**** [[file:init-mod-yasnippet.org][yasnippet]]
 #+BEGIN_SRC elisp
                        yasnippet
 #+END_SRC
 
-- [X] [[file:init-mod-expand-region.org][expand-region]]
+**** [[file:init-mod-expand-region.org][expand-region]]
 #+BEGIN_SRC elisp
                        expand-region
 #+END_SRC
 
-- [X] [[file:init-mod-multiple-cursors.org][multiple-cursors]]
+**** [[file:init-mod-multiple-cursors.org][multiple-cursors]]
 #+BEGIN_SRC elisp
                        multiple-cursors
 #+END_SRC
 
-- [X] [[file:init-mod-org-plus-contrib.org][org-plus-contrib]]
+**** +[[file:init-mod-org-plus-contrib.org][org-plus-contrib]]+
 #+BEGIN_SRC elisp
                        org-plus-contrib
 #+END_SRC
