@@ -18,16 +18,284 @@ git clone https://github.com/jackjackk/emacs-conf.git ~/.emacs.d/.git --mirror -
 #+END_SRC
 will transform your emacs conf dir in a working copy of this repository.
 * Description
-** The main file
-All conf code is self-contained in =~/.emacs.d= dir. If no =~/.emacs=
-file is found, emacs will use =~/.emacs.d/init.el= ([[file:init.org][init.el]]). This in
-turn call other files in a modular fashion (see [[file:init-packages.org][init-packages.el]]).
+* The main file (~init.el~)
+:PROPERTIES:
+:tangle:   init.el
+:END:
 
-Make sure you *decomment just the packages you are interested in [[file:init.org][init.el]]*,
+All conf code is self-contained in =~/.emacs.d= dir. If no =~/.emacs=
+file is found, emacs will use =~/.emacs.d/init.el= (tangled from this file). This in
+turn call other files in a modular fashion.
+
+Make sure you *decomment just the packages you are interested in*,
 otherwise be aware that all missing packages on repositories will be
 downloaded and installed on startup, which requires time + internet
 bandwidth.
-** Customizing built-in features
+
+Load the path with configuration files.
+#+BEGIN_SRC elisp
+(add-to-list 'load-path "~/.emacs.d/lisp")
+#+END_SRC
+** Customize built-in features
+- [X] [[file:init-startup.org][startup]]
+#+BEGIN_SRC elisp
+(load-library "init-startup.el")
+(load-library "init-text.el")
+(load-library "init-os.el")
+;(load-library "init-python.el")
+(load-library "init-latex.el")
+#+END_SRC
+
+- [X] [[file:init-general.org][general]]
+#+BEGIN_SRC elisp
+(load-library "init-general.el")
+#+END_SRC
+
+- [X] [[file:init-visual.org][visual]]
+#+BEGIN_SRC elisp
+(load-library "init-visual.el")
+#+END_SRC
+
+- [X] [[file:init-text.org][text]]
+#+BEGIN_SRC elisp
+(load-library "init-text.el")
+#+END_SRC
+
+- [X] [[file:init-os.org][OS integration]]
+#+BEGIN_SRC elisp
+(load-library "init-os.el")
+#+END_SRC
+
+- [X] [[file:init-latex.org][LaTeX]]
+#+BEGIN_SRC elisp
+;(load-library "init-latex.el")
+#+END_SRC
+
+- [ ] [[file:init-python.org][Python]]
+#+BEGIN_SRC elisp
+;(load-library "init-python.el")
+#+END_SRC
+** Add extra packages, either from repositories or from local subfolders.
+*** From official repositories.
+#+BEGIN_SRC elisp
+  (setq package-list '(
+#+END_SRC
+
+- [X] [[file:init-mod-company.org][company]]
+#+BEGIN_SRC elisp
+                       company
+#+END_SRC
+
+- [X] [[file:init-mod-helm.org][helm]]
+#+BEGIN_SRC elisp
+                       helm
+#+END_SRC
+
+- [X] [[file:init-mod-yasnippet.org][yasnippet]]
+#+BEGIN_SRC elisp
+                       yasnippet
+#+END_SRC
+
+- [X] [[file:init-mod-expand-region.org][expand-region]]
+#+BEGIN_SRC elisp
+                       expand-region
+#+END_SRC
+
+- [X] [[file:init-mod-multiple-cursors.org][multiple-cursors]]
+#+BEGIN_SRC elisp
+                       multiple-cursors
+#+END_SRC
+
+- [X] [[file:init-mod-org-plus-contrib.org][org-plus-contrib]]
+#+BEGIN_SRC elisp
+                       org-plus-contrib
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       zotelo
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     simple-httpd
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     js2-mode
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     skewer-mode
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     exec-path-from-shell
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       projectile
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       helm-projectile
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       transpose-frame
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;                     elpy
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;                     spray
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       ;image+
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;                     eimp
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       auctex
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       cdlatex
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       latex-preview-pane
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       ;org-beautify-theme
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+   ;                    android-mode
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;                     neotree
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       auctex-latexmk
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;                     org-ref
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       toc-org
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;                     anaconda-mode
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;                     company-anaconda
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       column-marker
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       ox-textile
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+                       magit
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     org-redmine
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     org-pomodoro
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     org2blog
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     websocket
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     ein
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+  ;;                     bm
+#+END_SRC
+
+From local subfolders.
+#+BEGIN_SRC elisp
+  ))
+  (setq other-package-list '(
+#+END_SRC
+
+- [ ]
+#+BEGIN_SRC elisp
+
+                             thing-edit
+                             gams
+                             ob-gams
+                             ox-wk
+                             ;matlab
+                             ;speedread
+                             ))
+#+END_SRC
+
+Call [[file:init-packages.org][init-packages]] to load modules defined above.
+#+BEGIN_SRC elisp
+  (load-library "init-packages.el")
+#+END_SRC
+**** The main file
+
+**** Customizing built-in features
 - [[file:init-startup.org][Startup]]
 - [[file:init-general.org][General]]
 - [[file:init-visual.org][Visual]]
@@ -35,8 +303,8 @@ bandwidth.
 - [[file:init-os.org][OS integration]]
 - [[file:init-python.org][Python]]
 - [[file:init-latex.org][Latex]]
-** Customizing add-on features
-*** From repository
+**** Customizing add-on features
+***** From repository
 - [[file:init-mod-helm.org][helm]]
 - [[file:init-mod-org.org][org]]
 - [[file:init-mod-magit.org][magit]] 
@@ -44,7 +312,7 @@ bandwidth.
 - [[file:init-mod-projectile.org][projectile]]
 - [[file:init-mod-helm-projectile.org][helm-projectile]]
 - [[file:init-mod-transpose-frame.org][transpose-frame]]
-*** Local
+***** Local
 - thing-edit ([[file:init-mod-thing-edit.org][init-mod-thing-edit.el]])
 * To be cleaned 
 ** OS integration configuration (~init-os.el~)
