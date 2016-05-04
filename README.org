@@ -81,8 +81,7 @@ Load the path with configuration files.
 #+BEGIN_SRC elisp
 ;(load-library "init-python.el")
 #+END_SRC
-** Add extra packages
-*** From official repositories
+** Customize packages from repositories
 #+BEGIN_SRC elisp
   (setq package-list '(
 #+END_SRC
@@ -134,10 +133,6 @@ Load the path with configuration files.
   ;                    spray
 #+END_SRC
 
-- [ ]
-#+BEGIN_SRC elisp
-#+END_SRC
-
 **** +Python dev+ ([[file:init-mod-elpy.org][elpy]], [[file:init-mod-anaconda-mode.org][anaconda-mode]], [[file:init-mod-company-anaconda.org][company-anaconda]], [[file:init-mod-websocket.org][websocket]] + [[file:init-mod-ein.org][ein]])
 #+BEGIN_SRC elisp
   ;                    elpy
@@ -158,7 +153,7 @@ Load the path with configuration files.
 #+BEGIN_SRC elisp
    ;                    android-mode
 #+END_SRC
-*** From local subfolders
+** Customize packages from local subfolders
 #+BEGIN_SRC elisp
   ))
   (setq other-package-list '(
