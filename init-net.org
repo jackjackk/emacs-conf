@@ -1,0 +1,19 @@
+* Network conf
+:PROPERTIES:
+:tangle:   lisp/init-net.el
+:END:
+Gnutls.
+#+BEGIN_SRC emacs-lisp
+  (require 'gnutls)
+
+  (if (fboundp 'gnutls-available-p)
+      (fmakunbound 'gnutls-available-p))
+
+  (setq
+  ; tls-program '("gnutls-cli --strict-tofu -p %p %h")
+  ; imap-ssl-program '("gnutls-cli --strict-tofu -p %p %s")
+  ; smtpmail-stream-type 'starttls
+  ; starttls-extra-arguments '("--strict-tofu")
+   gnutls-trustfiles '("~/archive/software/emacs/trustfiles/cacert.pem")
+   )
+#+END_SRC

@@ -47,9 +47,27 @@ beginning of a headline, speeding up the navigation.
 (setq org-use-speed-commands t)
 #+END_SRC
 
+Interpret "_" and "^" for display only with braces.
+#+BEGIN_SRC emacs-lisp
+(setq org-use-sub-superscripts (quote {}))
+#+END_SRC
+
 Show entities as UTF8 characters.
 #+BEGIN_SRC elisp
 (setq org-pretty-entities t)    
+#+END_SRC
+
+When loading a new Org file show inline images.
+#+BEGIN_SRC emacs-lisp
+(setq org-startup-with-inline-images t)
+#+END_SRC
+
+Open PDFs w/ specified program (and not w/ the default choice) http://stackoverflow.com/a/8836108/789593.
+#+BEGIN_SRC elisp
+;(add-hook 'org-mode-hook
+;      '(lambda ()
+;         (delete '("\\.pdf\\'" . default) org-file-apps)
+;         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 #+END_SRC
 
 Allow local variable definitions.
@@ -96,6 +114,7 @@ Provide some convenient rebindings.
 (org-shifttab 2))
 (add-hook 'org-mode-hook 'custom-org-mode-defaults)
 #+END_SRC
+
 Speed keys ~n~ and ~p~ are rebind to a tidier view of next/previous entries.
 #+BEGIN_SRC elisp
 (defun ded/org-show-next-heading-tidily ()
@@ -189,14 +208,28 @@ org-display-inline-images work with pdf.
 
 Show org-mode bullets as UTF-8 characters.
 #+BEGIN_SRC emacs-lisp
-  ;(add-hook 'org-load-hook '(lambda () (add-to-list 'org-modules 'org-bullets)))
   (require 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+END_SRC
+
+Archive files under subfolder archived.
+#+BEGIN_SRC emacs-lisp
+(setq org-archive-location "archived/%s_archive::")
 #+END_SRC
 ** Tasks
 Add a time stamp to the task when moved to DONE.
 #+BEGIN_SRC elisp
 (setq org-log-done 'time)
+#+END_SRC
+
+Switching a TODO entry to DONE will be blocked if
+- it has undone TODO children;
+- any prior sibling is not yet done and parent has an :ORDERED: property;
+- parent is blocked because of ordered siblings.
+Same for checkboxes.
+#+BEGIN_SRC emacs-lisp
+(setq org-enforce-todo-dependencies t)
+(setq org-enforce-todo-checkbox-dependencies t)
 #+END_SRC
 
 Set the default workflow keywords (~C-c C-t~ to choose) and their faces.
@@ -215,16 +248,21 @@ Set the default workflow keywords (~C-c C-t~ to choose) and their faces.
         ("CANCELLED" :foreground "#9eb9a7" :weight bold)))
 #+END_SRC
 
+Use the fast todo selection scheme with ~C-c C-t~ (letters are assigned when
+configuring keywords, adding them afterwards in parenthesis, e.g. ~TODO(t)~).
+#+BEGIN_SRC emacs-lisp
+(setq org-use-fast-todo-selection t)
+#+END_SRC
+
 [[http://orgmode.org/worg/org-contrib/org-checklist.html][org-checklist]] provides two actions which can be triggered when a task is marked done:
 - clearing the state of all checkboxes in the task (~:RESET_CHECK_BOXES: t~);
 - creating, and optionally printing, a file containing a copy of the task with
   all items in the checked state removed.
 #+BEGIN_SRC emacs-lisp
-  ;(add-hook 'org-load-hook
-  ;          '(lambda ()
-  ;             (add-to-list 'org-modules 'org-checklist)))
   (require 'org-checklist)
 #+END_SRC
+
+
 ** Clock setup
 :LOGBOOK:  
 CLOCK: [2015-02-24 Tue 17:00]--[2015-02-24 Tue 17:05] =>  0:05
@@ -448,9 +486,7 @@ Use ~l R~ to add the log report (without clocking data lines).
 ** Habits
 Enable tracking of a special type of TODOs: habits.
 #+BEGIN_SRC emacs-lisp
-  ;(add-hook 'org-load-hook
-  ;          '(lambda ()
-  ;             (add-to-list 'org-modules 'org-habit)))
+  ;(add-hook 'org-load-hook '(lambda () (add-to-list 'org-modules 'org-habit)))
   (require 'org-habit)
 #+END_SRC
 
@@ -646,8 +682,8 @@ Put every inline image in \begin{center} ... \end{center}.
 Make org play nicely with ~ipython~ (commented now).
 #+BEGIN_SRC elisp
 ; use ipython in org mode
-;(setq org-babel-python-command "ipython --no-banner --classic
-;--no-confirm-exit")
+; (setq org-babel-python-command "ipython2 --pylab=qt5 --pdb --nosep --classic 
+; --no-banner --no-confirm-exit")
 
 ; use %cpaste to paste code into ipython in org mode
 ;(defadvice org-babel-python-evaluate-session
@@ -752,10 +788,16 @@ Choose refiling targets in one step, showing levels as paths including the name 
 #+END_SRC
 ** Other exporters
 #+BEGIN_SRC emacs-lisp
-  ;(add-hook 'org-load-hook
-  ;          '(lambda ()
-  ;             (add-to-list 'org-modules 'ox-odt)))
   (require 'ox-odt)
+  (require 'ox-freemind)
+#+END_SRC
+** Feeds
+Make a task out of each new entry in a magazine feed.
+#+BEGIN_SRC emacs-lisp
+  (setq org-feed-alist
+      '(("Nature Climate Change"
+         "http://feeds.nature.com/nclimate/rss/current?format=xml"
+         "~/org/feeds.org" "Nature Climate Change")))
 #+END_SRC
 ** Rest
 #+BEGIN_SRC elisp

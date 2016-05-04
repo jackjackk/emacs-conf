@@ -53,6 +53,36 @@ Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
            (set-face-font 'default "DejaVu Sans Mono-12.0:antialias=natural")))
 #+END_SRC
 
+Alternatively, use ~Fira Code~.
+#+BEGIN_SRC elisp
+;(when (window-system)
+;(set-face-font 'default "Fira Code-16.0:antialias=natural"))
+;(let ((alist '((33 . ".\\(?:\\(?:==\\)\\|[!=]\\)")
+;               (35 . ".\\(?:[(?[_{]\\)")
+;               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+;               (42 . ".\\(?:\\(?:\\*\\*\\)\\|[*/]\\)")
+;               (43 . ".\\(?:\\(?:\\+\\+\\)\\|\\+\\)")
+;               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+;               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=]\\)")
+;               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+;               (58 . ".\\(?:[:=]\\)")
+;               (59 . ".\\(?:;\\)")
+;               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[/<=>|-]\\)")
+;               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+;               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+;               (63 . ".\\(?:[:=?]\\)")
+;               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+;               (94 . ".\\(?:=\\)")
+;               (123 . ".\\(?:-\\)")
+;               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+;               (126 . ".\\(?:[=@~-]\\)")
+;             )
+;      ))
+;(dolist (char-regexp alist)
+;  (set-char-table-range composition-function-table (car char-regexp)
+;                        `([,(cdr char-regexp) 0 font-shape-gstring]))))
+#+END_SRC
+
 Toggle truncate lines.
 #+BEGIN_SRC elisp
 (setq-default truncate-lines t)
