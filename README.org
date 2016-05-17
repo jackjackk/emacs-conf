@@ -132,6 +132,13 @@ Load the path with configuration files.
   ;                    spray
 #+END_SRC
 
+**** R dev ([[file:init-mod-ess.org][ess]], [[file:init-mod-markdown-mode.org][markdown-mode]], [[file:init-mod-polymode.org][polymode]])
+#+BEGIN_SRC elisp
+                       ess
+                       markdown-mode
+                       polymode
+#+END_SRC
+
 **** +Python dev+ ([[file:init-mod-elpy.org][elpy]], [[file:init-mod-anaconda-mode.org][anaconda-mode]], [[file:init-mod-company-anaconda.org][company-anaconda]], [[file:init-mod-websocket.org][websocket]] + [[file:init-mod-ein.org][ein]])
 #+BEGIN_SRC elisp
   ;                    elpy

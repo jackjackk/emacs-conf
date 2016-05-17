@@ -1,0 +1,13 @@
+* polymode (~init-mod-polymode.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-polymode.el
+:END:
+
+#+BEGIN_SRC emacs-lisp
+(require 'poly-R)
+(require 'poly-markdown)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+#+END_SRC

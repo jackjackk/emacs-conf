@@ -1,0 +1,19 @@
+* markdown-mode (~init-mod-markdown-mode.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-markdown-mode.el
+:END:
+
+[[http://jblevins.org/projects/markdown-mode/][markdown-mode]] is major mode for editing Markdown-formatted text.
+#+BEGIN_SRC emacs-lisp
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+#+END_SRC
+
+Support Github readme files.
+#+BEGIN_SRC emacs-lisp
+(autoload 'gfm-mode "gfm-mode"
+   "Major mode for editing GitHub Flavored Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+#+END_SRC

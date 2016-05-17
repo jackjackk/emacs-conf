@@ -1,0 +1,8 @@
+* ess (~init-mod-ess.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-ess.el
+:END:
+
+#+BEGIN_SRC emacs-lisp
+(require 'ess-site)
+#+END_SRC
