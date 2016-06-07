@@ -1,0 +1,16 @@
+* Powershell (~init-mod-powershell.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-powershell.el
+:END:
+
+[[https://github.com/jschaf/powershell.el][PowerShell]] is an Emacs major mode for editing and running Microsoft
+PowerShell files.
+
+#+BEGIN_SRC elisp
+(require 'powershell)
+#+END_SRC
+
+Enable powershell-mode.
+#+BEGIN_SRC elisp
+(add-to-list 'auto-mode-alist '("\\.ps1$" . powershell-mode))
+#+END_SRC

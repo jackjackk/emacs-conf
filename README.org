@@ -132,6 +132,10 @@ Load the path with configuration files.
   ;                    spray
 #+END_SRC
 
+**** Win dev ([[file:init-mod-powershell.org][powershell]])
+#+BEGIN_SRC elisp
+                       powershell
+#+END_SRC
 **** R dev ([[file:init-mod-ess.org][ess]], [[file:init-mod-markdown-mode.org][markdown-mode]], [[file:init-mod-polymode.org][polymode]])
 #+BEGIN_SRC elisp
                        ess
