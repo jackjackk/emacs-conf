@@ -104,10 +104,11 @@ Load the path with configuration files.
   ;                    neotree
 #+END_SRC
 
-**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], [[file:init-mod-toc-org.org][toc-org]], +[[file:init-mod-org-ref.org][org-ref]]+, +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
+**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], [[file:init-mod-ox-rst.org][ox-rst]]  [[file:init-mod-toc-org.org][toc-org]], +[[file:init-mod-org-ref.org][org-ref]]+, +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
 #+BEGIN_SRC elisp
                        org-plus-contrib
                        ox-textile
+                       ox-rst
                        toc-org
   ;                    org-ref
   ;                    org-redmine

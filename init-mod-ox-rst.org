@@ -1,0 +1,7 @@
+* ox-rst (~init-mod-ox-rst.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-ox-rst.el
+:END:
+#+BEGIN_SRC elisp
+(require 'ox-rst)
+#+END_SRC
