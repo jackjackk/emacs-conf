@@ -20,6 +20,11 @@ Configure variables.
 (setq helm-bibtex-library-path "~/archive/zotero")
 #+END_SRC
 
+Use parenthetical citations by default.
+#+BEGIN_SRC emacs-lisp
+  (setq org-ref-default-citation-link "citep")
+#+END_SRC
+
 Set convenient keys for working in your bibtex file.
 #+BEGIN_SRC emacs-lisp
   (global-set-key [f10] 'org-ref-open-bibtex-notes)

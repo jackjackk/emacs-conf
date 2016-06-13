@@ -31,19 +31,19 @@ Babel
 | ~C-Esc~    | Source block editing.                                                   |
 | ~C-<pipe>~ | Copy surrounding region and send a ~%paste~ command to adjacent buffer. |
 ** General
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (require 'org)
 (require 'org-contribdir)
 #+END_SRC
 
 Use org as the default mode for .org, .org_archive, and .txt files.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 #+END_SRC
 
 Single keys can be made to execute commands when the cursor is at the
 beginning of a headline, speeding up the navigation.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-use-speed-commands t)
 #+END_SRC
 
@@ -53,7 +53,7 @@ Interpret "_" and "^" for display only with braces.
 #+END_SRC
 
 Show entities as UTF8 characters.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-pretty-entities t)    
 #+END_SRC
 
@@ -63,7 +63,7 @@ When loading a new Org file show inline images.
 #+END_SRC
 
 Open PDFs w/ specified program (and not w/ the default choice) http://stackoverflow.com/a/8836108/789593.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 ;(add-hook 'org-mode-hook
 ;      '(lambda ()
 ;         (delete '("\\.pdf\\'" . default) org-file-apps)
@@ -101,7 +101,7 @@ Make windmove work in org-mode.
 #+END_SRC
 
 Provide some convenient rebindings.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (defun custom-org-mode-defaults ()
 "Executed as org-mode-hook."
 (electric-indent-mode -1)
@@ -116,7 +116,7 @@ Provide some convenient rebindings.
 #+END_SRC
 
 Speed keys ~n~ and ~p~ are rebind to a tidier view of next/previous entries.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (defun ded/org-show-next-heading-tidily ()
   "Show next entry, keeping other entries closed."
   (if (save-excursion (end-of-line) (outline-invisible-p))
@@ -218,7 +218,7 @@ Archive files under subfolder archived.
 #+END_SRC
 ** Tasks
 Add a time stamp to the task when moved to DONE.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-log-done 'time)
 #+END_SRC
 
@@ -233,7 +233,7 @@ Same for checkboxes.
 #+END_SRC
 
 Set the default workflow keywords (~C-c C-t~ to choose) and their faces.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
         (sequence "WAITING(w@/!)" "HOLD(h@/!)" "SOMEDAY(o)" "|" "CANCELLED(c@/!)")))
@@ -271,24 +271,24 @@ CLOCK: [2015-02-24 Tue 15:02]--[2015-02-24 Tue 15:30] =>  0:28
 Most of the clock and time reporting setup is taken from [[http://doc.norang.ca/org-mode.html]] website.
 
 Save the clock history across Emacs sessions, and when you clock into a new task after resuming Emacs, resume it without prompting about what to do with the previous incomplete clock. 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-clock-persist 'history)
 (setq org-clock-persist-query-resume nil)
 (org-clock-persistence-insinuate)
 #+END_SRC
 
 Show lot of clocking history so it's easy to pick items off with ~C-u C-c C-x C-x~ / ~C-S-F11~.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-clock-history-length 30)
 #+END_SRC
 
 When clocking into task with open clock, resume clock from previous point. 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-clock-in-resume t)
 #+END_SRC
 
 Change task to NEXT when clocking in.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-clock-in-switch-to-state 'bh/clock-in-to-next)
 (defun bh/clock-in-to-next (kw)
   "Switch a task from TODO to NEXT when clocking in.
@@ -305,33 +305,33 @@ Switch projects and subprojects from NEXT back to TODO"
 #+END_SRC
 
 Separate drawers for properties and logs, and save in the latter all clock data and state changes (A drawer opens only with a TAB on the drawer).
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
 (setq org-clock-into-drawer t)
 #+END_SRC
 
 Remove clock entries with a zero duration.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-clock-out-remove-zero-time-clocks t)
 #+END_SRC
 
 Automatically clock out when moving task to a done state.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-clock-out-when-done t)
 #+END_SRC
 
 Enable auto clock resolution for finding open clocks.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
 #+END_SRC
 
 Include current clocking task in clock reports.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-clock-report-include-clocking-task t)
 #+END_SRC
 
 A default ~Organization~ task in my ~personal-org.org~ logs the time spent reorganizing my org-files, reading email, clearing my inbox, and doing other planning work, all activities that aren't for a specific project. Punching-in anywhere clocks in this Organization task as the default task.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (defun bh/clock-in-organization-task-as-default ()
   (interactive)
   (org-with-point-at (org-id-find bh/organization-task-id 'marker)
@@ -347,7 +347,7 @@ To quickly clock in the default clocking task, you can
 
 I punch in with  at the start of my day. That clocks in the ~Organization task~ by id in my ~org.org~ file. 
 To get started we need to punch in which clocks in the default task and keeps the clock running. 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq bh/keep-clock-running nil)
 (defun bh/punch-in (arg)
   "Start continuous clocking and set the default task to the
@@ -384,7 +384,7 @@ as the default task."
 #+END_SRC
 
 Add convenient key beindings.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<f11>") 'org-clock-in)
 (global-set-key (kbd "S-<f11>") 'org-clock-out)
 (global-set-key (kbd "M-<f11>") 'bh/punch-in)
@@ -394,7 +394,7 @@ Add convenient key beindings.
 #+END_SRC
 
 Other code.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (defun bh/clock-in-default-task ()
   (save-excursion
     (org-with-point-at org-clock-default-task
@@ -454,20 +454,20 @@ Change the agenda org clock table settings in clock report mode to
 - indent each headline field according to its level;
 - limit the width of the headline column in the org table to 80 characters;
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link t :maxlevel 5 :fileskip0 t :indent t :narrow 80)))
 #+END_SRC
 
 Set two default headings for column view: Task Effort and Clock_Summary.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
 #+END_SRC
 
 Set global default
 - estimated amounts of time to give to tasks for easy use in column mode;
 - styles
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 6:00 8:00"))))
 #+END_SRC
 
@@ -478,7 +478,7 @@ To create an estimate for a task or subtree:
 - exit column mode with q. 
 
 When generating agenda clock reports, make sure closed tasks and state changes are shown in the agenda.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-agenda-log-mode-items (quote (closed state)))
 #+END_SRC
 
@@ -515,17 +515,17 @@ Some extra options.
 #+END_SRC
 ** Agenda
 Use ~F12~ (1 key less than the more common ~C-c a~) anywhere to open the Agenda, which collects TODO items, time-stamped items, and tagged headlines, displaying them in an organized way.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<f12>") 'org-agenda)
 #+END_SRC
 
 All ~org~ files under a specified directory will be included for agenda display.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-agenda-files '("~/org"))
 #+END_SRC
 
 Include http://github.com/leoc/org-helpers, which provides many methods to configure org-mode easily for the GTD way of organizing tasks.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lisp/org-helpers")
 (require 'org-helpers)
 #+END_SRC
@@ -554,7 +554,7 @@ Add the following key bindings in Agenda mode to provide easy context switches a
 | ~P~ | Restricts the agenda view to the top level project of the current heading. |
 | ~W~ | Removes restrictions                                                       |
 | ~q~ | Put the Agenda buffer in background as the last candidate for ~other-buffer~.  |
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (defun custom-org-agenda-mode-defaults ()
   (org-defkey org-agenda-mode-map "N" 'oh/agenda-restrict-to-subtree)
   (org-defkey org-agenda-mode-map "P" 'oh/agenda-restrict-to-project)
@@ -578,7 +578,7 @@ agenda dispatcher ~C-c a~ provide some convenient GTD-friendly views.
 |     |                             | - top-projects under unrestricted view                             |
 |     |                             | - subprojects under restricted view                                |
 | w   | Waiting and Postponed Tasks | WAITING/HOLD non-project items                                     |
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (setq org-agenda-custom-commands
         '(("a" "Agenda"
          ((agenda "" nil)
@@ -651,13 +651,13 @@ agenda dispatcher ~C-c a~ provide some convenient GTD-friendly views.
 #+END_SRC
 
 After an item has been shown from the agenda, show all of its text in the buffer.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (add-hook 'org-agenda-after-show-hook 'show-all)
 #+END_SRC
 
 ** Latex
 Scale up previewed Latex fragments.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (plist-put org-format-latex-options :scale 2)
 #+END_SRC
 
@@ -680,7 +680,7 @@ Put every inline image in \begin{center} ... \end{center}.
 #+END_SRC
 ** Babel
 Make org play nicely with ~ipython~ (commented now).
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 ; use ipython in org mode
 ; (setq org-babel-python-command "ipython2 --pylab=qt5 --pdb --nosep --classic 
 ; --no-banner --no-confirm-exit")
@@ -695,7 +695,7 @@ Make org play nicely with ~ipython~ (commented now).
 #+END_SRC
 
 Convenient key-bindings for source blocks navigation.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "<C-escape>") (kbd "C-c '"))
 #+END_SRC
 
@@ -724,22 +724,22 @@ Avoid confirmation before evaluation.
 #+END_SRC
 ** Capture
 Assign the global key ~F9~ for capture (1 key less than the more popular ~C-c c~).
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (define-key global-map "\C-cc" 'org-capture)
 #+END_SRC
 
 When a capture template specifies a target file that is not an absolute path, or filed away in an interactive way (with ~C-1 C-c C-c~), the path/prompted org file, will then be interpreted relative to ~org-directory~.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-directory "~/org")
 #+END_SRC
 
 Set the default target file for those capture templates that do not specify one.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-default-notes-file "~/org/capture.org")
 #+END_SRC
 
 Here are capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "capture.org")
                "* TODO %?" :clock-in t :clock-resume t)
@@ -762,7 +762,7 @@ Here are capture templates for: TODO tasks, Notes, appointments, phone calls, me
 #+END_SRC
 
 Provide some convenient key bindings to access those templates directly.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (define-key global-map (kbd "<M-f9>")
   (lambda () (interactive) (org-capture nil "t")))
 (define-key global-map (kbd "<M-S-f9>")
@@ -790,6 +790,22 @@ Choose refiling targets in one step, showing levels as paths including the name 
 #+BEGIN_SRC emacs-lisp
   (require 'ox-odt)
   (require 'ox-freemind)
+  (add-to-list 'org-export-backends 'beamer)
+  (require 'ox-beamer)
+#+END_SRC
+** Extra
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-extra)
+#+END_SRC
+
+Any headline tagged with the ~ignore~ tag will be ignored (i.e. will not be included in the export).
+#+BEGIN_SRC emacs-lisp
+  (ox-extras-activate '(ignore-headlines))
+#+END_SRC
+
+Allow the use of latex blocks, the contents of which which will be interpreted as #+latex_header lines for export. These blocks should be tagged with ~#+header: :header yes~.
+#+BEGIN_SRC emacs-lisp
+  (ox-extras-activate '(latex-header-blocks))
 #+END_SRC
 ** Feeds
 Make a task out of each new entry in a magazine feed.
@@ -800,7 +816,7 @@ Make a task out of each new entry in a magazine feed.
          "~/org/feeds.org" "Nature Climate Change")))
 #+END_SRC
 ** Rest
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   ;; * Org-mode
 
   (require 'org-habit)

@@ -110,7 +110,7 @@ Load the path with configuration files.
                        ox-textile
                        ox-rst
                        toc-org
-  ;                    org-ref
+                       org-ref
   ;                    org-redmine
   ;                    org-pomodoro
   ;                    org2blog
