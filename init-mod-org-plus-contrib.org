@@ -825,7 +825,7 @@ Make a task out of each new entry in a magazine feed.
 
 
   ;; ** Latex
-  (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
+  (setq org-latex-pdf-process (list "latexmk -pdf -bibtex %f"))
 
   ;; ** Babel
   (cond ((eq window-system 'w32)
