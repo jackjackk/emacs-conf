@@ -678,6 +678,30 @@ Put every inline image in \begin{center} ... \end{center}.
                (funcall orig link info)
                "\\end{center}")))
 #+END_SRC
+
+Default packages.
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-default-packages-alist
+        '(("AUTO" "inputenc" t)
+          ("T1" "fontenc" t)
+          ("" "fixltx2e" nil)
+          ("" "graphicx" t)
+          ("" "grffile" t)
+          ("" "longtable" nil)
+          ("" "wrapfig" nil)
+          ("" "rotating" nil)
+          ("normalem" "ulem" t)
+          ("" "amsmath" t)
+          ("" "textcomp" t)
+          ("" "amssymb" t)
+          ("" "capt-of" nil)
+          ("colorlinks=true, urlcolor=blue, linkcolor=blue, citecolor=red, pdfborder={0 0 0}" "hyperref" nil)))
+#+END_SRC
+
+Use hyper setup only when I explicitly want it.
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-hyperref-template nil)
+#+END_SRC
 ** Babel
 Make org play nicely with ~ipython~ (commented now).
 #+BEGIN_SRC emacs-lisp
@@ -792,6 +816,24 @@ Choose refiling targets in one step, showing levels as paths including the name 
   (require 'ox-freemind)
   (add-to-list 'org-export-backends 'beamer)
   (require 'ox-beamer)
+#+END_SRC
+
+Export to docx via pandoc.
+#+BEGIN_SRC emacs-lisp
+(defun ox-export-to-docx-and-open ()
+ "Export the current org file as a docx via markdown."
+ (interactive)
+ (let* ((bibfile (expand-file-name (car (org-ref-find-bibliography))))
+        ;; this is probably a full path
+        (current-file (buffer-file-name))
+        (basename (file-name-sans-extension current-file))
+        (docx-file (concat basename ".docx")))
+   (save-buffer)
+   (when (file-exists-p docx-file) (delete-file docx-file))
+   (shell-command (format
+                   "pandoc -s -S --bibliography=%s %s -o %s"
+                   bibfile current-file docx-file))
+   (org-open-file docx-file '(16))))
 #+END_SRC
 ** Extra
 #+BEGIN_SRC emacs-lisp

@@ -1,0 +1,13 @@
+* ox-pandoc (~init-mod-ox-pandoc.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-ox-pandoc.el
+:END:
+
+#+BEGIN_SRC emacs-lisp
+(require 'ox-pandoc)
+#+END_SRC
+
+Assume standalone option.
+#+BEGIN_SRC emacs-lisp
+(setq org-pandoc-options '((standalone . t)))
+#+END_SRC
