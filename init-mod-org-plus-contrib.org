@@ -34,6 +34,7 @@ Babel
 #+BEGIN_SRC emacs-lisp
 (require 'org)
 (require 'org-contribdir)
+(require 'ox)
 #+END_SRC
 
 Use org as the default mode for .org, .org_archive, and .txt files.
@@ -657,7 +658,6 @@ After an item has been shown from the agenda, show all of its text in the buffer
 
 ** Latex
 #+BEGIN_SRC emacs-lisp
-(require 'ox)
 (require 'ox-latex)
 #+END_SRC
 
