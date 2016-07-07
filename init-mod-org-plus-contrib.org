@@ -661,6 +661,14 @@ After an item has been shown from the agenda, show all of its text in the buffer
 (require 'ox-latex)
 #+END_SRC
 
+Add packages.
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-packages-alist '("" "listings"))
+  (add-to-list 'org-latex-packages-alist '("" "color"))
+  (add-to-list 'org-latex-packages-alist '("" "float"))
+  (add-to-list 'org-latex-packages-alist '("" "verbatim"))
+#+END_SRC
+
 Scale up previewed Latex fragments.
 #+BEGIN_SRC emacs-lisp
   (plist-put org-format-latex-options :scale 2)
