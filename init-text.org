@@ -6,6 +6,8 @@
 | ~M-x copy-whole-buffer~ | Copy whole buffer.                                 |
 | ~C-S-z~                 | Clone previous line.                               |
 |                         |                                                    |
+| ~M-Q~                   | Unfill paragraph.                                  |
+|                         |                                                    |
 | ~C-x n n, C-x n w~      | Restrict editing to region.                        |
 |                         |                                                    |
 | ~C-x C-u~               | Convert region to upper case.                      |
@@ -65,6 +67,20 @@ Provide a function to convert end-of-lines according to UNIX convention with a n
       "Not exactly but it's easier to remember"
       (interactive)
       (set-buffer-file-coding-system 'unix 't) )
+#+END_SRC
+
+Provide a function to unfill paragraphs.
+#+BEGIN_SRC emacs-lisp
+  ;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph    
+  (defun unfill-paragraph (&optional region)
+    "Takes a multi-line paragraph and makes it into a single line of text."
+    (interactive (progn (barf-if-buffer-read-only) '(t)))
+    (let ((fill-column (point-max))
+          ;; This would override `fill-column' if it's an integer.
+          (emacs-lisp-docstring-fill-column t))
+      (fill-paragraph nil region)))
+
+  (define-key global-map "\M-Q" 'unfill-paragraph)
 #+END_SRC
 
 Provide convenient hooks for programming modes (e.g. for GAMS and python) to automatically untabify and set utf-8-unix coding system before saving.
