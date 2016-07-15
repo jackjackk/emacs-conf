@@ -90,6 +90,18 @@ Provide a function to unfill paragraphs.
   (define-key global-map "\M-Q" 'unfill-paragraph)
 #+END_SRC
 
+Prefer UTF-8.
+#+BEGIN_SRC emacs-lisp
+(prefer-coding-system 'utf-8)
+;(add-to-list 'file-coding-system-alist '("\\.org" . utf-8) )
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-locale-environment "en.UTF-8")
+(prefer-coding-system 'utf-8)
+(setq utf-translate-cjk-mode nil)
+#+END_SRC
+
 Provide convenient hooks for programming modes (e.g. for GAMS and python) to automatically untabify and set utf-8-unix coding system before saving.
 #+BEGIN_SRC emacs-lisp
 (defun progmodes-hooks ()
