@@ -12,26 +12,32 @@ Fast input methods for LaTeX environments and math.
 | `                            | Insert math macro if followed by a character (otherwise show help pop up).                                             |
 | '                            | Modify the symbol before point with an accent or a font if followed by a character (only inside LaTeX fragments).      |
 
+
 Some template expansions accessible with TAB.
-| ct     | Insert \cite                                     | TEXT/     |
-| cte    | Make a citation interactively                    | TEXT/     |
+
+| String | Description                                      | Context   |
+|--------+--------------------------------------------------+-----------|
 | beg    | Complete an environment name and insert template | TEXT/MATH |
 | it     | New item in current environment                  | TEXT/MATH |
-| ite    | Insert an ITEMIZE environment template           | TEXT/     |
-| enu    | Insert an ENUMERATE environment template         | TEXT/     |
-| equ    | Insert an EQUATION environment template          | TEXT/     |
-| ali    | Insert an ALIGN environment template             | TEXT/     |
-| fg     | Insert a FIGURE environment template             | TEXT/     |
-| inc    | Insert \includegraphics with file name           | TEXT/     |
-| lr(    | Insert a \left( \right) pair                     | /MATH     |
-| caseeq | Insert a = { construct                           | /MATH     |
-| fr     | Insert \frac{}{}                                 | /MATH     |
-| sq     | Insert \sqrt{}                                   | /MATH     |
-| intl   | Insert \int\limits_{}^{}                                  | /MATH     |
-| suml   | Insert \sum\limits_{}^{}                                  | /MATH     |
-| fn     | Make a footnote                                  | TEXT/     |
 | qq     | Insert \quad                                     | TEXT/MATH |
 | qqq    | Insert \qquad                                    | TEXT/MATH |
+|--------+--------------------------------------------------+-----------|
+| ct     | Insert \cite                                     | TEXT      |
+| cte    | Make a citation interactively                    | TEXT      |
+| ite    | Insert an ITEMIZE environment template           | TEXT      |
+| enu    | Insert an ENUMERATE environment template         | TEXT      |
+| equ    | Insert an EQUATION environment template          | TEXT      |
+| ali    | Insert an ALIGN environment template             | TEXT      |
+| fg     | Insert a FIGURE environment template             | TEXT      |
+| inc    | Insert \includegraphics with file name           | TEXT      |
+| fn     | Make a footnote                                  | TEXT      |
+|--------+--------------------------------------------------+-----------|
+| lr(    | Insert a \left( \right) pair                     | MATH      |
+| caseeq | Insert a = { construct                           | MATH      |
+| fr     | Insert \frac{}{}                                 | MATH      |
+| sq     | Insert \sqrt{}                                   | MATH      |
+| intl   | Insert \int\limits_{}^{}                                  | MATH      |
+| suml   | Insert \sum\limits_{}^{}                                  | MATH      |
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook 'turn-on-org-cdlatex)

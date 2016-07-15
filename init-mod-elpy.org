@@ -23,8 +23,8 @@ Use IPython.
 
 Use pylab.
 #+BEGIN_SRC emacs-lisp
-(setq python-shell-interpreter "jupyter")
-(setq python-shell-interpreter-args "console")
+;(setq python-shell-interpreter "jupyter")
+;(setq python-shell-interpreter-args "console")
 #+END_SRC
 
 Key binding for sending current paragraph to shell.

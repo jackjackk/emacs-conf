@@ -5,11 +5,11 @@
 
 Use IPython (w/ Python v.2) as the default Python interpreter for shell, with no arguments.
 #+BEGIN_SRC elisp
-  (cond ((eq window-system 'w32)
-         (setq python-shell-interpreter "ipython"))
-        (t
-         (setq python-shell-interpreter "ipython2")
-         ))
+;  (cond ((eq window-system 'w32)
+;         (setq python-shell-interpreter "ipython"))
+;        (t
+;         (setq python-shell-interpreter "ipython2")
+;         ))
 #+END_SRC
 
 Set regular expressions matching top level input and output IPython prompt.
@@ -45,7 +45,9 @@ Refactor trailing spaces.
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([134217788 201326629 91 91 58 115 112 97 99 101 58 93 93 43 17 10 return 17 10 return 33 21 67108896 21 67108896] 0 "%d")) arg)))
 #+END_SRC
 
-Disable warnings when detection of prompts fail.
+Fix problems in detection of prompts under Windows.
 #+BEGIN_SRC emacs-lisp
+;(setq python-shell-unbuffered nil)
 (setq python-shell-prompt-detect-failure-warning nil)
 #+END_SRC
+

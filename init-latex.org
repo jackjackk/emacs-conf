@@ -31,7 +31,6 @@ information, which will be stored in an ~auto~ subdirectory.
 
 Activate some useful hooks.
 #+BEGIN_SRC elisp
-(add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 #+END_SRC

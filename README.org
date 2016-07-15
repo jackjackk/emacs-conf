@@ -78,20 +78,21 @@ Load the path with configuration files.
 
 **** +[[file:init-python.org][Python]]+
 #+BEGIN_SRC elisp
-;(load-library "init-python.el")
+(load-library "init-python.el")
 #+END_SRC
 ** Customize packages from repositories
 #+BEGIN_SRC elisp
   (setq package-list '(
 #+END_SRC
 
-**** Text ([[file:init-mod-company.org][company]], [[file:init-mod-yasnippet.org][yasnippet]], [[file:init-mod-expand-region.org][expand-region]], [[file:init-mod-multiple-cursors.org][multiple-cursors]], [[file:init-mod-column-marker.org][column-marker]], +[[file:init-mod-bm.org][bm]]+)
+**** Text ([[file:init-mod-company.org][company]], [[file:init-mod-yasnippet.org][yasnippet]], [[file:init-mod-expand-region.org][expand-region]], [[file:init-mod-multiple-cursors.org][multiple-cursors]], [[file:init-mod-column-marker.org][column-marker]], +[[file:init-mod-visual-fill-column.org][visual-fill-column]]+, +[[file:init-mod-bm.org][bm]]+)
 #+BEGIN_SRC elisp
                        company
                        yasnippet
                        expand-region
                        multiple-cursors
                        column-marker
+  ;                    visual-fill-column
   ;                    bm
 #+END_SRC
 

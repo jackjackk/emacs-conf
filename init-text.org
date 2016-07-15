@@ -27,26 +27,33 @@
 | ~save-macro~            | Save last macro into macros.el                     |
 
 Use 4 spaces for tab indentation.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 #+END_SRC
 
 Overwrite selected region when typing after selection.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (pending-delete-mode 1)
 #+END_SRC
 
-Set fill-column width to 70 characters, and in case add Autofill to text, org & python modes.
-#+BEGIN_SRC elisp
+Set fill-column width to 70 characters, and add Visual Line mode to text & org modes.
+#+BEGIN_SRC emacs-lisp
 (setq-default fill-column 79)
 ;(add-hook 'text-mode-hook 'turn-on-auto-fill)
-;(add-hook 'org-mode-hook 'turn-on-auto-fill)
-;(add-hook 'python-mode-hook 'turn-on-auto-fill)
+#+END_SRC
+
+Set up visual line mode.
+#+BEGIN_SRC emacs-lisp
+  (global-visual-line-mode)
+  ;(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+  ;(add-hook 'org-mode-hook 'turn-on-visual-line-mode)
+  ;(add-hook 'LaTeX-mode-hook 'turn-on-visual-line-mode)
+  (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 #+END_SRC
 
 Provide a ~cleanup-buffer~ function (untabify + indent + remove trailing whitespaces).
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (defun untabify-buffer ()
   (interactive)
   (untabify (point-min) (point-max)))
@@ -84,7 +91,7 @@ Provide a function to unfill paragraphs.
 #+END_SRC
 
 Provide convenient hooks for programming modes (e.g. for GAMS and python) to automatically untabify and set utf-8-unix coding system before saving.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (defun progmodes-hooks ()
   "Hooks for programming modes"
   (yas/minor-mode-on)
@@ -97,7 +104,7 @@ Provide convenient hooks for programming modes (e.g. for GAMS and python) to aut
 #+END_SRC
 
 Enable disabled commands.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (put 'erase-buffer 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -121,7 +128,7 @@ Clone previous line.
 #+END_SRC
 
 Add math key-bindings.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<f6> \\") (lambda () (interactive) (insert "‖")))
 (global-set-key (kbd "<f6> n") (lambda () (interactive) (insert "ℕ")))
 (global-set-key (kbd "<f6> r") (lambda () (interactive) (insert "ℝ")))
