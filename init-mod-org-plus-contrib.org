@@ -63,12 +63,16 @@ When loading a new Org file show inline images.
 (setq org-startup-with-inline-images t)
 #+END_SRC
 
-Open PDFs w/ specified program (and not w/ the default choice) http://stackoverflow.com/a/8836108/789593.
+Open docx w/ external program.
 #+BEGIN_SRC emacs-lisp
-;(add-hook 'org-mode-hook
-;      '(lambda ()
-;         (delete '("\\.pdf\\'" . default) org-file-apps)
-;         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+  (setq org-file-apps
+        '(("\\.docx\\'" . default)
+          (auto-mode . emacs)))
+  ; (and not w/ the default choice) http://stackoverflow.com/a/8836108/789593.
+  ;(add-hook 'org-mode-hook
+  ;      '(lambda ()
+  ;         (delete '("\\.pdf\\'" . default) org-file-apps)
+  ;         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 #+END_SRC
 
 Allow local variable definitions.
@@ -263,7 +267,6 @@ configuring keywords, adding them afterwards in parenthesis, e.g. ~TODO(t)~).
   (require 'org-checklist)
 #+END_SRC
 
-
 ** Clock setup
 :LOGBOOK:  
 CLOCK: [2015-02-24 Tue 17:00]--[2015-02-24 Tue 17:05] =>  0:05
@@ -290,19 +293,7 @@ When clocking into task with open clock, resume clock from previous point.
 
 Change task to NEXT when clocking in.
 #+BEGIN_SRC emacs-lisp
-(setq org-clock-in-switch-to-state 'bh/clock-in-to-next)
-(defun bh/clock-in-to-next (kw)
-  "Switch a task from TODO to NEXT when clocking in.
-Skips capture tasks, projects, and subprojects.
-Switch projects and subprojects from NEXT back to TODO"
-  (when (not (and (boundp 'org-capture-mode) org-capture-mode))
-    (cond
-     ((and (member (org-get-todo-state) (list "TODO"))
-           (oh/is-task-p))
-      "NEXT")
-     ((and (member (org-get-todo-state) (list "NEXT"))
-           (oh/is-project-p))
-      "TODO"))))
+  (setq org-clock-in-switch-to-state "NEXT")
 #+END_SRC
 
 Separate drawers for properties and logs, and save in the latter all clock data and state changes (A drawer opens only with a TAB on the drawer).
@@ -331,116 +322,24 @@ Include current clocking task in clock reports.
 (setq org-clock-report-include-clocking-task t)
 #+END_SRC
 
-A default ~Organization~ task in my ~personal-org.org~ logs the time spent reorganizing my org-files, reading email, clearing my inbox, and doing other planning work, all activities that aren't for a specific project. Punching-in anywhere clocks in this Organization task as the default task.
-#+BEGIN_SRC emacs-lisp
-(defun bh/clock-in-organization-task-as-default ()
-  (interactive)
-  (org-with-point-at (org-id-find bh/organization-task-id 'marker)
-    (org-clock-in '(16))))
-(defvar bh/organization-task-id "b0605007-6a44-4446-abab-528d429b1483")
-#+END_SRC
-
 To change the default clocking task I just visit the new task in any org buffer and clock it in with ~C-u C-u C-c C-x C-i~. Now this new task that collects miscellaneous clock minutes when the clock would normally stop.
 
 To quickly clock in the default clocking task, you can
 - press ~C-u C-c C-x C-i d~, or
 - repeatedly clock out so the clock moves up the project tree until you clock out the top-level task and the clock moves to the default task. 
 
-I punch in with  at the start of my day. That clocks in the ~Organization task~ by id in my ~org.org~ file. 
-To get started we need to punch in which clocks in the default task and keeps the clock running. 
-#+BEGIN_SRC emacs-lisp
-(setq bh/keep-clock-running nil)
-(defun bh/punch-in (arg)
-  "Start continuous clocking and set the default task to the
-selected task.  If no task is selected set the Organization task
-as the default task."
-  (interactive "p")
-  (setq bh/keep-clock-running t)
-  (if (equal major-mode 'org-agenda-mode)
-      ;;
-      ;; We're in the agenda
-      ;;
-      (let* ((marker (org-get-at-bol 'org-hd-marker))
-             (tags (org-with-point-at marker (org-get-tags-at))))
-        (if (and (eq arg 4) tags)
-            (org-agenda-clock-in '(16))
-          (bh/clock-in-organization-task-as-default)))
-    ;;
-    ;; We are not in the agenda
-    ;;
-    (save-restriction
-      (widen)
-      ; Find the tags on the current task
-      (if (and (equal major-mode 'org-mode) (not (org-before-first-heading-p)) (eq arg 4))
-          (org-clock-in '(16))
-        (bh/clock-in-organization-task-as-default)))))
-
-(defun bh/punch-out ()
-  (interactive)
-  (setq bh/keep-clock-running nil)
-  (when (org-clock-is-active)
-    (org-clock-out))
-  (org-agenda-remove-restriction-lock))
-
-#+END_SRC
-
 Add convenient key beindings.
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<f11>") 'org-clock-in)
 (global-set-key (kbd "S-<f11>") 'org-clock-out)
-(global-set-key (kbd "M-<f11>") 'bh/punch-in)
-(global-set-key (kbd "M-S-<f11>") 'bh/punch-out)
 (global-set-key (kbd "C-<f11>") 'org-clock-goto)
 (global-set-key (kbd "C-S-<f11>") '(lambda () (interactive) (org-clock-in '(4)) ))
 #+END_SRC
-
-Other code.
+** Logging
+Insert state change notes and time stamps into a ~LOGBOOK~ drawer.
 #+BEGIN_SRC emacs-lisp
-(defun bh/clock-in-default-task ()
-  (save-excursion
-    (org-with-point-at org-clock-default-task
-      (org-clock-in))))
-(defun bh/clock-in-parent-task ()
-  "Move point to the parent (project) task if any and clock in"
-  (let ((parent-task))
-    (save-excursion
-      (save-restriction
-        (widen)
-        (while (and (not parent-task) (org-up-heading-safe))
-          (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
-            (setq parent-task (point))))
-        (if parent-task
-            (org-with-point-at parent-task
-              (org-clock-in))
-          (when bh/keep-clock-running
-            (bh/clock-in-default-task)))))))
-(defun bh/clock-out-maybe ()
-  (when (and bh/keep-clock-running
-             (not org-clock-clocking-in)
-             (marker-buffer org-clock-default-task)
-             (not org-clock-resolving-clocks-due-to-idleness))
-    (bh/clock-in-parent-task)))
-(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
-
-(defun bh/clock-in-last-task (arg)
-  "Clock in the interrupted task if there is one
-Skip the default task and get the next one.
-A prefix arg forces clock in of the default task."
-  (interactive "p")
-  (let ((clock-in-to-task
-         (cond
-          ((eq arg 4) org-clock-default-task)
-          ((and (org-clock-is-active)
-                (equal org-clock-default-task (cadr org-clock-history)))
-           (caddr org-clock-history))
-          ((org-clock-is-active) (cadr org-clock-history))
-          ((equal org-clock-default-task (car org-clock-history)) (cadr org-clock-history))
-          (t (car org-clock-history)))))
-    (widen)
-    (org-with-point-at clock-in-to-task
-      (org-clock-in nil))))
+  (setq org-log-into-drawer "LOGBOOK")
 #+END_SRC
-
 ** Time reporting and tracking
 To have an agenda clock report for the last month, use ~C-a < a v m b R~. This
 - limits the agenda to this one file,
@@ -460,16 +359,28 @@ Change the agenda org clock table settings in clock report mode to
       (quote (:link t :maxlevel 5 :fileskip0 t :indent t :narrow 80)))
 #+END_SRC
 
-Set two default headings for column view: Task Effort and Clock_Summary.
+When generating agenda clock reports, make sure closed tasks and state changes are shown in the agenda.
 #+BEGIN_SRC emacs-lisp
-(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+(setq org-agenda-log-mode-items (quote (closed state)))
 #+END_SRC
 
-Set global default
-- estimated amounts of time to give to tasks for easy use in column mode;
-- styles
+Use ~l R~ to add the log report (without clocking data lines).
+
+** Properties and column view
+Set two default headings for column view: Task Effort and Clock_Summary.
 #+BEGIN_SRC emacs-lisp
-(setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 6:00 8:00"))))
+(setq org-columns-default-format "%60ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Current)")
+#+END_SRC
+
+Set global default properties values for:
+- estimated amounts of time to give to tasks for easy use in column mode;
+- styles;
+- reset check boxes.
+#+BEGIN_SRC emacs-lisp
+  (setq org-global-properties
+        '(("Effort_ALL" . "0:15 0:30 1:00 2:00 3:00 4:00 5:00 6:00 8:00")
+          ("STYLE_ALL" . "habit")
+          ("RESET_CHECK_BOXES_ALL" . "t")))
 #+END_SRC
 
 To create an estimate for a task or subtree:
@@ -477,13 +388,6 @@ To create an estimate for a task or subtree:
 - collapse the tree with ~c~;
 - set the estimated effort value for a task with the quick keys 1 through 9;
 - exit column mode with q. 
-
-When generating agenda clock reports, make sure closed tasks and state changes are shown in the agenda.
-#+BEGIN_SRC emacs-lisp
-(setq org-agenda-log-mode-items (quote (closed state)))
-#+END_SRC
-
-Use ~l R~ to add the log report (without clocking data lines).
 ** Habits
 Enable tracking of a special type of TODOs: habits.
 #+BEGIN_SRC emacs-lisp
@@ -491,14 +395,7 @@ Enable tracking of a special type of TODOs: habits.
   (require 'org-habit)
 #+END_SRC
 
-The habit TODOs must have a property STYLE set to the value ~habit~.
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-load-hook
-            '(lambda ()
-			   (add-to-list 'org-global-properties '("STYLE_ALL" . "habit"))))
-#+END_SRC
-
-They also need a scheduled date with a:
+The habit TODOs must have a property STYLE set to the value ~habit~. They also need a scheduled date with a:
 | .+1m    | for usual habits (e.g. shift the date to one month after today if DONE today);        |
 | ++1w    | for habits with time constraints (e.g. it stays on Sunday, looking for the next one); |
 | +1w     | for unusual habits that can have a backlog (e.g. weekly report);                      |
@@ -517,174 +414,14 @@ Some extra options.
 ** Agenda
 Use ~F12~ (1 key less than the more common ~C-c a~) anywhere to open the Agenda, which collects TODO items, time-stamped items, and tagged headlines, displaying them in an organized way.
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<f12>") 'org-agenda)
+  (global-set-key (kbd "<f12>") 'org-agenda)
+  (global-set-key (kbd "C-c a") 'org-agenda)
 #+END_SRC
 
 All *.org files under "~/org" directory will be included for agenda display.
 #+BEGIN_SRC emacs-lisp
-(setq org-agenda-files '("~/org"))
+(setq org-agenda-files '("~/org/life.org"))
 #+END_SRC
-
-Include https://github.com/remyhonig/org-query, which provides many methods to configure org-mode easily for the GTD way of organizing tasks.
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/lisp/org-query")
-(require 'org-query)
-#+END_SRC
-
-Headings will be named as explained in the table below.
-|                                |                         | *is*         | *has*                     | *does not have*      |
-|--------------------------------+-------------------------+--------------+---------------------------+----------------------|
-| (org-query-todo)               | *Task*                  | headline     | todo keyword              |                      |
-| (org-query-todo '("NEXT"))     | *Next Task*             | task         | NEXT keyword              |                      |
-| (org-query-gtd-refile)         | *Task to refile*        | task         | Inbox parent              |                      |
-| (org-query-gtd-loose-task)     | *Loose task*            |              |                           |                      |
-|--------------------------------+-------------------------+--------------+---------------------------+----------------------|
-|                                | *Project*               | task         | child task                | Someday/Maybe parent |
-|                                | *Someday project*       | project      | Someday/Maybe parent      |                      |
-| (org-query-gtd-active-project) | *Active project*        | project      | next task                 |                      |
-|                                | *Active stuck Project*  |              | TODO subtask              | NEXT subtask         |
-|--------------------------------+-------------------------+--------------+---------------------------+----------------------|
-|                                | *Inactive Task/Project* | task/project | SOMEDAY/HOLD/WAITING      |                      |
-|                                |                         |              | DONE/CANCELLED todo state |                      |
-|                                |                         |              | (or parent has)           |                      |
-
-Add the following key bindings in Agenda mode to provide easy context switches and better overview.
-| ~N~ | Restricts the agenda view to the subtree of the current heading.           |
-| ~P~ | Restricts the agenda view to the top level project of the current heading. |
-| ~W~ | Removes restrictions                                                       |
-| ~q~ | Put the Agenda buffer in background as the last candidate for ~other-buffer~.  |
-#+BEGIN_SRC emacs-lisp
-(defun custom-org-agenda-mode-defaults ()
-  (org-defkey org-agenda-mode-map "N" 'oh/agenda-restrict-to-subtree)
-  (org-defkey org-agenda-mode-map "P" 'oh/agenda-restrict-to-project)
-  (org-defkey org-agenda-mode-map "W" 'oh/agenda-remove-restriction)
-  (org-defkey org-agenda-mode-map "q" 'bury-buffer))
-(add-hook 'org-agenda-mode-hook 'custom-org-agenda-mode-defaults 'append)
-#+END_SRC
-
-On the splash screen displayed by the
-agenda dispatcher ~C-c a~ provide some convenient GTD-friendly views.
-| Key | Header                      | Show                                                               |
-|-----+-----------------------------+--------------------------------------------------------------------|
-| a   | Agenda                      | Agenda view + all the following                                    |
-| r   | Tasks to refile             | Tasks to refile in ~/org/capture.org (blank under restricted view) |
-| #   | Stuck Projects              | Active stuck projects w/o schedule/deadline                        |
-| n   | Next Tasks                  | Active NEXT non-project items  w/o schedule/deadline               |
-| R   | Available Tasks             | Active non-NEXT non-project items w/o schedule/deadline that are   |
-|     |                             | - single-tasks under unrestricted view                             |
-|     |                             | - subtasks under restricted view                                   |
-| p   | Currently Active Projects   | Active non-stuck projects that are                                 |
-|     |                             | - top-projects under unrestricted view                             |
-|     |                             | - subprojects under restricted view                                |
-| w   | Waiting and Postponed Tasks | WAITING/HOLD non-project items                                     |
-#+BEGIN_SRC emacs-lisp
-(defun rmh/agendablock-tasks-waiting ()
-  `(tags-todo "/+WAITING|+DEFERRED"
-              ((org-agenda-overriding-header "Tasks waiting for something")
-               (org-tags-match-list-sublevels nil)
-               (org-agenda-skip-function (org-query-select "headline" (not (org-query-gtd-project))))
-               (org-agenda-todo-ignore-scheduled t)
-               (org-agenda-todo-ignore-deadlines t)
-               )))
-
-(defun rmh/agendablock-next-in-active ()
-  `(tags-todo "/+NEXT"
-              ((org-agenda-overriding-header "Next tasks in active projects")
-               (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-active-project-next-task)))
-               (org-tags-match-list-sublevels t)
-               (org-agenda-todo-ignore-scheduled 't)
-               (org-agenda-todo-ignore-deadlines 't)
-               (org-agenda-todo-ignore-with-date 't)
-               (org-agenda-sorting-strategy
-                '(todo-state-down effort-up category-keep)))))
-
-(defun rmh/agendablock-backlog-of-active ()
-  `(tags-todo "/+TODO"
-              ((org-agenda-overriding-header "Backlog of active projects")
-               (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-backlog-task)))
-               (org-agenda-todo-ignore-scheduled 't)
-               (org-agenda-todo-ignore-deadlines 't)
-               (org-agenda-todo-ignore-with-date 't)
-               (org-agenda-sorting-strategy
-                '(category-keep)))))
-
-(defun rmh/agendablock-active-projects-without-next ()
-  `(tags-todo "/+NEXT"
-              ((org-agenda-overriding-header "Active projects without next task")
-               (org-agenda-skip-function (org-query-select "tree" (org-query-gtd-active-project-stuck)))
-               (org-tags-match-list-sublevels 't)
-               (org-agenda-sorting-strategy
-                '(category-keep)))))
-
-(defun rmh/agendablock-active-projects-with-next ()
-  `(tags-todo "/+NEXT"
-              ((org-agenda-overriding-header "Active projects with a next task")
-               (org-agenda-skip-function (org-query-select "tree" (org-query-gtd-active-project-armed)))
-               (org-tags-match-list-sublevels 't)
-               (org-agenda-sorting-strategy
-                '(category-keep)))))
-
-(defun rmh/agendablock-waiting-projects ()
-  `(tags-todo "/+WAITING"
-              ((org-agenda-overriding-header "Waiting projects")
-               (org-agenda-skip-function (org-query-select "tree" (org-query-gtd-project)))
-               (org-tags-match-list-sublevels 't)
-               (org-agenda-sorting-strategy
-                '(category-keep)))))
-
-(defun rmh/agendablock-loose-tasks ()
-  `(tags-todo "/+TODO"
-              ((org-agenda-overriding-header "Tasks not belonging to a project")
-               (org-agenda-skip-function
-                (org-query-select "headline" (and (org-query-gtd-loose-task) (not (org-is-habit-p)))))
-               (org-agenda-todo-ignore-scheduled 't)
-               (org-agenda-todo-ignore-deadlines 't)
-               (org-agenda-todo-ignore-with-date 't)
-               (org-agenda-sorting-strategy
-                '(category-keep)))))
-
-(defun rmh/agendablock-checklists ()
-  `(tags "CHECKLIST"
-         ((org-agenda-overriding-header "Checklists")
-          (org-tags-match-list-sublevels nil))))
-
-(defun rmh/agendablock-inbox ()
-  `(tags-todo "LEVEL=2"
-              ((org-agenda-overriding-header "Tasks to refile")
-               (org-agenda-skip-function (org-query-select "tree" (org-query-gtd-refile)))
-               (org-tags-match-list-sublevels nil))))
-
-
-(setq org-agenda-custom-commands
-      `((" " "Agenda"
-        ((agenda "" ((org-agenda-ndays 1)))
-         ,(rmh/agendablock-inbox)
-         ,(rmh/agendablock-tasks-waiting)
-         ,(rmh/agendablock-next-in-active)
-         ,(rmh/agendablock-active-projects-with-next)
-         ,(rmh/agendablock-active-projects-without-next)
-         ,(rmh/agendablock-waiting-projects)
-         ,(rmh/agendablock-backlog-of-active)
-         ,(rmh/agendablock-checklists))
-        nil)
-      ("r" "Review Agenda"
-       ((agenda "" ((org-agenda-ndays 1)))
-        ,(rmh/agendablock-inbox)
-        ,(rmh/agendablock-loose-tasks)
-        ,(rmh/agendablock-tasks-waiting)
-        ,(rmh/agendablock-next-in-active)
-        ,(rmh/agendablock-active-projects-with-next)
-        ,(rmh/agendablock-active-projects-without-next)
-        ,(rmh/agendablock-backlog-of-active)
-        ,(rmh/agendablock-checklists))
-       nil)))
-#+END_SRC
-
-After an item has been shown from the agenda, show all of its text in the buffer.
-#+BEGIN_SRC emacs-lisp
-(add-hook 'org-agenda-after-show-hook 'show-all)
-#+END_SRC
-
 ** Latex
 #+BEGIN_SRC emacs-lisp
 (require 'ox-latex)
@@ -998,10 +735,6 @@ Make a task out of each new entry in a magazine feed.
   (setq org-indirect-buffer-display 'current-window)
   ;;;; Refile settings
   ; Exclude DONE state tasks from refile targets
-  (defun bh/verify-refile-target ()
-    "Exclude todo keywords with a done state from refile targets"
-    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-  (setq org-refile-target-verify-function 'bh/verify-refile-target)
 
   ;; ** Org Key bindings
   (global-set-key (kbd "<f2>") (kbd "C-c '"))
@@ -1012,4 +745,291 @@ Make a task out of each new entry in a magazine feed.
   (global-set-key (kbd "<f1>") 'outline-previous-visible-heading)
   (global-set-key (kbd "M-p") 'previous-error)
   (global-set-key (kbd "M-n") 'next-error)
+#+END_SRC
+** Not used anymore
+:PROPERTIES:
+:tangle:   no
+:END:
+Other code.
+
+I punch in with  at the start of my day. That clocks in the ~Organization task~ by id in my ~org.org~ file. 
+To get started we need to punch in which clocks in the default task and keeps the clock running. 
+#+BEGIN_SRC emacs-lisp
+(setq bh/keep-clock-running nil)
+(defun bh/punch-in (arg)
+  "Start continuous clocking and set the default task to the
+selected task.  If no task is selected set the Organization task
+as the default task."
+  (interactive "p")
+  (setq bh/keep-clock-running t)
+  (if (equal major-mode 'org-agenda-mode)
+      ;;
+      ;; We're in the agenda
+      ;;
+      (let* ((marker (org-get-at-bol 'org-hd-marker))
+             (tags (org-with-point-at marker (org-get-tags-at))))
+        (if (and (eq arg 4) tags)
+            (org-agenda-clock-in '(16))
+          (bh/clock-in-organization-task-as-default)))
+    ;;
+    ;; We are not in the agenda
+    ;;
+    (save-restriction
+      (widen)
+      ; Find the tags on the current task
+      (if (and (equal major-mode 'org-mode) (not (org-before-first-heading-p)) (eq arg 4))
+          (org-clock-in '(16))
+        (bh/clock-in-organization-task-as-default)))))
+
+(defun bh/punch-out ()
+  (interactive)
+  (setq bh/keep-clock-running nil)
+  (when (org-clock-is-active)
+    (org-clock-out))
+  (org-agenda-remove-restriction-lock))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun bh/clock-in-default-task ()
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+(defun bh/clock-in-parent-task ()
+  "Move point to the parent (project) task if any and clock in"
+  (let ((parent-task))
+    (save-excursion
+      (save-restriction
+        (widen)
+        (while (and (not parent-task) (org-up-heading-safe))
+          (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+            (setq parent-task (point))))
+        (if parent-task
+            (org-with-point-at parent-task
+              (org-clock-in))
+          (when bh/keep-clock-running
+            (bh/clock-in-default-task)))))))
+(defun bh/clock-out-maybe ()
+  (when (and bh/keep-clock-running
+             (not org-clock-clocking-in)
+             (marker-buffer org-clock-default-task)
+             (not org-clock-resolving-clocks-due-to-idleness))
+    (bh/clock-in-parent-task)))
+(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
+
+(defun bh/clock-in-last-task (arg)
+  "Clock in the interrupted task if there is one
+Skip the default task and get the next one.
+A prefix arg forces clock in of the default task."
+  (interactive "p")
+  (let ((clock-in-to-task
+         (cond
+          ((eq arg 4) org-clock-default-task)
+          ((and (org-clock-is-active)
+                (equal org-clock-default-task (cadr org-clock-history)))
+           (caddr org-clock-history))
+          ((org-clock-is-active) (cadr org-clock-history))
+          ((equal org-clock-default-task (car org-clock-history)) (cadr org-clock-history))
+          (t (car org-clock-history)))))
+    (widen)
+    (org-with-point-at clock-in-to-task
+      (org-clock-in nil))))
+#+END_SRC
+
+
+Include https://github.com/remyhonig/org-query, which provides many methods to configure org-mode easily for the GTD way of organizing tasks.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lisp/org-query")
+(require 'org-query)
+#+END_SRC
+
+Headings will be named as explained in the table below.
+|                                |                         | *is*         | *has*                     | *does not have*      |
+|--------------------------------+-------------------------+--------------+---------------------------+----------------------|
+| (org-query-todo)               | *Task*                  | headline     | todo keyword              |                      |
+| (org-query-todo '("NEXT"))     | *Next Task*             | task         | NEXT keyword              |                      |
+| (org-query-gtd-refile)         | *Task to refile*        | task         | Inbox parent              |                      |
+| (org-query-gtd-loose-task)     | *Loose task*            |              |                           |                      |
+|--------------------------------+-------------------------+--------------+---------------------------+----------------------|
+|                                | *Project*               | task         | child task                | Someday/Maybe parent |
+|                                | *Someday project*       | project      | Someday/Maybe parent      |                      |
+| (org-query-gtd-active-project) | *Active project*        | project      | next task                 |                      |
+|                                | *Active stuck Project*  |              | TODO subtask              | NEXT subtask         |
+|--------------------------------+-------------------------+--------------+---------------------------+----------------------|
+|                                | *Inactive Task/Project* | task/project | SOMEDAY/HOLD/WAITING      |                      |
+|                                |                         |              | DONE/CANCELLED todo state |                      |
+|                                |                         |              | (or parent has)           |                      |
+
+Add the following key bindings in Agenda mode to provide easy context switches and better overview.
+| ~N~ | Restricts the agenda view to the subtree of the current heading.           |
+| ~P~ | Restricts the agenda view to the top level project of the current heading. |
+| ~W~ | Removes restrictions                                                       |
+| ~q~ | Put the Agenda buffer in background as the last candidate for ~other-buffer~.  |
+#+BEGIN_SRC emacs-lisp
+(defun custom-org-agenda-mode-defaults ()
+  (org-defkey org-agenda-mode-map "N" 'oh/agenda-restrict-to-subtree)
+  (org-defkey org-agenda-mode-map "P" 'oh/agenda-restrict-to-project)
+  (org-defkey org-agenda-mode-map "W" 'oh/agenda-remove-restriction)
+  (org-defkey org-agenda-mode-map "q" 'bury-buffer))
+(add-hook 'org-agenda-mode-hook 'custom-org-agenda-mode-defaults 'append)
+#+END_SRC
+
+On the splash screen displayed by the
+agenda dispatcher ~C-c a~ provide some convenient GTD-friendly views.
+| Key | Header                      | Show                                                               |
+|-----+-----------------------------+--------------------------------------------------------------------|
+| a   | Agenda                      | Agenda view + all the following                                    |
+| r   | Tasks to refile             | Tasks to refile in ~/org/capture.org (blank under restricted view) |
+| #   | Stuck Projects              | Active stuck projects w/o schedule/deadline                        |
+| n   | Next Tasks                  | Active NEXT non-project items  w/o schedule/deadline               |
+| R   | Available Tasks             | Active non-NEXT non-project items w/o schedule/deadline that are   |
+|     |                             | - single-tasks under unrestricted view                             |
+|     |                             | - subtasks under restricted view                                   |
+| p   | Currently Active Projects   | Active non-stuck projects that are                                 |
+|     |                             | - top-projects under unrestricted view                             |
+|     |                             | - subprojects under restricted view                                |
+| w   | Waiting and Postponed Tasks | WAITING/HOLD non-project items                                     |
+#+BEGIN_SRC emacs-lisp
+(defun rmh/agendablock-tasks-waiting ()
+  `(tags-todo "/+WAITING|+DEFERRED"
+              ((org-agenda-overriding-header "Tasks waiting for something")
+               (org-tags-match-list-sublevels nil)
+               (org-agenda-skip-function (org-query-select "headline" (not (org-query-gtd-project))))
+               (org-agenda-todo-ignore-scheduled t)
+               (org-agenda-todo-ignore-deadlines t)
+               )))
+
+(defun rmh/agendablock-next-in-active ()
+  `(tags-todo "/+NEXT"
+              ((org-agenda-overriding-header "Next tasks in active projects")
+               (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-active-project-next-task)))
+               (org-tags-match-list-sublevels t)
+               (org-agenda-todo-ignore-scheduled 't)
+               (org-agenda-todo-ignore-deadlines 't)
+               (org-agenda-todo-ignore-with-date 't)
+               (org-agenda-sorting-strategy
+                '(todo-state-down effort-up category-keep)))))
+
+(defun rmh/agendablock-backlog-of-active ()
+  `(tags-todo "/+TODO"
+              ((org-agenda-overriding-header "Backlog of active projects")
+               (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-backlog-task)))
+               (org-agenda-todo-ignore-scheduled 't)
+               (org-agenda-todo-ignore-deadlines 't)
+               (org-agenda-todo-ignore-with-date 't)
+               (org-agenda-sorting-strategy
+                '(category-keep)))))
+
+(defun rmh/agendablock-active-projects-without-next ()
+  `(tags-todo "/+NEXT"
+              ((org-agenda-overriding-header "Active projects without next task")
+               (org-agenda-skip-function (org-query-select "tree" (org-query-gtd-active-project-stuck)))
+               (org-tags-match-list-sublevels 't)
+               (org-agenda-sorting-strategy
+                '(category-keep)))))
+
+(defun rmh/agendablock-active-projects-with-next ()
+  `(tags-todo "/+NEXT"
+              ((org-agenda-overriding-header "Active projects with a next task")
+               (org-agenda-skip-function (org-query-select "tree" (org-query-gtd-active-project-armed)))
+               (org-tags-match-list-sublevels 't)
+               (org-agenda-sorting-strategy
+                '(category-keep)))))
+
+(defun rmh/agendablock-waiting-projects ()
+  `(tags-todo "/+WAITING"
+              ((org-agenda-overriding-header "Waiting projects")
+               (org-agenda-skip-function (org-query-select "tree" (org-query-gtd-project)))
+               (org-tags-match-list-sublevels 't)
+               (org-agenda-sorting-strategy
+                '(category-keep)))))
+
+(defun rmh/agendablock-loose-tasks ()
+  `(tags-todo "/+TODO"
+              ((org-agenda-overriding-header "Tasks not belonging to a project")
+               (org-agenda-skip-function
+                (org-query-select "headline" (and (org-query-gtd-loose-task) (not (org-is-habit-p)))))
+               (org-agenda-todo-ignore-scheduled 't)
+               (org-agenda-todo-ignore-deadlines 't)
+               (org-agenda-todo-ignore-with-date 't)
+               (org-agenda-sorting-strategy
+                '(category-keep)))))
+
+(defun rmh/agendablock-checklists ()
+  `(tags "CHECKLIST"
+         ((org-agenda-overriding-header "Checklists")
+          (org-tags-match-list-sublevels nil))))
+
+(defun rmh/agendablock-inbox ()
+  `(tags-todo "LEVEL=2"
+              ((org-agenda-overriding-header "Tasks to refile")
+               (org-agenda-skip-function (org-query-select "tree" (org-query-gtd-refile)))
+               (org-tags-match-list-sublevels nil))))
+
+
+(setq org-agenda-custom-commands
+      `((" " "Agenda"
+        ((agenda "" ((org-agenda-ndays 1)))
+         ,(rmh/agendablock-inbox)
+         ,(rmh/agendablock-tasks-waiting)
+         ,(rmh/agendablock-next-in-active)
+         ,(rmh/agendablock-active-projects-with-next)
+         ,(rmh/agendablock-active-projects-without-next)
+         ,(rmh/agendablock-waiting-projects)
+         ,(rmh/agendablock-backlog-of-active)
+         ,(rmh/agendablock-checklists))
+        nil)
+      ("r" "Review Agenda"
+       ((agenda "" ((org-agenda-ndays 1)))
+        ,(rmh/agendablock-inbox)
+        ,(rmh/agendablock-loose-tasks)
+        ,(rmh/agendablock-tasks-waiting)
+        ,(rmh/agendablock-next-in-active)
+        ,(rmh/agendablock-active-projects-with-next)
+        ,(rmh/agendablock-active-projects-without-next)
+        ,(rmh/agendablock-backlog-of-active)
+        ,(rmh/agendablock-checklists))
+       nil)))
+#+END_SRC
+
+After an item has been shown from the agenda, show all of its text in the buffer.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-agenda-after-show-hook 'show-all)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  ;(setq org-clock-in-switch-to-state 'bh/clock-in-to-next)
+  ;(defun bh/clock-in-to-next (kw)
+  ;  "Switch a task from TODO to NEXT when clocking in.
+  ;Skips capture tasks, projects, and subprojects.
+  ;Switch projects and subprojects from NEXT back to TODO"
+  ;  (when (not (and (boundp 'org-capture-mode) org-capture-mode))
+  ;    (cond
+  ;     ((and (member (org-get-todo-state) (list "TODO"))
+  ;           (oh/is-task-p))
+  ;      "NEXT")
+  ;     ((and (member (org-get-todo-state) (list "NEXT"))
+  ;           (oh/is-project-p))
+  ;      "TODO"))))
+#+END_SRC
+
+A default ~Organization~ task in my ~personal-org.org~ logs the time spent reorganizing my org-files, reading email, clearing my inbox, and doing other planning work, all activities that aren't for a specific project. Punching-in anywhere clocks in this Organization task as the default task.
+#+BEGIN_SRC emacs-lisp
+(defun bh/clock-in-organization-task-as-default ()
+  (interactive)
+  (org-with-point-at (org-id-find bh/organization-task-id 'marker)
+    (org-clock-in '(16))))
+(defvar bh/organization-task-id "b0605007-6a44-4446-abab-528d429b1483")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;(global-set-key (kbd "M-<f11>") 'bh/punch-in)
+;(global-set-key (kbd "M-S-<f11>") 'bh/punch-out)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun bh/verify-refile-target ()
+    "Exclude todo keywords with a done state from refile targets"
+    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+  (setq org-refile-target-verify-function 'bh/verify-refile-target)
 #+END_SRC
