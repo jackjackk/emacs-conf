@@ -1,0 +1,23 @@
+* ampl-mode (~lisp/init-mod-ampl-mode.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-ampl-mode.el
+:END:
+
+AMPL-MODE mode for Emacs.
+#+BEGIN_SRC emacs-lisp
+(require 'ampl-mode)
+(setq auto-mode-alist
+      (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("\\.run$" . ampl-mode) auto-mode-alist))
+(setq interpreter-mode-alist
+      (cons '("ampl" . ampl-mode)
+            interpreter-mode-alist))
+(autoload 'ampl-mode "ampl-mode" "Ampl editing mode." t)
+#+END_SRC
+
+

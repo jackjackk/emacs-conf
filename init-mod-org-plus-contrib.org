@@ -528,6 +528,18 @@ Avoid confirmation before evaluation.
 #+BEGIN_SRC emacs-lisp
 (setq org-confirm-babel-evaluate nil)
 #+END_SRC
+
+Use ~C-c b~ to run tangle on point.
+#+BEGIN_SRC emacs-lisp
+    (defun org-babel-tangle-block()
+      (interactive)
+      (let ((current-prefix-arg '(4)))
+         (call-interactively 'org-babel-tangle)))
+
+    (eval-after-load "org"
+      '(progn
+         (define-key org-mode-map (kbd "C-c b") 'org-babel-tangle-block)))
+#+END_SRC
 ** Capture
 Assign the global key ~F9~ for capture (1 key less than the more popular ~C-c c~).
 #+BEGIN_SRC emacs-lisp

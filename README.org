@@ -181,8 +181,10 @@ Load the path with configuration files.
 #+BEGIN_SRC elisp
                              gams
 #+END_SRC
-
-
+**** [[file:init-mod-ampl-mode.org][ampl-mode]]
+#+BEGIN_SRC elisp
+                             ampl-mode
+#+END_SRC
 **** Org-mode ([[file:init-mod-ox-wk.org][ox-wk]], +[[file:init-mod-ob-gams.org][ob-gams]]+)
 #+BEGIN_SRC elisp
                              ox-wk

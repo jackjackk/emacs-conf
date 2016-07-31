@@ -1,3 +1,28 @@
+* General
+** Change permissions on tangled file
+http://orgmode.org/manual/tangle_002dmode.html#tangle_002dmode
+** Run babel tangle on point
+#+BEGIN_SRC emacs-lisp
+    (defun org-babel-tangle-block()
+      (interactive)
+      (let ((current-prefix-arg '(4)))
+         (call-interactively 'org-babel-tangle)))
+
+    (eval-after-load "org"
+      '(progn
+         (define-key org-mode-map (kbd "C-c b") 'org-babel-tangle-block)))
+#+END_SRC
+** Run code block when loading org-mode document
+#+BEGIN_SRC org
+  #  -*- find-file-hook: org-babel-execute-buffer -*-
+  ,#+BEGIN_SRC emacs-lisp
+  (defun handy-stuff(arg)
+   (message arg))
+  ,#+END_SRC
+
+  [[elisp:(handy-stuff "foo")][foo]]
+  [[elisp:(handy-stuff "bar")][bar]]
+#+END_SRC
 * C
 #+BEGIN_SRC org
   ,#+BEGIN_SRC C :includes '(<math.h> <stdio.h>) :flags -lm
