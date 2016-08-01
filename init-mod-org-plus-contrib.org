@@ -222,6 +222,11 @@ Archive files under subfolder archived.
 #+BEGIN_SRC emacs-lisp
 (setq org-archive-location "archived/%s_archive::")
 #+END_SRC
+** Tags
+When doing a tag/todo search, list also sublevels of matching headlines.
+#+BEGIN_SRC emacs-lisp
+(setq org-tags-match-list-sublevels 'indented)
+#+END_SRC
 ** Tasks
 Add a time stamp to the task when moved to DONE.
 #+BEGIN_SRC emacs-lisp
