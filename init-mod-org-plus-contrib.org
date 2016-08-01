@@ -67,6 +67,7 @@ Open docx w/ external program.
 #+BEGIN_SRC emacs-lisp
   (setq org-file-apps
         '(("\\.docx\\'" . default)
+          ("\\.html\\'" . default)
           (auto-mode . emacs)))
   ; (and not w/ the default choice) http://stackoverflow.com/a/8836108/789593.
   ;(add-hook 'org-mode-hook
@@ -205,10 +206,10 @@ Switch buffer to visit an entry given its ID.
 When outputting a pdf from a src block, use imagemagick to make
 org-display-inline-images work with pdf.
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'image-type-file-name-regexps '("\\.pdf\\'" . imagemagick))
-(add-to-list 'image-file-name-extensions "pdf")
-(setq imagemagick-types-inhibit (remove 'PDF imagemagick-types-inhibit))
-(setq org-image-actual-width 600)
+;(add-to-list 'image-type-file-name-regexps '("\\.pdf\\'" . imagemagick))
+;(add-to-list 'image-file-name-extensions "pdf")
+;(setq imagemagick-types-inhibit (remove 'PDF imagemagick-types-inhibit))
+;(setq org-image-actual-width 600)
 #+END_SRC
 
 Show org-mode bullets as UTF-8 characters.
@@ -420,7 +421,7 @@ Use ~F12~ (1 key less than the more common ~C-c a~) anywhere to open the Agenda,
 
 All *.org files under "~/org" directory will be included for agenda display.
 #+BEGIN_SRC emacs-lisp
-(setq org-agenda-files '("~/org/life.org"))
+  (setq org-agenda-files '("~/org"))
 #+END_SRC
 ** Latex
 #+BEGIN_SRC emacs-lisp
@@ -437,7 +438,12 @@ Add packages.
 
 Scale up previewed Latex fragments.
 #+BEGIN_SRC emacs-lisp
-  (plist-put org-format-latex-options :scale 2)
+  (plist-put org-format-latex-options :scale 3)
+#+END_SRC
+
+Use imagemagick for previewing Latex fragments.
+#+BEGIN_SRC emacs-lisp
+;  (setq org-latex-create-formula-image-program 'imagemagick)
 #+END_SRC
 
 Insert within-paragraph Latex snippets with "@@l:...@@".
