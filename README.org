@@ -210,6 +210,17 @@ Call [[file:init-packages.org][init-packages]] to load modules defined above.
 #+BEGIN_SRC elisp
   (load-library "init-packages.el")
 #+END_SRC
+* The git hook to compile changed files
+:PROPERTIES:
+:tangle:   .git/hooks/post-merge
+:END:
+
+#+BEGIN_SRC sh :shebang "#!/usr/bin/bash"
+  changed_files="$(git diff-tree -r --name-only --no-commit-id HEAD@{1} HEAD)"
+  if [ ! -z "$changed_files" ]; then
+      sh compile-init.sh $changed_files
+  fi
+#+END_SRC
 * Useful references
 - http://www.emacswiki.org/emacs/Reference_Sheet_by_Aaron_Hawley
 - https://org-babel.readthedocs.io/en/latest/

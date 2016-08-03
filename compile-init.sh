@@ -5,13 +5,17 @@
 #
 DIR=$(cygpath -m $(pwd))
 DIRORG=elpa/org-plus-contrib*
-ARGS=*org
-
+if [ $# -eq 0 ]; then
+    ARGS=*org
+else
+    ARGS="$@"
+fi
 # wrap each argument in the code required to call tangle on it
 for i in ${ARGS[@]}; do
-    FILES="$FILES \"$i\""
+    if [ ${i: -4} == ".org" ]; then
+        FILES="$FILES \"$i\""
+    fi
 done
-echo $DIR
 emacs -Q --batch \
 --eval "(progn
 (add-to-list 'load-path (expand-file-name \"~/${DIRORG}/\"))
