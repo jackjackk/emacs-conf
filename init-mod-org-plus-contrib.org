@@ -299,7 +299,7 @@ When clocking into task with open clock, resume clock from previous point.
 
 Change task to NEXT when clocking in.
 #+BEGIN_SRC emacs-lisp
-  (setq org-clock-in-switch-to-state "NEXT")
+  ;(setq org-clock-in-switch-to-state "NEXT")
 #+END_SRC
 
 Separate drawers for properties and logs, and save in the latter all clock data and state changes (A drawer opens only with a TAB on the drawer).
