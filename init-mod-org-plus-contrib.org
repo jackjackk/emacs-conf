@@ -428,6 +428,11 @@ All *.org files under "~/org" directory will be included for agenda display.
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files '("~/org"))
 #+END_SRC
+
+Prevent agenda commands to honor startup options when visiting an agenda file for the first time (for agenda speed up).
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-inhibit-startup t)
+#+END_SRC
 ** Latex
 #+BEGIN_SRC emacs-lisp
 (require 'ox-latex)
