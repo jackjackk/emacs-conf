@@ -1,4 +1,14 @@
 * Export
+** ICS
+*** Programmatically
+#+BEGIN_SRC emacs-lisp
+  (defun z/export-to-ics ()
+  (interactive)
+  (with-current-buffer (find-file-noselect "meetings.org")
+  (rename-file (org-icalendar-export-to-ics)
+  "/home/zeltak/org/files/export/kcal.ics")
+  (message "exported to ics")))
+#+END_SRC
 ** ODT
 *** Change verse style
 1. Export a document to ODT with the ugly verse environment
@@ -44,7 +54,27 @@ http://orgmode.org/manual/tangle_002dmode.html#tangle_002dmode
   [[elisp:(handy-stuff "foo")][foo]]
   [[elisp:(handy-stuff "bar")][bar]]
 #+END_SRC
-* Babel
+** Add caption to babel-generated figures
+#+BEGIN_SRC ditaa :file figs/-mininet-ovsk.png :cache yes
+   /----+ /----+ /----+ /----+
+   |host| |host| |host| |host|       Containers
+   +-+--/ +-+--/ +--+-/ +--+-/
+     |      |       |      |
+  ---------------------------------------------
+     |      |       |      |
+   +-+------+-------+------+-+
+   |      Open VSwitch       |      Host kernel
+   +-----+-------------+---=-+
+         |             |
+  +------+-----+ +-----+------+
+  | controller | | controller |  Host userspace
+  +------------+ +------------+
+#+END_SRC
+
+#+ATTR_LATEX: :width "" :options [scale=0.75]
+#+NAME: [[label:fig:mininet-arch]]Mininet with OpenVSwitch architecture
+#+RESULTS[1d367d39f18523f4eb247cb13aabd6c6f633fbdf]: [[file:figs/-mininet-ovsk.png]]
+* By language
 ** C
 #+BEGIN_SRC org
   ,#+BEGIN_SRC C :includes '(<math.h> <stdio.h>) :flags -lm

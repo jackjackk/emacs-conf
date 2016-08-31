@@ -58,7 +58,12 @@ Show entities as UTF8 characters.
 (setq org-pretty-entities t)    
 #+END_SRC
 
-When loading a new Org file show inline images.
+When loading a new Org file:
+- don't fold headlines (to speed up);
+#+BEGIN_SRC emacs-lisp
+(setq org-startup-folded nil)
+#+END_SRC
+- show inline images;
 #+BEGIN_SRC emacs-lisp
 (setq org-startup-with-inline-images t)
 #+END_SRC
@@ -231,6 +236,10 @@ When doing a tag/todo search, list also sublevels of matching headlines.
 Add a time stamp to the task when moved to DONE.
 #+BEGIN_SRC emacs-lisp
 (setq org-log-done 'time)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-todo-list-sublevels t)
 #+END_SRC
 
 Switching a TODO entry to DONE will be blocked if
@@ -431,7 +440,7 @@ All *.org files under "~/org" directory will be included for agenda display.
 
 Prevent agenda commands to honor startup options when visiting an agenda file for the first time (for agenda speed up).
 #+BEGIN_SRC emacs-lisp
-(setq org-agenda-inhibit-startup t)
+;(setq org-agenda-inhibit-startup t)
 #+END_SRC
 ** Latex
 #+BEGIN_SRC emacs-lisp
@@ -531,8 +540,7 @@ Load commonly used languages.
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((python . t)
-     (emacs-lisp . t)
+   '((emacs-lisp . t)
      (ditaa . t)
      (sh . t)
      (org . t)

@@ -166,6 +166,12 @@ Load the path with configuration files.
 #+BEGIN_SRC elisp
    ;                    android-mode
 #+END_SRC
+
+**** Fun (+[[file:init-mod-selectric-mode.org][selectric-mode]]+)
+#+BEGIN_SRC elisp
+   ;                    selectric-mode
+#+END_SRC
+
 ** Customize packages from local subfolders
 #+BEGIN_SRC elisp
   ))
