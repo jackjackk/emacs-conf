@@ -455,6 +455,12 @@ Add packages.
   (add-to-list 'org-latex-packages-alist '("" "verbatim"))
 #+END_SRC
 
+Use ~latexmk~ to turn tex into pdf.
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-pdf-process 
+'("latexmk -pdflatex=\"pdflatex -interaction nonstopmode\" -pdf -bibtex -f  %f"))
+#+END_SRC
+
 Scale up previewed Latex fragments.
 #+BEGIN_SRC emacs-lisp
   (plist-put org-format-latex-options :scale 3)
