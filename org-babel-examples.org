@@ -30,6 +30,21 @@ Add:
 #+END_SRC
 Reference: http://orgmode.org/manual/Creating-one_002doff-styles.html
 * General
+** Clone subtree w/ new id
+#+BEGIN_SRC emacs-lisp
+(defun clone-subtree ()
+  "Clone the current subtree and change the id."
+  (interactive)
+
+  (when (not (looking-at "^\\*"))
+    (re-search-backward "^\\*"))
+
+  (org-copy-subtree)
+  (goto-char (org-element-property :end (org-element-context)))
+  
+  (org-paste-subtree)
+  (org-id-get-create t))
+#+END_SRC
 ** Change permissions on tangled file
 http://orgmode.org/manual/tangle_002dmode.html#tangle_002dmode
 ** Run babel tangle on point
