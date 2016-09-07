@@ -735,6 +735,12 @@ Make a task out of each new entry in a magazine feed.
   ;; add <g for gams expansion
   (add-to-list 'org-structure-template-alist
                '("g" "#+BEGIN_SRC gams\n?\n#+END_SRC" "<src lang=\"gams\">\n?\n</src>"))
+  ;; add expansions for some latex environments
+  (add-to-list 'org-structure-template-alist
+               '("al" "\\begin{align}\n? &\n\\end{align}"))
+  (add-to-list 'org-structure-template-alist
+               '("eq" "\\begin{equation}\n?\n\\end{equation}"))
+
   ;(setq org-babel-python-command "~/anaconda/bin/ipython --no-banner --classic --no-confirm-exit")
 
   ;; ** Clean view
