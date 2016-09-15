@@ -495,6 +495,16 @@ Change hyper setup with nicer colors, and fixed author.
 (setq org-latex-hyperref-template "\\hypersetup{\n pdfauthor={GM},\n pdftitle={%t},\n pdfkeywords={%k},\n pdfsubject={%d},\n pdfcreator={%c},\n pdflang={%L},\n colorlinks={true},\n urlcolor={blue},\n linkcolor={blue},\n citecolor={blue},\n pdfborder={0 0 0} }\n")
 #+END_SRC
 
+Add a book with no parts class.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-latex-classes
+'("bookwithnoparts" "\\documentclass{book}"
+("\\chapter{%s}" . "\\chapter*{%s}")
+("\\section{%s}" . "\\section*{%s}")
+("\\subsection{%s}" . "\\subsection*{%s}")
+("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+#+END_SRC
+
 Use user-provided labels instead of internal ones.
 #+BEGIN_SRC emacs-lisp
 (setq org-latex-prefer-user-labels t)
