@@ -39,7 +39,7 @@ Overwrite selected region when typing after selection.
 
 Set fill-column width to 70 characters, and add Visual Line mode to text & org modes.
 #+BEGIN_SRC emacs-lisp
-(setq-default fill-column 79)
+(setq-default fill-column 54)
 ;(add-hook 'text-mode-hook 'turn-on-auto-fill)
 #+END_SRC
 

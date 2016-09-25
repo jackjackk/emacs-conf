@@ -1,0 +1,13 @@
+* ob-ampl (~init-mod-ob-ampl.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-ob-ampl.el
+:END:
+
+Support for ampl in org-mode.
+#+BEGIN_SRC emacs-lisp
+  (require 'ob-ampl)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ampl . t)))
+#+END_SRC
+

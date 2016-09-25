@@ -459,7 +459,12 @@ Add packages.
 Use ~latexmk~ to turn tex into pdf.
 #+BEGIN_SRC emacs-lisp
 (setq org-latex-pdf-process 
-'("latexmk -pdflatex=\"pdflatex -interaction nonstopmode\" -pdf -bibtex -f  %f"))
+'("latexmk -pdflatex=\"pdflatex -shell-escape -interaction nonstopmode\" -pdf -bibtex -f  %f"))
+#+END_SRC
+
+Export source code using the listings package.
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-listings t)
 #+END_SRC
 
 Scale up previewed Latex fragments.
@@ -745,6 +750,9 @@ Make a task out of each new entry in a magazine feed.
   ;; add <g for gams expansion
   (add-to-list 'org-structure-template-alist
                '("g" "#+BEGIN_SRC gams\n?\n#+END_SRC" "<src lang=\"gams\">\n?\n</src>"))
+  ;; add <am for gams expansion
+  (add-to-list 'org-structure-template-alist
+               '("am" "#+BEGIN_SRC ampl\n?\n#+END_SRC" "<src lang=\"ampl\">\n?\n</src>"))
   ;; add expansions for some latex environments
   (add-to-list 'org-structure-template-alist
                '("al" "\\begin{align}\n? &\n\\end{align}"))

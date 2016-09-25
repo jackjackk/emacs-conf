@@ -48,7 +48,7 @@ Use ~dark-laptop~ color theme, with a ~black~ background and a ~grey90~ foregrou
 Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
 #+BEGIN_SRC elisp
 (cond ((eq window-system 'w32)
-           (set-face-font 'default "Consolas-12.0:antialias=natural"))
+           (set-face-font 'default "Consolas-14.0:antialias=natural"))
        (t
            (set-face-font 'default "DejaVu Sans Mono-12.0:antialias=natural")))
 #+END_SRC
