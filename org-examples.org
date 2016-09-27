@@ -1,4 +1,14 @@
 * Export
+** New line
+#+BEGIN_SRC org
+    This long line starts here \\
+    and continues here.
+#+END_SRC
+** Inline export snippet
+#+BEGIN_SRC org
+  @@html:<br>@@
+  @@latex:\newpage@@ 
+#+END_SRC
 ** ICS
 *** Programmatically
 #+BEGIN_SRC emacs-lisp
@@ -35,6 +45,13 @@ Reference: http://orgmode.org/manual/Creating-one_002doff-styles.html
   Date: src_perl[:results output raw]{print 2016;}
 #+END_SRC
 
+or with a macro
+#+BEGIN_SRC org
+  ,#+MACRO: gendate src_perl[:results output raw]{print ($1*5);}
+  ,* Day {{{gendate(6)}}}
+  ...
+  ,* Day {{{gendate(10)}}}
+#+END_SRC
 ** Run babel tangle on point
 #+BEGIN_SRC emacs-lisp
     (defun org-babel-tangle-block()
