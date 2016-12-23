@@ -10,19 +10,25 @@ Citations, cross-references, indexes, glossaries and bibtex utilities for org-mo
 
 Configure variables.
 #+BEGIN_SRC emacs-lisp
-(setq reftex-default-bibliography '("~/org/research-bibliography.bib"))
+  (setq reftex-default-bibliography '("~/org/research-bibliography.bib"))
 
-(setq org-ref-bibliography-notes "~/org/research-bibliography.org"
-      org-ref-default-bibliography '("~/org/research-bibliography.bib")
-      org-ref-pdf-directory "~/archive/zotero")
+  (setq org-ref-bibliography-notes "~/org/research-bibliography.org"
+        org-ref-default-bibliography '("~/org/research-bibliography.bib")
+  ;      org-ref-pdf-directory "~/archive/zotero"
+  )
 
-(setq helm-bibtex-bibliography "~/org/research-bibliography.bib")
-(setq helm-bibtex-library-path "~/archive/zotero")
+  (setq helm-bibtex-bibliography "~/org/research-bibliography.bib")
+  (setq helm-bibtex-library-path "~/archive/zotero")
 #+END_SRC
 
 Use parenthetical citations by default.
 #+BEGIN_SRC emacs-lisp
   (setq org-ref-default-citation-link "citep")
+#+END_SRC
+
+Add custom cite types.
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-ref-cite-types "citemet")
 #+END_SRC
 
 Set convenient keys for working in your bibtex file.

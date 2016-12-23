@@ -510,6 +510,17 @@ Add a book with no parts class.
 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 #+END_SRC
 
+Add nature class.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-latex-classes
+'("nature" "\\documentclass{nature}"
+  ("\\section{%s}" . "\\section*{%s}")
+  ("\\subsection{%s}" . "\\subsection*{%s}")
+  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
+
 Use user-provided labels instead of internal ones.
 #+BEGIN_SRC emacs-lisp
 (setq org-latex-prefer-user-labels t)
@@ -746,7 +757,7 @@ Make a task out of each new entry in a magazine feed.
                '("o" "#+BEGIN_SRC org\n?\n#+END_SRC" "<src lang=\"org\">\n?\n</src>"))
   ;; add <sh for shell
   (add-to-list 'org-structure-template-alist
-               '("sh" "#+BEGIN_SRC sh\n?\n#+END_SRC" "<src lang=\"shell\">\n?\n</src>"))
+               '("sh" "#+BEGIN_SRC shell\n?\n#+END_SRC" "<src lang=\"shell\">\n?\n</src>"))
   ;; add <g for gams expansion
   (add-to-list 'org-structure-template-alist
                '("g" "#+BEGIN_SRC gams\n?\n#+END_SRC" "<src lang=\"gams\">\n?\n</src>"))
