@@ -10,3 +10,4 @@ server
 bookmarks
 *.cache
 init*.el
+abbrev_defs
