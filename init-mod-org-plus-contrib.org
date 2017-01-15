@@ -209,6 +209,11 @@ Switch buffer to visit an entry given its ID.
   (org-id-goto id)
   (message "%s" (current-buffer)))
 #+END_SRC
+
+Disable cache for stability.
+#+BEGIN_SRC emacs-lisp
+(setq org-element-use-cache nil)
+#+END_SRC
 ** Display
 When outputting a pdf from a src block, use imagemagick to make
 org-display-inline-images work with pdf.
