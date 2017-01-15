@@ -1,6 +1,6 @@
 * exec-path-from-shell
 :PROPERTIES:
-:tangle:   lisp/init-mod-exec-path-from-shell.el
+:header-args: :tangle   lisp/init-mod-exec-path-from-shell.el
 :END:
 Ensure that the environment variables ~PATH~ and ~PYTHONPATH~  inside Emacs look the same as in the user's shell (not in Windows though).
 #+BEGIN_SRC elisp

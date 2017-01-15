@@ -1,6 +1,6 @@
 * eimp (~init-mod-eimp.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-eimp.el
+:header-args: :tangle   lisp/init-mod-eimp.el
 :END:
 
 Package for interactive image manipulation.

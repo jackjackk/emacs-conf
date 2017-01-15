@@ -1,6 +1,6 @@
 * thing-edit (~init-mod-thing-edit.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-thing-edit.el
+:header-args: :tangle   lisp/init-mod-thing-edit.el
 :END:
 
 | ~C-z~   | Copy current line.                              |

@@ -1,6 +1,6 @@
 * Matlab (~init-mod-matlab.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-matlab.el
+:header-args: :tangle   lisp/init-mod-matlab.el
 :END:
 
 Matlab support.

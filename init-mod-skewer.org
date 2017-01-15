@@ -1,6 +1,6 @@
 * skewer (~lisp/init-mod-skewer.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-skewer.el
+:header-args: :tangle   lisp/init-mod-skewer.el
 :END:
 
 Skewer provides live interaction with JavaScript, CSS, and HTML in a web browser.

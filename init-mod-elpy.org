@@ -1,6 +1,6 @@
 * elpy (~init-mod-elpy.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-elpy.el
+:header-args: :tangle   lisp/init-mod-elpy.el
 :END:
 
 | ~C-c C-z~ | Bring shell up.                  |

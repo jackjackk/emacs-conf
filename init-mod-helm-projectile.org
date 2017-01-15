@@ -1,6 +1,6 @@
 * helm-projectile (~lisp/init-mod-helm-projectile.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-helm-projectile.el
+:header-args: :tangle   lisp/init-mod-helm-projectile.el
 :END:
 
 Integrate helm with Projectile.

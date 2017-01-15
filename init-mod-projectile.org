@@ -1,6 +1,6 @@
 * Projectile [[lisp/init-mod-projectile.el][.el]]
 :PROPERTIES:
-:tangle:   lisp/init-mod-projectile.el
+:header-args: :tangle   lisp/init-mod-projectile.el
 :END:
 
 [[http://batsov.com/projectile/][Projectile]] is a project interaction library for Emacs.

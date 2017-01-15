@@ -1,6 +1,6 @@
 * js2-mode (~lisp/init-mod-js2-mode.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-js2-mode.el
+:header-args: :tangle   lisp/init-mod-js2-mode.el
 :END:
 
 js2-mode is a JavaScript mode for Emacs with JavaScript parser

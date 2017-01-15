@@ -1,6 +1,6 @@
 * markdown-mode (~init-mod-markdown-mode.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-markdown-mode.el
+:header-args: :tangle   lisp/init-mod-markdown-mode.el
 :END:
 
 [[http://jblevins.org/projects/markdown-mode/][markdown-mode]] is major mode for editing Markdown-formatted text.

@@ -1,6 +1,6 @@
 * Yasnippet (~init-mod-yasnippet.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-yasnippet.el
+:header-args: :tangle   lisp/init-mod-yasnippet.el
 :END:
 
 Templates support.

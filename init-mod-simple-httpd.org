@@ -1,6 +1,6 @@
 * simple-httpd (~lisp/init-mod-simple-httpd.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-simple-httpd.el
+:header-args: :tangle   lisp/init-mod-simple-httpd.el
 :END:
 
 Pure elisp HTTP server

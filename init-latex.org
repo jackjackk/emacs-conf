@@ -1,6 +1,6 @@
 * Latex (~init-latex.el~)
 :PROPERTIES:
-:tangle:   lisp/init-latex.el
+:header-args: :tangle   lisp/init-latex.el
 :END:
 
 See also [[file:init-mod-auctex.org][auctex]].

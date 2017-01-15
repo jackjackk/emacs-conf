@@ -1,6 +1,6 @@
 * ob-ampl (~init-mod-ob-ampl.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-ob-ampl.el
+:header-args: :tangle   lisp/init-mod-ob-ampl.el
 :END:
 
 Support for ampl in org-mode.

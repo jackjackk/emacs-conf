@@ -1,6 +1,6 @@
 * auctex (~init-mod-auctex.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-auctex.el
+:header-args: :tangle   lisp/init-mod-auctex.el
 :END:
 
 | C-c C-s           | Insert sectioning macros. |

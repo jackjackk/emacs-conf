@@ -1,6 +1,6 @@
 * The modules caller (~lisp/init-packages.el~)
 :PROPERTIES:
-:tangle:   lisp/init-packages.el
+:header-args: :tangle   lisp/init-packages.el
 :END:
 
 Set repositories from which to fetch Emacs packages.

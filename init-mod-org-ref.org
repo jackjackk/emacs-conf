@@ -1,6 +1,6 @@
 * org-ref (~init-mod-org-ref.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-org-ref.el
+:header-args: :tangle   lisp/init-mod-org-ref.el
 :END:
 
 Citations, cross-references, indexes, glossaries and bibtex utilities for org-mode.

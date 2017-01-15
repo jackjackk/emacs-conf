@@ -1,6 +1,6 @@
 * polymode (~init-mod-polymode.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-polymode.el
+:header-args: :tangle   lisp/init-mod-polymode.el
 :END:
 
 #+BEGIN_SRC emacs-lisp

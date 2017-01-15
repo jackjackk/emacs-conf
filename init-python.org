@@ -1,6 +1,6 @@
 * Python (~init-python.el~)
 :PROPERTIES:
-:tangle:   lisp/init-python.el
+:header-args: :tangle   lisp/init-python.el
 :END:
 
 Use IPython (w/ Python v.2) as the default Python interpreter for shell, with no arguments.

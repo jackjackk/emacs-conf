@@ -1,6 +1,6 @@
 * ampl-mode (~lisp/init-mod-ampl-mode.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-ampl-mode.el
+:header-args: :tangle   lisp/init-mod-ampl-mode.el
 :END:
 
 AMPL-MODE mode for Emacs.

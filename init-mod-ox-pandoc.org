@@ -1,6 +1,6 @@
 * ox-pandoc (~init-mod-ox-pandoc.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-ox-pandoc.el
+:header-args: :tangle   lisp/init-mod-ox-pandoc.el
 :END:
 
 #+BEGIN_SRC emacs-lisp

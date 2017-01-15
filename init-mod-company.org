@@ -1,6 +1,6 @@
 * company (~init-mod-company.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-company.el
+:header-args: :tangle   lisp/init-mod-company.el
 :END:
 
 Modular text completion framework.

@@ -1,6 +1,6 @@
 * neotree (~init-mod-neotree.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-neotree.el
+:header-args: :tangle   lisp/init-mod-neotree.el
 :END:
 
 | <F8> | Toggle neotree. | 

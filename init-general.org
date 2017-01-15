@@ -1,6 +1,6 @@
 * General (~init-general.el~)
 :PROPERTIES:
-:tangle:   lisp/init-general.el
+:header-args: :tangle   lisp/init-general.el
 :END:
 
 | ~M-x save-all~ | Save all files at once. |

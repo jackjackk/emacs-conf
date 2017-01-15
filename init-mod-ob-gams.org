@@ -1,6 +1,6 @@
 * ob-gams (~init-mod-ob-gams.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-ob-gams.el
+:header-args: :tangle   lisp/init-mod-ob-gams.el
 :END:
 
 Support for gams in org-mode.

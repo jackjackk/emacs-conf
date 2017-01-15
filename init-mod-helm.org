@@ -1,6 +1,6 @@
 * helm (~lisp/init-mod-helm.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-helm.el
+:header-args: :tangle   lisp/init-mod-helm.el
 :END:
 
 | C-`     | helm-for-files         |

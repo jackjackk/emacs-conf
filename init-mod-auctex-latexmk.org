@@ -1,6 +1,6 @@
 * auctex-latexmk (~init-mod-auctex-latexmk.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-auctex-latexmk.el
+:header-args: :tangle   lisp/init-mod-auctex-latexmk.el
 :END:
 
 | C-c C-c | Provide LatexMk option to compile TeX source |

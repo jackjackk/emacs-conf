@@ -3,7 +3,7 @@
 #
 # tangle files with org-mode
 #
-DIR=$(cygpath -m $(pwd))
+command -v cygpath >/dev/null 2>&1 && DIR=$(cygpath -m $(pwd)) || DIR=$(pwd)
 DIRORG=elpa/org-plus-contrib*
 if [ $# -eq 0 ]; then
     ARGS=*org

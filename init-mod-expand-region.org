@@ -1,6 +1,6 @@
 * expand-region
 :PROPERTIES:
-:tangle:   lisp/init-mod-expand-region.el
+:header-args: :tangle   lisp/init-mod-expand-region.el
 :END:
 
 | C-= | Expand region.   |

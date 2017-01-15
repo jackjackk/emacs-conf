@@ -1,6 +1,6 @@
 * company-anaconda (~init-mod-company-anaconda.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-company-anaconda.el
+:header-args: :tangle   lisp/init-mod-company-anaconda.el
 :END:
 
 Anaconda backend for company-mode.

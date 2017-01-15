@@ -1,6 +1,6 @@
 * Text editing (~init-text.el~)
 :PROPERTIES:
-:tangle:   lisp/init-text.el
+:header-args: :tangle   lisp/init-text.el
 :END:
 
 | ~M-x copy-whole-buffer~ | Copy whole buffer.                                 |

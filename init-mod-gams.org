@@ -1,6 +1,6 @@
 * gams (~lisp/init-mod-gams.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-gams.el
+:header-args: :tangle   lisp/init-mod-gams.el
 :END:
 
 GAMS mode for Emacs written by Shirotakeda.

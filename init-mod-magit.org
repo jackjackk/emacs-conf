@@ -1,6 +1,6 @@
 * magit (~init-mod-magit.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-magit.el
+:header-args: :tangle   lisp/init-mod-magit.el
 :END:
 
 | ~F9~ | See git status. |

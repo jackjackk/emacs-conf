@@ -1,6 +1,6 @@
 * org-mode (~init-mod-org-plus-contrib.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-org-plus-contrib.el
+:header-args: :tangle   lisp/init-mod-org-plus-contrib.el
 :END:
 Org is a mode for keeping notes, maintaining TODO lists, and doing
 project planning with a fast and effective plain-text system.
@@ -170,36 +170,37 @@ Update Org document to new export blocks syntax (2015/12), i.e.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-    (defun org-repair-export-blocks ()
-      "Repair export blocks and INCLUDE keywords in current buffer."
-      (when (eq major-mode 'org-mode)
-        (let ((case-fold-search t)
-              (back-end-re (regexp-opt
-                            '("HTML" "ASCII" "LATEX" "ODT" "MARKDOWN" "MD" "ORG"
-                              "MAN" "BEAMER" "TEXINFO" "GROFF" "KOMA-LETTER")
-                            t)))
-          (org-with-wide-buffer
-           (goto-char (point-min))
-           (let ((block-re (concat "^[ \t]*#\\+BEGIN_" back-end-re)))
-             (save-excursion
-               (while (re-search-forward block-re nil t)
-                 (let ((element (save-match-data (org-element-at-point))))
-                   (when (eq (org-element-type element) 'special-block)
-                     (save-excursion
-                       (goto-char (org-element-property :end element))
-                       (save-match-data (search-backward "_"))
-                       (forward-char)
-                       (insert "EXPORT")
-                       (delete-region (point) (line-end-position)))
-                     (replace-match "EXPORT \\1" nil nil nil 1))))))
-           (let ((include-re
-                  (format "^[ \t]*#\\+INCLUDE: .*?%s[ \t]*$" back-end-re)))
-             (while (re-search-forward include-re nil t)
+  (defun org-repair-export-blocks ()
+    "Repair export blocks and INCLUDE keywords in current buffer."
+    (interactive)
+    (when (eq major-mode 'org-mode)
+      (let ((case-fold-search t)
+            (back-end-re (regexp-opt
+                          '("HTML" "ASCII" "LATEX" "ODT" "MARKDOWN" "MD" "ORG"
+                            "MAN" "BEAMER" "TEXINFO" "GROFF" "KOMA-LETTER")
+                          t)))
+        (org-with-wide-buffer
+         (goto-char (point-min))
+         (let ((block-re (concat "^[ \t]*#\\+BEGIN_" back-end-re)))
+           (save-excursion
+             (while (re-search-forward block-re nil t)
                (let ((element (save-match-data (org-element-at-point))))
-                 (when (and (eq (org-element-type element) 'keyword)
-                            (string= (org-element-property :key element) 
-                                     "INCLUDE"))
-                   (replace-match "EXPORT \\1" nil nil nil 1)))))))))
+                 (when (eq (org-element-type element) 'special-block)
+                   (save-excursion
+                     (goto-char (org-element-property :end element))
+                     (save-match-data (search-backward "_"))
+                     (forward-char)
+                     (insert "EXPORT")
+                     (delete-region (point) (line-end-position)))
+                   (replace-match "EXPORT \\1" nil nil nil 1))))))
+         (let ((include-re
+                (format "^[ \t]*#\\+INCLUDE: .*?%s[ \t]*$" back-end-re)))
+           (while (re-search-forward include-re nil t)
+             (let ((element (save-match-data (org-element-at-point))))
+               (when (and (eq (org-element-type element) 'keyword)
+                          (string= (org-element-property :key element) 
+                                   "INCLUDE"))
+                 (replace-match "EXPORT \\1" nil nil nil 1)))))))))
 #+END_SRC
 
 Switch buffer to visit an entry given its ID.
@@ -450,6 +451,7 @@ Prevent agenda commands to honor startup options when visiting an agenda file fo
 
 Add packages.
 #+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-packages-alist '("" "lmodern"))
   (add-to-list 'org-latex-packages-alist '("" "listings"))
   (add-to-list 'org-latex-packages-alist '("" "color"))
   (add-to-list 'org-latex-packages-alist '("" "float"))
@@ -831,7 +833,7 @@ Make a task out of each new entry in a magazine feed.
 #+END_SRC
 ** Not used anymore
 :PROPERTIES:
-:tangle:   no
+:header-args: :tangle   no
 :END:
 Other code.
 

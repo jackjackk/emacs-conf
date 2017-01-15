@@ -1,6 +1,6 @@
 * zotelo (~lisp/init-mod-zotelo.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-zotelo.el
+:header-args: :tangle   lisp/init-mod-zotelo.el
 :END:
 
 | ~C-c z c~ | zotelo-set-collection  |

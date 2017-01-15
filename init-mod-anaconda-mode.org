@@ -1,6 +1,6 @@
 * anaconda-mode (~init-mod-anaconda-mode.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-anaconda-mode.el
+:header-args: :tangle   lisp/init-mod-anaconda-mode.el
 :END:
 
 | C-M-i | 	anaconda-mode-complete         |

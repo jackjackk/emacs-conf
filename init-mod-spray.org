@@ -1,6 +1,6 @@
 * spray (~lisp/init-mod-spray.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-spray.el
+:header-args: :tangle   lisp/init-mod-spray.el
 :END:
 
 | <f6>        | spray mode                      |

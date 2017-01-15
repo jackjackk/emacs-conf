@@ -1,6 +1,6 @@
 * ox-textile (~init-mod-ox-textile.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-ox-textile.el
+:header-args: :tangle   lisp/init-mod-ox-textile.el
 :END:
 #+BEGIN_SRC elisp
 (require 'ox-textile)

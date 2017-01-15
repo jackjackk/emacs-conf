@@ -1,6 +1,6 @@
 * cdlatex (~init-mod-cdlatex.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-cdlatex.el
+:header-args: :tangle   lisp/init-mod-cdlatex.el
 :END:
 
 Fast input methods for LaTeX environments and math.

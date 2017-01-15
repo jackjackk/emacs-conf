@@ -1,6 +1,6 @@
 * transpose-frame
 :PROPERTIES:
-:tangle:   lisp/init-mod-transpose-frame.el
+:header-args: :tangle   lisp/init-mod-transpose-frame.el
 :END:
 
 Interactive functions to transpose windows arrangement in currently

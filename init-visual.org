@@ -1,6 +1,6 @@
 * Visual (~init-visual.el~)
 :PROPERTIES:
-:tangle:   lisp/init-visual.el
+:header-args: :tangle   lisp/init-visual.el
 :END:
 
 | ~C-x t~ | Toggle truncate lines.|

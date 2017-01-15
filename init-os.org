@@ -1,6 +1,6 @@
 * OS integration
 :PROPERTIES:
-:tangle:   lisp/init-os.el
+:header-args: :tangle   lisp/init-os.el
 :END:
 
 | ~M-x open-folder-in-explorer~ | Open explorer in the current directory selecting the current file.  |

@@ -1,6 +1,6 @@
 * Startup (~init-startup.el~)
 :PROPERTIES:
-:tangle:   lisp/init-startup.el
+:header-args: :tangle   lisp/init-startup.el
 :END:
 
 Allow Emacs to accept client processes (e.g. an external IPython console with ~emacsclient~ as editor).

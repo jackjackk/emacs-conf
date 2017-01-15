@@ -1,6 +1,6 @@
 * column-marker
 :PROPERTIES:
-:tangle:   lisp/init-mod-column-marker.el
+:header-args: :tangle   lisp/init-mod-column-marker.el
 :END:
 
 Emacs Python Development Environment

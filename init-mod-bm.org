@@ -1,6 +1,6 @@
 * Visible bookmarks (~init-mod-bm.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-bm.el
+:header-args: :tangle   lisp/init-mod-bm.el
 :END:
 
 #+BEGIN_SRC elisp

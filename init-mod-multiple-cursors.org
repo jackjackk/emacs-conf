@@ -1,6 +1,6 @@
 * multiple-cursors (~init-mod-multiple-cursors.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-multiple-cursors.el
+:header-args: :tangle   lisp/init-mod-multiple-cursors.el
 :END:
 
 #+BEGIN_SRC emacs-lisp

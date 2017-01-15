@@ -1,6 +1,6 @@
 * toc-org (~init-mod-toc-org.el~)
 :PROPERTIES:
-:tangle:   lisp/init-mod-toc-org.el
+:header-args: :tangle   lisp/init-mod-toc-org.el
 :END:
 
 Emacs utility to have an up-to-date table of contents in the org files without exporting.
