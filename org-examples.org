@@ -39,6 +39,18 @@ Add:
   ,#+ODT: <text:p text:style-name="PageBreak"/>
 #+END_SRC
 Reference: http://orgmode.org/manual/Creating-one_002doff-styles.html
+** MathJax
+*** Control appearance
+#+BEGIN_SRC org
+  ,#+HTML_MATHJAX: align: left etc...
+#+END_SRC
+or via CSS
+#+BEGIN_EXAMPLE
+.MathJax_Display {
+    color: #080;
+    margin: 0;
+}
+#+END_EXAMPLE
 * Babel
 ** Inline raw results
 #+BEGIN_SRC org
