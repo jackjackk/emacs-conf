@@ -135,6 +135,27 @@ http://orgmode.org/manual/tangle_002dmode.html#tangle_002dmode
   (org-paste-subtree)
   (org-id-get-create t))
 #+END_SRC
+** Table in math mode
+#+BEGIN_SRC org
+    #+ATTR_LATEX: :mode math :environment array :align c|c :math-prefix A=\left[ :math-suffix \right],
+    | a         | b |
+    |-----------+---|
+    | \hline{}c | d |
+#+END_SRC
+
+exports to
+
+#+BEGIN_LaTeX
+    \[
+    A=\left[\begin{array}{cc}
+     a & b \\
+     \hline{}c & d \\
+    \end{array}\right],
+    \]
+#+END_LaTeX
+** CSS
+http://gongzhitaao.org/orgcss/
+
 * By language
 ** C
 #+BEGIN_SRC org

@@ -69,14 +69,10 @@
 ;; be called by the `org-babel-execute:ampl' function below.
 (defun org-babel-expand-body:ampl (body params &optional processed-params)
   "Expand BODY according to PARAMS, return the expanded body."
-  (require 'inf-ampl)
+  ;(require 'inf-ampl)
   (let ((vars (nth 1 (or processed-params (org-babel-process-params params)))))
     (concat
-     (mapconcat ;; define any variables
-      (lambda (pair)
-        (format "%s=%S"
-                (car pair) (org-babel-ampl-var-to-ampl (cdr pair))))
-      vars "\n") "\n" body "\n")))
+      "\n" body "\n")))
 
 ;; This is the main function which is called to evaluate a code
 ;; block.

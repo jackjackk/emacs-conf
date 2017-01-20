@@ -26,10 +26,17 @@ Use parenthetical citations by default.
   (setq org-ref-default-citation-link "citep")
 #+END_SRC
 
-Add custom cite types.
+Define custom cite types (TODO).
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-ref-cite-types "citemet")
+;  (org-ref-define-citation-link "citemet")
+;  (org-ref-define-citation-link "citesupp")
 #+END_SRC
+
+Add custom cite types (TODO).
+#+BEGIN_SRC emacs-lisp
+;  (add-to-list 'org-ref-cite-types "citemet")
+#+END_SRC
+
 
 Set convenient keys for working in your bibtex file.
 #+BEGIN_SRC emacs-lisp
