@@ -214,6 +214,24 @@ Disable cache for stability.
 #+BEGIN_SRC emacs-lisp
 (setq org-element-use-cache nil)
 #+END_SRC
+
+Reset org cache.
+#+BEGIN_SRC emacs-lisp
+(defun konix/org-element-cache-reset-all ()
+  (interactive)
+  (mapc
+   (lambda (file)
+	 (save-window-excursion
+	   (save-excursion
+		 (find-file file)
+		 (org-element-cache-reset)
+		 )
+	   )
+	 )
+   (org-agenda-files)
+   )
+  )
+#+END_SRC
 ** Display
 When outputting a pdf from a src block, use imagemagick to make
 org-display-inline-images work with pdf.
