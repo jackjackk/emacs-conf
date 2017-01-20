@@ -577,7 +577,7 @@ Remove "nil" figure placement options.
   (when (org-export-derived-backend-p backend 'latex)
     (replace-regexp-in-string "\\[nil\\]" "" string)))
 ;(add-to-list 'org-export-filter-final-output-functions
-             'jackjackk/org-latex-remove-section-labels)
+;             'jackjackk/org-latex-remove-nil-figure-placement)
 #+END_SRC
 
 Converte quotes environments into comment environments on latex export. 
