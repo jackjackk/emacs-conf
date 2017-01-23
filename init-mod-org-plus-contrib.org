@@ -740,6 +740,18 @@ Export to docx via pandoc.
                    bibfile current-file docx-file))
    (org-open-file docx-file '(16))))
 #+END_SRC
+
+Embed Latex math snippets in ODT docs.
+#+BEGIN_SRC emacs-lisp
+  ; Use MathML
+  ;(setq org-latex-to-mathml-convert-command
+  ;      "java -jar %j -unicode -force -df %o %I"
+  ;      org-latex-to-mathml-jar-file
+  ;      "~/.emacs.d/mathtoweb.jar")
+  ; Use LaTeXML
+  (setq org-latex-to-mathml-convert-command
+        "latexmlmath \"%i\" --presentationmathml=%o")
+#+END_SRC
 ** Extra
 #+BEGIN_SRC emacs-lisp
   (require 'ox-extra)
