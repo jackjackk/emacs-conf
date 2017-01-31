@@ -120,6 +120,11 @@ Show % battery remaining in modeline.
 #+BEGIN_SRC emacs-lisp
 (display-battery-mode 1)
 #+END_SRC
+
+If the current line is exceeding ~line-number-display-limit-width~, a "??" is displayed instead of the line number. Set a sufficiently high value.
+#+BEGIN_SRC emacs-lisp
+(setq line-number-display-limit-width 2000000)
+#+END_SRC
 ** Not used
 Enable automatic saving of the desktop (i.e. the buffers, their file names,
 major modes, buffer positions, ...) when you exit Emacs, and automatic
