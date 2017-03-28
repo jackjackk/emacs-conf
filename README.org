@@ -127,9 +127,9 @@ Load the path with configuration files.
                        cdlatex
 #+END_SRC
 
-**** Tools ([[file:init-mod-magit.org][magit]], +[[file:init-mod-exec-path-from-shell.org][exec-path-from-shell]]+, +[[file:init-mod-eimp.org][eimp]]+, +[[file:init-mod-spray.org][spray]]+) 
+**** Tools (+[[file:init-mod-magit.org][magit]]+, +[[file:init-mod-exec-path-from-shell.org][exec-path-from-shell]]+, +[[file:init-mod-eimp.org][eimp]]+, +[[file:init-mod-spray.org][spray]]+) 
 #+BEGIN_SRC emacs-lisp
-                       magit
+  ;                    magit
   ;                    exec-path-from-shell
   ;                    eimp
   ;                    spray
