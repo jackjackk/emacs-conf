@@ -113,6 +113,16 @@ http://orgmode.org/manual/tangle_002dmode.html#tangle_002dmode
 #+RESULTS[1d367d39f18523f4eb247cb13aabd6c6f633fbdf]: [[file:figs/-mininet-ovsk.png]]
 
 * General
+** Start up files w/ 2 levels of heading
+Put at the end of the file:
+#+BEGIN_EXAMPLE
+
+  : Local Variables:      :
+  : coding:utf-8          :
+  : eval:(org-shifttab 2) :
+  : End:                  :
+
+#+END_EXAMPLE
 ** Change default apps
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
