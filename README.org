@@ -85,13 +85,13 @@ Load the path with configuration files.
   (setq package-list '(
 #+END_SRC
 
-**** Text ([[file:init-mod-company.org][company]], [[file:init-mod-yasnippet.org][yasnippet]], [[file:init-mod-expand-region.org][expand-region]], [[file:init-mod-multiple-cursors.org][multiple-cursors]], [[file:init-mod-column-marker.org][column-marker]], +[[file:init-mod-visual-fill-column.org][visual-fill-column]]+, +[[file:init-mod-bm.org][bm]]+)
+**** Text ([[file:init-mod-company.org][company]], [[file:init-mod-yasnippet.org][yasnippet]], [[file:init-mod-expand-region.org][expand-region]], [[file:init-mod-multiple-cursors.org][multiple-cursors]], +[[file:init-mod-column-marker.org][column-marker]]+, +[[file:init-mod-visual-fill-column.org][visual-fill-column]]+, +[[file:init-mod-bm.org][bm]]+)
 #+BEGIN_SRC emacs-lisp
                        company
                        yasnippet
                        expand-region
                        multiple-cursors
-                       column-marker
+  ;                    column-marker
   ;                    visual-fill-column
   ;                    bm
 #+END_SRC
