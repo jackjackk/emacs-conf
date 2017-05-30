@@ -1,0 +1,20 @@
+* org-seek (~init-mod-org-seek.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-org-seek.el
+:END:
+
+Search through org files ([[https://github.com/stardiviner/org-seek.el/][github]]).
+
+| C-f | search with regular expression with [M-x org-seek-regexp]                |
+| C-b | search only org-mode headlines for quick search [M-x org-seek-headlines] |
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-seek)
+#+END_SRC
+
+Assign shortcuts.
+
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\C-f" 'org-seek-regexp)
+(define-key global-map "\C-b" 'org-seek-headlines)
+#+END_SRC

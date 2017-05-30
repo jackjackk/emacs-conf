@@ -1,0 +1,13 @@
+* Visible bookmarks (~init-mod-visual-fill-column.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-visual-fill-column.el
+:END:
+
+#+BEGIN_SRC elisp
+(require 'visual-fill-column)
+#+END_SRC
+
+Mimics the effect of ~fill-column~ in ~visual-line-mode~.
+#+BEGIN_SRC elisp
+(global-visual-fill-column-mode)
+#+END_SRC

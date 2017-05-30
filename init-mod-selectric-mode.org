@@ -1,0 +1,11 @@
+* selectric-mode (~lisp/init-mod-selectric-mode.el~)
+:PROPERTIES:
+:tangle:   lisp/init-mod-selectric-mode.el
+:END:
+
+Make your Emacs sound like a proper typewriter.
+#+BEGIN_SRC emacs-lisp
+(require 'selectric-mode)
+#+END_SRC
+
+
