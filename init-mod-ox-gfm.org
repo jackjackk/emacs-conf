@@ -1,0 +1,7 @@
+* ox-gfm (~init-mod-ox-gfm.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-ox-gfm.el
+:END:
+#+BEGIN_SRC elisp
+(require 'ox-gfm)
+#+END_SRC

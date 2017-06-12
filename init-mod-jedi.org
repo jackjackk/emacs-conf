@@ -1,0 +1,19 @@
+* jedi (~init-mod-jedi.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-jedi.el
+:END:
+
+Python auto-completion package
+#+BEGIN_SRC emacs-lisp
+(require 'jedi)
+
+;; Standard Jedi.el setting
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
+
+;; Type:
+;;     M-x package-install RET jedi RET
+;;     M-x jedi:install-server RET
+;; Then open Python file.
+#+END_SRC
+

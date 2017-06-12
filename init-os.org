@@ -9,6 +9,15 @@
 
 | ~C-ret~                       | Open the file in dired with default window manager application.     |
 
+
+Under Windows use portable UnxUtils for grep and find.
+#+BEGIN_SRC emacs-lisp
+(when (or (eq system-type 'windows-nt) (eq system-type 'msdos))
+      (setenv "PATH" (concat (getenv "USERPROFILE") "\\portables\\CygwinPortable\\App\\Runtime\\Cygwin\\bin;" (getenv "PATH")))
+      (setq find-program (concat (getenv "USERPROFILE") "\\portables\\CygwinPortable\\App\\Runtime\\Cygwin\\bin\\find.exe")
+            grep-program (concat (getenv "USERPROFILE") "\\portables\\CygwinPortable\\App\\Runtime\\Cygwin\\bin\\grep.exe")))
+#+END_SRC
+
 Avoid using "find" when using grep (Windows uses by default a non-POSIX-compatible find).
 #+BEGIN_SRC emacs-lisp
 (setq grep-find-command "egrep -nHIr ")

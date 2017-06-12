@@ -22,12 +22,12 @@
 | ~C-S-down~  | Enlarge window vertically.                      |
 
 One-character yes-no answer.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
 Save all tempfiles in ~$TMPDIR/emacs$UID/~.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (defconst emacs-tmp-dir (format "%s%s%s/" temporary-file-directory "emacs" (user-uid)))
 (setq backup-directory-alist
     `((".*" . ,emacs-tmp-dir)))
@@ -38,13 +38,18 @@ Save all tempfiles in ~$TMPDIR/emacs$UID/~.
 #+END_SRC
 
 Distinguish ~C-i~ and ~tab~.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 ;(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 (define-key input-decode-map (kbd "C-i") (kbd "H-i"))
 #+END_SRC
 
+Activate ~dired-x~.
+#+BEGIN_SRC emacs-lisp
+(require 'dired-x)
+#+END_SRC
+
 Set convenient Dired switches.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq dired-listing-switches "-alh")
 #+END_SRC
 
@@ -103,7 +108,7 @@ Expand current window.
 #+END_SRC
 
 Shrink/enlarge window.
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "C-S-<down>") 'enlarge-window)
@@ -129,6 +134,6 @@ If the current line is exceeding ~line-number-display-limit-width~, a "??" is di
 Enable automatic saving of the desktop (i.e. the buffers, their file names,
 major modes, buffer positions, ...) when you exit Emacs, and automatic
 restoration of the last saved desktop when Emacs starts
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 ;(desktop-save-mode 1)
 #+END_SRC

@@ -1,0 +1,19 @@
+* emms (~init-mod-emms.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-emms.el
+:END:
+
+Package for interactive image manipulation.
+#+BEGIN_SRC emacs-lisp
+(autoload 'emms-mode "emms" "Emacs Image Manipulation Package." t)
+(add-hook 'image-mode-hook 'emms-mode)
+#+END_SRC
+
+Associate media keys.
+#+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "<XF86AudioPlay>") 'emms-pause)
+    (global-set-key (kbd "<XF86AudioStop>") 'emms-stop)
+    (global-set-key (kbd "<XF86AudioPrev>") 'emms-previous)
+    (global-set-key (kbd "<XF86AudioNext>") 'emms-next)
+#+END_SRC
+
