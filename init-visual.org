@@ -50,7 +50,7 @@ Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
 (cond ((eq window-system 'w32)
            (set-face-font 'default "Consolas-14.0:antialias=natural"))
        (t
-           (set-face-font 'default "DejaVu Sans Mono-12.0:antialias=natural")))
+           (set-face-font 'default "DejaVu Sans Mono-14.0:antialias=natural")))
 #+END_SRC
 
 Alternatively, use ~Fira Code~.

@@ -34,9 +34,9 @@ Configure mode.
        (setq gams-lxi-import-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi-import.exe")
        (setq gams-ol-external-program "~/.emacs.d/lisp/gams/external/gamsolc.exe"))
        (t
-       (setq gams:process-command-name "/opt/gams/24.2/gams")
-       (setq gams-system-directory "/opt/gams/24.2")
-       (setq gams-docs-directory "/opt/gams/24.2/docs/")
+       (setq gams:process-command-name "/opt/gams/gams")
+       (setq gams-system-directory "/opt/gams/")
+       (setq gams-docs-directory "/opt/gams/docs/")
        (setq gams-docs-view-program "evince")
        (setq gams-lxi-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi")
        (setq gams-lxi-import-command-name "~/.emacs.d/lisp/gams/lxi/gamslxi-import")

@@ -58,14 +58,9 @@ Show entities as UTF8 characters.
 (setq org-pretty-entities t)    
 #+END_SRC
 
-When loading a new Org file:
-- don't fold headlines (to speed up);
+Show inline images at startup.
 #+BEGIN_SRC emacs-lisp
-(setq org-startup-folded nil)
-#+END_SRC
-- show inline images;
-#+BEGIN_SRC emacs-lisp
-(setq org-startup-with-inline-images t)
+;(setq org-startup-with-inline-images t)
 #+END_SRC
 
 Open docx w/ external program.
@@ -463,9 +458,9 @@ All *.org files under "~/org" directory will be included for agenda display.
   (setq org-agenda-files '("~/org"))
 #+END_SRC
 
-Prevent agenda commands to honor startup options when visiting an agenda file for the first time (for agenda speed up).
+When agenda loads Org files for the first time, ignore startup options for speed-up.
 #+BEGIN_SRC emacs-lisp
-;(setq org-agenda-inhibit-startup t)
+(setq org-agenda-inhibit-startup t)
 #+END_SRC
 ** Latex
 #+BEGIN_SRC emacs-lisp
@@ -721,6 +716,7 @@ Include other exporters.
   (require 'ox-freemind)
   (add-to-list 'org-export-backends 'beamer)
   (require 'ox-beamer)
+  (require 'ox-md)
 #+END_SRC
 
 Export to docx via pandoc.

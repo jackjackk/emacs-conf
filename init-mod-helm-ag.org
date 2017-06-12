@@ -1,0 +1,10 @@
+* helm-ag (~lisp/init-mod-helm-ag.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-helm-ag.el
+:END:
+
+Interface ag with helm ([[https://github.com/syohex/emacs-helm-ag][github]]).
+
+#+BEGIN_SRC emacs-lisp
+(require 'helm-ag)
+#+END_SRC
