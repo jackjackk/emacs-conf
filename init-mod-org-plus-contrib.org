@@ -640,6 +640,16 @@ Use ~C-c b~ to run tangle on point.
       '(progn
          (define-key org-mode-map (kbd "C-c b") 'org-babel-tangle-block)))
 #+END_SRC
+
+Make sure all tangled files are in unix format.
+#+BEGIN_SRC emacs-lisp
+(defun jack/dos2unix-post-tangle-hook ()
+  (dos2unix)
+  (save-buffer)
+  )
+
+(add-hook 'org-babel-post-tangle-hook 'jack/dos2unix-post-tangle-hook)
+#+END_SRC
 ** Capture
 Assign the global key ~F9~ for capture (1 key less than the more popular ~C-c c~).
 #+BEGIN_SRC emacs-lisp

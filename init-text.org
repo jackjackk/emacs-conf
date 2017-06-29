@@ -13,6 +13,7 @@
 | ~C-x C-u~               | Convert region to upper case.                      |
 | ~C-x C-l~               | Convert region to lower case.                      |
 |                         |                                                    |
+| ~C-c r~ | Replace garbage character.          |
 | ~M-x untabify-buffer~   | Untabify buffer.                                   |
 | ~M-x indent-buffer~     | Indent buffer.                                     |
 | ~M-x erase-buffer~      | Delete contents of buffer.                         |
@@ -161,3 +162,29 @@ Automate process for saving last macro into ~/.emacs.d/macros.el.
      (newline)                             ; insert a newline
      (switch-to-buffer nil))               ; return to the initial buffer
 #+END_SRC
+
+Replace garbage characters.
+#+BEGIN_SRC emacs-lisp
+(defun replace-garbage-chars ()
+"Replace goofy MS and other garbage characters with latin1 equivalents."
+(interactive)
+(save-excursion				;save the current point
+  (replace-string "ì" "\"" nil (point-min) (point-max))
+  (replace-string "¬î" "\"" nil (point-min) (point-max))
+  (replace-string "í" "'" nil (point-min) (point-max))
+  (replace-string "ó" "--" nil (point-min) (point-max)) ; multi-byte
+  (replace-string "ù" "\"" nil (point-min) (point-max))
+  (replace-string "ë" "\"" nil (point-min) (point-max))
+  (replace-string "í" "'" nil (point-min) (point-max))
+  (replace-string "°\"" "\"" nil (point-min) (point-max))
+  (replace-string "°≠" "..." nil (point-min) (point-max))
+  (replace-string "¥" "\"" nil (point-min) (point-max))
+  (replace-string "ª" "<<" nil (point-min) (point-max))
+  (replace-string "«" "'" nil (point-min) (point-max))
+  (replace-string "»" "\"" nil (point-min) (point-max))
+  (replace-string "È" "e'" nil (point-min) (point-max)) ;; &eacute;
+  (replace-string "Û" "-" nil (point-min) (point-max))
+))
+(global-set-key "\C-cr" 'replace-garbage-chars)
+#+END_SRC
+
