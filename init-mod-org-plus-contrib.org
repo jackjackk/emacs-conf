@@ -564,6 +564,17 @@ Add Nature article class.
   ("\\subsubsection{%s}" . "\\paragraph*{%s}")))
 #+END_SRC
 
+Add Elsevier article class
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-latex-classes
+'("elsarticle" "\\documentclass{elsarticle}"
+  ("\\section{%s}" . "\\section*{%s}")
+  ("\\subsection{%s}" . "\\subsection*{%s}")
+  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
+
 Use user-provided labels instead of internal ones.
 #+BEGIN_SRC emacs-lisp
 (setq org-latex-prefer-user-labels t)
