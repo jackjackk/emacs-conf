@@ -5,11 +5,6 @@
 
 | ~C-x t~ | Toggle truncate lines.|
 
-Divide long logical line into two or more screen lines in ~text~ mode.
-#+BEGIN_SRC elisp
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-#+END_SRC
-
 Turn off potentially distracting things: the scroll bar, menu bar, tool bar, and the blinking of the cursor.
 #+BEGIN_SRC elisp
 (menu-bar-mode t)
@@ -87,7 +82,7 @@ Alternatively, use ~Fira Code~.
 
 Toggle truncate lines.
 #+BEGIN_SRC elisp
-(setq-default truncate-lines t)
+;(setq-default truncate-lines t)
 (global-set-key (kbd "C-x t") 'toggle-truncate-lines)
 #+END_SRC
 
