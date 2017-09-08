@@ -139,6 +139,10 @@ Load the path with configuration files.
                       spray
 #+END_SRC
 
+**** Mac packages ([[file:init-mod-osx-plist.org][osx-plist]])
+#+BEGIN_SRC emacs-lisp
+                       osx-plist
+#+END_SRC
 **** Win dev ([[file:init-mod-powershell.org][powershell]])
 #+BEGIN_SRC emacs-lisp
                        powershell

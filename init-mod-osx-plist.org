@@ -1,0 +1,19 @@
+* osx-plist (~init-mod-osx-plist.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-osx-plist.el
+:END:
+
+If under Mac, update environment based on the contents of ~/.MacOSX/environment.plist.
+#+BEGIN_SRC emacs-lisp
+  (defun jackjackk/osx-plist-update-environment ()
+    "Load environment variables in `osx-env-file' into Emacs' environment."
+    (let ((plist (string-trim-right (shell-command-to-string (format "defaults read %s PATH" (file-name-sans-extension osx-env-file))))))
+      (setenv "PATH"  plist)
+      (osx-plist-update-exec-path)))
+
+  (cond ((eq system-type 'darwin)
+         (require 'osx-plist)
+         (jackjackk/osx-plist-update-environment))
+  )
+#+END_SRC
+

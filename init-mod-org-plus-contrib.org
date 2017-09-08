@@ -472,15 +472,21 @@ When agenda loads Org files for the first time, ignore startup options for speed
 
 Identify stuck projects as project w/o next actions.
 #+BEGIN_SRC emacs-lisp
-(setq org-stuck-projects '("+TODO=\"PROJECT\"" ("NEXT") nil ""))
+(setq org-stuck-projects '("+TODO=\"PROJECT\"" ("NEXT" "WAITING") nil ""))
 #+END_SRC
 
 Custom commands.
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-custom-commands
-        '(("p" tags-todo "+work+TODO=\"PROJECT\"")
-          ("n" tags-todo "+work+TODO=\"NEXT\""))
-        )
+        '(("a" "Agenda, Next, Stuck, Someday"
+           (
+            (agenda "" )
+            (todo "NEXT" )
+            (todo "WAITING" )
+            (stuck "" )
+            )
+           ((org-agenda-tag-filter-preset '("-home")))
+           )))
 #+END_SRC 
 ** Latex
 #+BEGIN_SRC emacs-lisp

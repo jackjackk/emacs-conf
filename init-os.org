@@ -92,6 +92,8 @@ Open the file in dired with default window manager application (~C-ret~).
       (message "Opening %s..." file)
       (cond ((eq window-system 'w32)
              (w32-shell-execute "open" file))
+            ((eq system-type 'darwin)
+             (call-process "open" nil 0 nil file))
             (t
              (call-process "xdg-open" nil 0 nil file)))
       (message "Opening %s done" file)))
