@@ -154,14 +154,14 @@ Load the path with configuration files.
                        polymode
 #+END_SRC
 
-**** Python dev (+[[file:init-mod-elpy.org][elpy]], [[file:init-mod-anaconda-mode.org][anaconda-mode]], [[file:init-mod-company-anaconda.org][company-anaconda]], [[file:init-mod-websocket.org][websocket]] [[file:init-mod-ein.org][ein]]+, [[file:init-mod-jedi.org][jedi]])
+**** Python dev (+[[file:init-mod-elpy.org][elpy]], [[file:init-mod-anaconda-mode.org][anaconda-mode]], [[file:init-mod-company-anaconda.org][company-anaconda]], [[file:init-mod-websocket.org][websocket]] [[file:init-mod-ein.org][ein]]+, +[[file:init-mod-jedi.org][jedi]]+)
 #+BEGIN_SRC emacs-lisp
   ;                    elpy
   ;                    anaconda-mode
   ;                    company-anaconda
   ;                    websocket
   ;                    ein
-                      jedi
+  ;                    jedi
 #+END_SRC
 
 **** +Web dev+ ([[file:init-mod-simple-httpd.org][simple-httpd]], [[file:init-mod-js2-mode.org][js2-mode]], [[file:init-mod-skewer-mode.org][skewer-mode]])
