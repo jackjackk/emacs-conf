@@ -227,6 +227,14 @@ Reset org cache.
    )
   )
 #+END_SRC
+
+Disable Flyspell
+#+BEGIN_SRC emacs-lisp
+(add-hook 'flyspell-mode-hook 'flyspell-buffer)
+
+(add-hook 'org-mode-hook (lambda ()
+                                   (flyspell-mode nil)))
+#+END_SRC
 ** Display
 When outputting a pdf from a src block, use imagemagick to make
 org-display-inline-images work with pdf.
