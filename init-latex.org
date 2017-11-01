@@ -18,15 +18,16 @@ unless the following text is present at the end of your files.
 #+END_EXAMPLE
 
 #+BEGIN_SRC elisp
-;(setq-default TeX-master t)
-(setq-default TeX-master nil)
+(setq-default TeX-master t)
+;(setq-default TeX-master nil)
 #+END_SRC
+
 
 Enable parsing of buffers at save and load events for extracting meta
 information, which will be stored in an ~auto~ subdirectory.
 #+BEGIN_SRC elisp
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
+;(setq TeX-auto-save t)
+;(setq TeX-parse-self t)
 #+END_SRC
 
 Activate some useful hooks.
