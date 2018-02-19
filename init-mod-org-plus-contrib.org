@@ -67,7 +67,7 @@ Open docx w/ external program.
 #+BEGIN_SRC emacs-lisp
   (setq org-file-apps
         '(("\\.docx\\'" . default)
-          ("\\.html\\'" . default)
+          ("\\.html\\'" . "chromium %s")
           ("\\.pdf\\'" . default)
           (auto-mode . emacs)))
   ; (and not w/ the default choice) http://stackoverflow.com/a/8836108/789593.
