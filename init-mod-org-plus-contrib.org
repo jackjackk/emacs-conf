@@ -442,7 +442,8 @@ Sublevels inherit parent properties.
 Enable tracking of a special type of TODOs: habits.
 #+BEGIN_SRC emacs-lisp
   ;(add-hook 'org-load-hook '(lambda () (add-to-list 'org-modules 'org-habit)))
-  (require 'org-habit)
+  (add-to-list 'org-modules 'org-habit)
+  ;(require 'org-habit)
 #+END_SRC
 
 The habit TODOs must have a property STYLE set to the value ~habit~. They also need a scheduled date with a:
@@ -494,7 +495,10 @@ Custom commands.
             (stuck "" )
             )
            ((org-agenda-tag-filter-preset '("-home")))
-           )))
+           )
+          ("p" "Projects"
+           todo "PROJECT")
+          ))
 #+END_SRC 
 ** Latex
 #+BEGIN_SRC emacs-lisp
@@ -721,25 +725,27 @@ Set the default target file for those capture templates that do not specify one.
 
 Here are capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol.
 #+BEGIN_SRC emacs-lisp
-(setq org-capture-templates
-      (quote (("t" "todo" entry (file "capture.org")
-               "* TODO %?" :clock-in t :clock-resume t)
-              ("p" "I was procrastinating" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
-               "* %? %i\n- [ ] Think how the task is relevant and meaningful to your interests and goals\n- [ ] Set reasonable standards to be expected from you in completing the task\n- [ ] Give the right weight to others' evaluation of your work\n- [ ] Be aware of the personal resources you can leverage on to do the job\n- [ ] Decide how much you really want to invest in the task\n- [ ] Feel ready to accept the responsibilities involved?\n- [ ] Spend enough time in defining the outcome and developing the steps needed to accomplish that outcome" :clock-in t :clock-resume t)
-              ("l" "I was lazy" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
-               "* %? Prova: %^{PROMPT}" :clock-in t :clock-resume t)
-              ("r" "respond" entry (file "capture.org")
-               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-              ("n" "note" entry (file "capture.org")
-               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("j" "Journal" entry (file+datetree "diary.org")
-               "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("w" "org-protocol" entry (file "capture.org")
-               "* TODO Review %c\n%U\n" :immediate-finish t)
-              ("m" "Meeting" entry (file "capture.org")
-               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-              ("h" "Habit" entry (file "capture.org")
-               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+  (setq org-capture-templates
+        (quote (("t" "todo" entry (file "capture.org")
+                 "* TODO %?" :clock-in t :clock-resume t)
+                ("p" "I was procrastinating" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
+                 "* %? %i\n- [ ] Think how the task is relevant and meaningful to your interests and goals\n- [ ] Set reasonable standards to be expected from you in completing the task\n- [ ] Give the right weight to others' evaluation of your work\n- [ ] Be aware of the personal resources you can leverage on to do the job\n- [ ] Decide how much you really want to invest in the task\n- [ ] Feel ready to accept the responsibilities involved?\n- [ ] Spend enough time in defining the outcome and developing the steps needed to accomplish that outcome" :clock-in t :clock-resume t)
+                ("l" "I was lazy" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
+                 "* %? Prova: %^{PROMPT}" :clock-in t :clock-resume t)
+                ("r" "respond" entry (file "capture.org")
+                 "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+                ("n" "note" entry (file "capture.org")
+                 "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+                ("j" "Journal" entry (file+datetree "diary.org")
+                 "* %?\n%U\n" :clock-in t :clock-resume t)
+                ("w" "Web site" entry (file+olp "capture.org" "Web")
+                 "* %c :website:\n%U %?%:initial")
+                ;("w" "org-protocol" entry (file "capture.org")
+                ; "* TODO Review %c\n%U\n" :immediate-finish t)
+                ("m" "Meeting" entry (file "capture.org")
+                 "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+                ("h" "Habit" entry (file "capture.org")
+                 "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 #+END_SRC
 
 Provide some convenient key bindings to access those templates directly.
@@ -752,6 +758,11 @@ Provide some convenient key bindings to access those templates directly.
   (lambda () (interactive) (org-capture nil "j")))
 (define-key global-map (kbd "<C-S-f9>")
   (lambda () (interactive) (org-capture nil "n")))
+#+END_SRC
+
+Org-protocol.
+#+BEGIN_SRC emacs-lisp
+(require 'org-protocol)
 #+END_SRC
 ** Refile
 Refiling (~C-c C-w~, or ~w~ speed command) is extremely useful, especially after a capture.

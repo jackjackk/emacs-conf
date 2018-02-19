@@ -13,3 +13,6 @@
 [submodule "lisp/org-query"]
 	path = lisp/org-query
 	url = git@github.com:remyhonig/org-query.git
+[submodule "lisp/org-protocol-capture-html"]
+	path = lisp/org-protocol-capture-html
+	url = git@github.com:alphapapa/org-protocol-capture-html.git
