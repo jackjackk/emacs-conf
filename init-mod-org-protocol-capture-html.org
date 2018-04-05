@@ -1,0 +1,8 @@
+* org-protocol-capture-html (~lisp/init-mod-org-protocol-capture-html.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-org-protocol-capture-html.el
+:END:
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-protocol-capture-html)
+#+END_SRC
