@@ -2,6 +2,7 @@
 :PROPERTIES:
 :header-args: :tangle   lisp/init-mod-ox-gfm.el
 :END:
-#+BEGIN_SRC elisp
-(require 'ox-gfm)
+#+BEGIN_SRC emacs-lisp
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
 #+END_SRC

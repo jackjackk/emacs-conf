@@ -102,6 +102,11 @@ Open the file in dired with default window manager application (~C-ret~).
         '(lambda ()
            (define-key dired-mode-map (kbd "<C-return>") 'dired-open-file)))
 #+END_SRC
+
+For MacOS
+#+BEGIN_SRC emacs-lisp
+(setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.11/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig")
+#+END_SRC
 ** TBD
 #+BEGIN_SRC elisp
 (defvar open-program-name
