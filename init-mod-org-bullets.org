@@ -1,0 +1,10 @@
+* org-bullets (~init-mod-org-bullets.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-org-bullets.el
+:END:
+
+Show org-mode bullets as UTF-8 characters.
+#+BEGIN_SRC emacs-lisp
+  (require 'org-bullets)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+END_SRC

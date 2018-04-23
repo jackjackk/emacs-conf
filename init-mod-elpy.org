@@ -16,9 +16,15 @@ Enable elpy in all python buffers.
 (elpy-enable)
 #+END_SRC
 
-Use IPython.
+Use Jupyter console (recommended for interactive Python):
 #+BEGIN_SRC emacs-lisp
-(elpy-use-ipython)
+(setq python-shell-interpreter "jupyter"
+      python-shell-interpreter-args "console --simple-prompt")
+#+END_SRC
+
+Suppress warning about native completion (https://github.com/jorgenschaefer/elpy/issues/887).
+#+BEGIN_SRC emacs-lisp
+(setq python-shell-completion-native-enable nil)
 #+END_SRC
 
 Use pylab.

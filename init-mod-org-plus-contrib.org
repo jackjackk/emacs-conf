@@ -245,12 +245,6 @@ org-display-inline-images work with pdf.
 ;(setq org-image-actual-width 600)
 #+END_SRC
 
-Show org-mode bullets as UTF-8 characters.
-#+BEGIN_SRC emacs-lisp
-  (require 'org-bullets)
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#+END_SRC
-
 Archive files under subfolder archived.
 #+BEGIN_SRC emacs-lisp
 (setq org-archive-location "archived/%s_archive::")
@@ -677,6 +671,7 @@ Load commonly used languages.
      (ditaa . t)
      (sh . t)
      (org . t)
+     (R . t)
      ))
 
 #+END_SRC
@@ -734,8 +729,8 @@ Here are capture templates for: TODO tasks, Notes, appointments, phone calls, me
                  "* %? Prova: %^{PROMPT}" :clock-in t :clock-resume t)
                 ("r" "respond" entry (file "capture.org")
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-                ("n" "note" entry (file "capture.org")
-                 "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+                ("n" "note" entry (file "notes.org")
+                 "* %?\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("j" "Journal" entry (file+datetree "diary.org")
                  "* %?\n%U\n" :clock-in t :clock-resume t)
                 ("w" "Web site" entry (file+olp "capture.org" "Web")
@@ -868,6 +863,9 @@ Make a task out of each new entry in a magazine feed.
   ;; add <p for python expansion
   (add-to-list 'org-structure-template-alist
                '("p" "#+BEGIN_SRC python\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))
+  ;; add <r for python expansion
+  (add-to-list 'org-structure-template-alist
+               '("r" "#+BEGIN_SRC R\n?\n#+END_SRC" "<src lang=\"R\">\n?\n</src>"))
   ;; add <por for python expansion with raw output
   (add-to-list 'org-structure-template-alist
                '("por" "#+BEGIN_SRC python :results output raw\n?\n#+END_SRC" "<src lang=\"python\">\n?\n</src>"))

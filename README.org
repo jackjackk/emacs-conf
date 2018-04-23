@@ -55,6 +55,10 @@ Load the path with configuration files.
 #+BEGIN_SRC emacs-lisp
 (load-library "init-text.el")
 #+END_SRC
+**** [[file:init-email.org][Email]
+#+BEGIN_SRC emacs-lisp
+;(load-library "init-email.el")
+#+END_SRC
 
 **** [[file:init-os.org][OS integration]]
 #+BEGIN_SRC emacs-lisp
@@ -106,7 +110,7 @@ Load the path with configuration files.
   ;                    neotree
 #+END_SRC
 
-**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], [[file:init-mod-ox-rst.org][ox-rst]]  [[file:init-mod-toc-org.org][toc-org]], [[file:init-mod-org-ref.org][org-ref]], [[file:init-mod-ox-gfm.org][ox-gfm]], [[file:init-mod-org-seek.org][org-seek]], +[[file:init-mod-org-download.org][org-download]]+, +[[file:init-mod-ox-pandoc.org][ox-pandoc]]+, +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
+**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], [[file:init-mod-ox-rst.org][ox-rst]]  [[file:init-mod-toc-org.org][toc-org]], [[file:init-mod-org-ref.org][org-ref]], [[file:init-mod-ox-gfm.org][ox-gfm]], [[file:init-mod-org-seek.org][org-seek]], [[file:init-mod-org-bullets.org][org-bullets]], +[[file:init-mod-org-download.org][org-download]]+, +[[file:init-mod-ox-pandoc.org][ox-pandoc]]+, +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
 #+BEGIN_SRC emacs-lisp
                        org-plus-contrib
                        ox-textile
@@ -115,6 +119,7 @@ Load the path with configuration files.
                        toc-org
                        org-ref
                        org-seek
+                       org-bullets
   ;                    org-download
   ;                    ox-pandoc
   ;                    org-redmine
@@ -154,9 +159,9 @@ Load the path with configuration files.
                        polymode
 #+END_SRC
 
-**** Python dev (+[[file:init-mod-elpy.org][elpy]], [[file:init-mod-anaconda-mode.org][anaconda-mode]], [[file:init-mod-company-anaconda.org][company-anaconda]], [[file:init-mod-websocket.org][websocket]] [[file:init-mod-ein.org][ein]]+, +[[file:init-mod-jedi.org][jedi]]+)
+**** Python dev ([[file:init-mod-elpy.org][elpy]], +[[file:init-mod-anaconda-mode.org][anaconda-mode]], [[file:init-mod-company-anaconda.org][company-anaconda]], [[file:init-mod-websocket.org][websocket]] [[file:init-mod-ein.org][ein]]+, +[[file:init-mod-jedi.org][jedi]]+)
 #+BEGIN_SRC emacs-lisp
-  ;                    elpy
+                      elpy
   ;                    anaconda-mode
   ;                    company-anaconda
   ;                    websocket
