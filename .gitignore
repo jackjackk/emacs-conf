@@ -15,3 +15,5 @@ abbrev_defs
 ac-comphist.dat
 image-dired
 .python-environments
+tramp
+session.*
