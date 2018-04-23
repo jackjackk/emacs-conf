@@ -48,10 +48,12 @@ Activate ~dired-x~.
 (require 'dired-x)
 #+END_SRC
 
-Set convenient Dired switches.
+Set convenient Dired options.
 #+BEGIN_SRC emacs-lisp
 (setq dired-listing-switches "-alh")
+(setq dired-dwim-target t)
 #+END_SRC
+
 
 Save all files at once.
 #+BEGIN_SRC emacs-lisp

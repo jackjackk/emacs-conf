@@ -1,0 +1,15 @@
+* pdf-tools (~init-mod-pdf-tools.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-pdf-tools.el
+:END:
+
+Package for .
+#+BEGIN_SRC emacs-lisp
+(require 'pdf-tools)
+#+END_SRC
+
+Revert PDF-buffer after TeX compilation.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+#+END_SRC
+

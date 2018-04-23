@@ -16,10 +16,8 @@ for i in ${ARGS[@]}; do
         FILES="$FILES \"$i\""
     fi
 done
-emacs -Q --batch \
+/Applications/Emacs.app/Contents/MacOS/Emacs -Q --batch -l elpa/org-plus-contrib*/org \
 --eval "(progn
-(add-to-list 'load-path (expand-file-name \"~/${DIRORG}/\"))
-(require 'org)(require 'ob)(require 'ob-tangle)
 (mapc (lambda (file)
        (find-file (expand-file-name file \"$DIR\"))
        (org-babel-tangle)

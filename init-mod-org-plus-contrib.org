@@ -69,6 +69,7 @@ Open docx w/ external program.
         '(("\\.docx\\'" . default)
           ("\\.html\\'" . "chromium %s")
           ("\\.pdf\\'" . default)
+          ("\\.pptx\\'" . default)
           (auto-mode . emacs)))
   ; (and not w/ the default choice) http://stackoverflow.com/a/8836108/789593.
   ;(add-hook 'org-mode-hook
@@ -669,7 +670,7 @@ Load commonly used languages.
    'org-babel-load-languages
    '((emacs-lisp . t)
      (ditaa . t)
-     (sh . t)
+     (shell . t)
      (org . t)
      (R . t)
      ))
