@@ -34,3 +34,8 @@ Make Projectile more accessible.
 #+BEGIN_SRC emacs-lisp
 (setq projectile-keymap-prefix [(control ?\;)])
 #+END_SRC
+
+Use helm as completion system.
+#+BEGIN_SRC emacs-lisp
+(setq projectile-completion-system 'helm)
+#+END_SRC
