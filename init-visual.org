@@ -36,8 +36,9 @@ Use ~dark-laptop~ color theme, with a ~black~ background and a ~grey90~ foregrou
 (load-theme 'dark-laptop t t)
 (enable-theme 'dark-laptop)
 (setq default-frame-alist
-       `((background-color . "black")
-         (foreground-color . "grey90")))
+       '((background-color . "black")
+         (foreground-color . "grey90")
+         (cursor-color . "white")))
 #+END_SRC
 
 Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.

@@ -3,6 +3,8 @@
 :header-args: :tangle   lisp/init-python.el
 :END:
 
+See [[file:init-mod-elpy.org]].
+
 Use IPython (w/ Python v.2) as the default Python interpreter for shell, with no arguments.
 #+BEGIN_SRC elisp
 ;  (cond ((eq window-system 'w32)
@@ -48,6 +50,6 @@ Refactor trailing spaces.
 Fix problems in detection of prompts under Windows.
 #+BEGIN_SRC emacs-lisp
 ;(setq python-shell-unbuffered nil)
-(setq python-shell-prompt-detect-failure-warning nil)
+;(setq python-shell-prompt-detect-failure-warning nil)
 #+END_SRC
 

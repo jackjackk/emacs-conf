@@ -466,7 +466,7 @@ Use ~F12~ (1 key less than the more common ~C-c a~) anywhere to open the Agenda,
 
 All *.org files under "~/org" directory will be included for agenda display.
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files '("~/org"))
+  (setq org-agenda-files '("~/org/projects.org"))
 #+END_SRC
 
 When agenda loads Org files for the first time, ignore startup options for speed-up.
@@ -476,7 +476,7 @@ When agenda loads Org files for the first time, ignore startup options for speed
 
 Identify stuck projects as project w/o next actions.
 #+BEGIN_SRC emacs-lisp
-(setq org-stuck-projects '("+TODO=\"PROJECT\"" ("NEXT" "WAITING") nil ""))
+(setq org-stuck-projects '("LEVEL=1" ("NEXT" "WAITING") nil ""))
 #+END_SRC
 
 Custom commands.
@@ -491,8 +491,10 @@ Custom commands.
             )
            ((org-agenda-tag-filter-preset '("-home")))
            )
+          ("n" "Next actions"
+           todo "NEXT")
           ("p" "Projects"
-           todo "PROJECT")
+           tags "LEVEL=1")
           ))
 #+END_SRC 
 ** Latex
