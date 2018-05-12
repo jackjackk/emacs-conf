@@ -39,3 +39,80 @@ Use helm as completion system.
 #+BEGIN_SRC emacs-lisp
 (setq projectile-completion-system 'helm)
 #+END_SRC
+
+Discover projects.
+#+BEGIN_SRC emacs-lisp
+  ;https://github.com/bbatsov/projectile/issues/1165
+  ;plus support for list of directories
+  (defun projectile-discover-projects-in-directory (directory-list)
+    "Discover any projects in DIRECTORY and add them to the projectile cache.
+  This function is not recursive and only adds projects with roots
+  at the top level of DIRECTORY."
+    (interactive
+     (list (read-directory-name "Starting directory: ")))
+    (dolist (directory directory-list) 
+    (let ((subdirs (directory-files directory t)))
+      (mapcar
+       (lambda (dir)
+         (when (and (file-directory-p dir)
+                    (not (member (file-name-nondirectory dir) '(".." "."))))
+           (let ((default-directory dir)
+                 (projectile-cached-project-root dir))
+             (when (projectile-project-p)
+               (projectile-add-known-project (projectile-project-root))))))
+       subdirs))))
+  (projectile-discover-projects-in-directory (list "~/working" "~/tools"))
+#+END_SRC
+
+Follow symbolic links.
+#+BEGIN_SRC emacs-lisp
+(setq projectile-git-command "git ls-files -zco --exclude-standard;find -L archive -type f -print0 2>/dev/null")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;https://emacs.stackexchange.com/a/9611
+(defvar projectile-main-project nil)
+
+(defun use-main-project (&rest args)
+  "Skip calling `projectile-project-root' when there is a main project defined."
+  (when projectile-main-project
+    projectile-main-project))
+
+(advice-add #'projectile-project-root :before-until #'use-main-project)
+
+(defun reset-main-project ()
+  (interactive)
+  (setq projectile-main-project nil))
+
+(defun set-main-project (&optional dir)
+  "Set the projectile main project based on the current buffer.
+When called with argument DIR, make that main project instead."
+  (interactive)
+  (if dir
+      (setq projectile-main-project dir)
+      (let ((current-project))
+        (let ((projectile-main-project nil))
+          (setq current-project (projectile-project-root)))
+        (setq projectile-main-project current-project))))
+
+(advice-add #'projectile-switch-project :before-until #'reset-main-project)
+#+END_SRC
+
+#+RESULTS:
+: set-main-project
+
+#+BEGIN_SRC emacs-lisp
+(setq projectile-switch-project-action '(lambda () (interactive) (projectile-dired) (set-main-project)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun projectile-project-buffer-p (buffer project-root)
+  "Check if BUFFER is under PROJECT-ROOT."
+  (with-current-buffer buffer
+    (and (not (string-prefix-p " " (buffer-name buffer)))
+         (not (projectile-ignored-buffer-p buffer))
+         (string-equal (file-remote-p default-directory)
+                       (file-remote-p project-root))
+         (not (string-match-p "^http\\(s\\)?://" default-directory))
+         (string-prefix-p project-root (buffer-file-name) (eq system-type 'windows-nt)))))
+#+END_SRC

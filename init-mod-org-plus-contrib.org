@@ -469,9 +469,9 @@ All *.org files under "~/org" directory will be included for agenda display.
   (setq org-agenda-files '("~/org/projects.org"))
 #+END_SRC
 
-When agenda loads Org files for the first time, ignore startup options for speed-up.
+When agenda loads Org files for the first time, don't ignore startup options.
 #+BEGIN_SRC emacs-lisp
-(setq org-agenda-inhibit-startup t)
+(setq org-agenda-inhibit-startup nil)
 #+END_SRC
 
 Identify stuck projects as project w/o next actions.
