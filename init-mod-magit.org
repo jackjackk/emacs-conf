@@ -50,3 +50,13 @@ Convenient key binding for magit-status.
 #+BEGIN_SRC emacs-lisp
 (global-set-key [f9] 'magit-status)
 #+END_SRC
+
+Push after commit.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'git-commit-setup-hook
+          (lambda ()
+            (add-hook 'with-editor-post-finish-hook
+                      (lambda ()
+                        (call-interactively #'magit-push-current-to-upstream))
+                      t t)))
+#+END_SRC
