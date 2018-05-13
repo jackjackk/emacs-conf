@@ -9,7 +9,6 @@
 
 | ~C-ret~                       | Open the file in dired with default window manager application.     |
 
-
 Under Windows use portable UnxUtils for grep and find.
 #+BEGIN_SRC emacs-lisp
 (when (or (eq system-type 'windows-nt) (eq system-type 'msdos))

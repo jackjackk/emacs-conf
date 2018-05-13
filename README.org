@@ -109,12 +109,7 @@ Load the path with configuration files.
                        transpose-frame
   ;                    neotree
 #+END_SRC
-
-<<<<<<< Updated upstream
 **** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], [[file:init-mod-ox-rst.org][ox-rst]]  [[file:init-mod-toc-org.org][toc-org]], [[file:init-mod-org-ref.org][org-ref]], [[file:init-mod-ox-gfm.org][ox-gfm]], [[file:init-mod-org-seek.org][org-seek]], [[file:init-mod-org-bullets.org][org-bullets]], +[[file:init-mod-org-download.org][org-download]]+, +[[file:init-mod-ox-pandoc.org][ox-pandoc]]+, +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
-=======
-**** Org-mode ([[file:init-mod-org-plus-contrib.org][org-plus-contrib]], [[file:init-mod-ox-textile.org][ox-textile]], [[file:init-mod-ox-rst.org][ox-rst]]  [[file:init-mod-toc-org.org][toc-org]], [[file:init-mod-org-ref.org][org-ref]], [[file:init-mod-ox-gfm.org][ox-gfm]], [[file:init-mod-org-seek.org][org-seek]], +[[file:init-mod-org-download.org][org-download]]+, +[[file:init-mod-ox-pandoc.org][ox-pandoc]]+, +[[file:init-mod-org-redmine.org][org-redmine]]+, +[[file:init-mod-org-pomodoro.org][org-pomodoro]]+, +[[file:init-mod-org2blog.org][org2blog]]+)
->>>>>>> Stashed changes
 #+BEGIN_SRC emacs-lisp
                        org-plus-contrib
                        ox-textile
@@ -123,10 +118,7 @@ Load the path with configuration files.
                        toc-org
                        org-ref
                        org-seek
-<<<<<<< Updated upstream
                        org-bullets
-=======
->>>>>>> Stashed changes
   ;                    org-download
   ;                    ox-pandoc
   ;                    org-redmine
@@ -144,10 +136,10 @@ Load the path with configuration files.
   cdlatex
 #+END_SRC
 
-**** Tools ([[file:init-mod-magit.org][magit]], +[[file:init-mod-exec-path-from-shell.org][exec-path-from-shell]]+, +[[file:init-mod-eimp.org][eimp]]+, [[file:init-mod-spray.org][spray]]) 
+**** Tools ([[file:init-mod-magit.org][magit]], [[file:init-mod-exec-path-from-shell.org][exec-path-from-shell]], +[[file:init-mod-eimp.org][eimp]]+, [[file:init-mod-spray.org][spray]]) 
 #+BEGIN_SRC emacs-lisp
                       magit
-  ;                    exec-path-from-shell
+                      exec-path-from-shell
   ;                    eimp
                       spray
 #+END_SRC

@@ -4,7 +4,8 @@
 :END:
 
 | ~C-c C-z~ | Bring shell up.                  |
-| ~C-'~     | Send current paragraph to shell. |
+| ~S-RET~   | Send current group to shell and step. |
+| ~C-RET~   | Send current group to shell. |
 
 Emacs Python Development Environment
 #+BEGIN_SRC emacs-lisp
@@ -30,15 +31,14 @@ Suppress warning about native completion (https://github.com/jorgenschaefer/elpy
 (setq python-shell-completion-native-enable nil)
 #+END_SRC
 
-Use pylab.
-#+BEGIN_SRC emacs-lisp
-;(setq python-shell-interpreter "jupyter")
-;(setq python-shell-interpreter-args "console")
-#+END_SRC
-
 Key binding for sending current paragraph to shell.
 #+BEGIN_SRC emacs-lisp
 (fset 'send-par-to-python
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 67108896 134217832 3 3 21 67108896 21 67108896] 0 "%d")) arg)))
 (define-key elpy-mode-map (kbd "C-'") 'send-par-to-python)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(define-key elpy-mode-map (kbd "<S-return>") 'elpy-shell-send-group-and-step)
+(define-key elpy-mode-map (kbd "<C-return>") 'elpy-shell-send-group)
 #+END_SRC
