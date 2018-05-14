@@ -41,4 +41,5 @@ Key binding for sending current paragraph to shell.
 #+BEGIN_SRC emacs-lisp
 (define-key elpy-mode-map (kbd "<S-return>") 'elpy-shell-send-group-and-step)
 (define-key elpy-mode-map (kbd "<C-return>") 'elpy-shell-send-group)
+(define-key elpy-mode-map (kbd "<M-return>") 'elpy-shell-send-statement)
 #+END_SRC

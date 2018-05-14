@@ -1,0 +1,15 @@
+* helm-dash (~init-mod-helm-dash.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-helm-dash.el
+:END:
+
+Browse Dash docsets inside emacs (https://github.com/areina/helm-dash).
+#+BEGIN_SRC emacs-lisp
+(require 'helm-dash)
+;(progn (helm-dash-install-docset "Matplotlib")
+;(helm-dash-install-docset "Pandas")
+;(helm-dash-install-docset "NumPy")
+;(helm-dash-install-docset "Python 3")
+;(helm-dash-install-docset "SciPy"))
+#+END_SRC
+

@@ -132,6 +132,11 @@ If the current line is exceeding ~line-number-display-limit-width~, a "??" is di
 #+BEGIN_SRC emacs-lisp
 (setq line-number-display-limit-width 2000000)
 #+END_SRC
+
+Set network security to low (still need to figure out how to properly set up TLS).
+#+BEGIN_SRC emacs-lisp
+(setq network-security-level "low")
+#+END_SRC
 ** Not used
 Enable automatic saving of the desktop (i.e. the buffers, their file names,
 major modes, buffer positions, ...) when you exit Emacs, and automatic
