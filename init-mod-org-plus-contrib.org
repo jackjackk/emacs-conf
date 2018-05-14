@@ -470,7 +470,7 @@ Use ~F12~ (1 key less than the more common ~C-c a~) anywhere to open the Agenda,
 
 All *.org files under "~/org" directory will be included for agenda display.
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files '("~/org/projects.org"))
+  (setq org-agenda-files (list "~/org/projects.org" "~/org/capture.org"))
 #+END_SRC
 
 When agenda loads Org files for the first time, don't ignore startup options.
@@ -725,21 +725,30 @@ Set the default target file for those capture templates that do not specify one.
 (setq org-default-notes-file "~/org/capture.org")
 #+END_SRC
 
+Load org-protocol.el.
+#+BEGIN_SRC emacs-lisp
+(require 'org-protocol)
+#+END_SRC
+
 Here are capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol.
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
         (quote (("t" "todo" entry (file "capture.org")
                  "* TODO %?" :clock-in t :clock-resume t)
-                ("p" "I was procrastinating" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
+                ("c" "I was procrastinating" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
                  "* %? %i\n- [ ] Think how the task is relevant and meaningful to your interests and goals\n- [ ] Set reasonable standards to be expected from you in completing the task\n- [ ] Give the right weight to others' evaluation of your work\n- [ ] Be aware of the personal resources you can leverage on to do the job\n- [ ] Decide how much you really want to invest in the task\n- [ ] Feel ready to accept the responsibilities involved?\n- [ ] Spend enough time in defining the outcome and developing the steps needed to accomplish that outcome" :clock-in t :clock-resume t)
-                ("l" "I was lazy" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
+                ("z" "I was lazy" entry (file+headline "~/org/personal-procrastination.org" "I was procrastinating instead of")
                  "* %? Prova: %^{PROMPT}" :clock-in t :clock-resume t)
                 ("r" "respond" entry (file "capture.org")
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
                 ("n" "note" entry (file "notes.org")
                  "* %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("j" "Journal" entry (file+datetree "diary.org")
-                 "* %?\n%U\n" :clock-in t :clock-resume t)
+                ;("j" "Journal" entry (file+datetree "diary.org")
+                ; "* %?\n%U\n" :clock-in t :clock-resume t)
+                ("p" "Protocol" entry (file+headline "notes.org" "Inbox")
+                    "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+                ("L" "Protocol Link" entry (file+headline "capture.org" "inbox")
+                    "* TODO %? Review [[%:link][%:description]] \nCaptured On: %U")
                 ("w" "Web site" entry (file+olp "capture.org" "Web")
                  "* %c :website:\n%U %?%:initial")
                 ;("w" "org-protocol" entry (file "capture.org")
