@@ -5,9 +5,9 @@
 
 Integrate helm with Projectile.
 
-| ~C-?~ | Helm with Projectile. |
+| ~C-.~ | Helm with Projectile. |
 
 Assign convenient key.
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-?") 'helm-projectile)
+(global-set-key (kbd "C-.") 'helm-projectile)
 #+END_SRC
