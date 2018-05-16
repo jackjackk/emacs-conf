@@ -26,6 +26,13 @@ Use Jupyter console (recommended for interactive Python):
              "jupyter")
 #+END_SRC
 
+Set the right python path under Mac.
+#+BEGIN_SRC emacs-lisp
+  (cond ((eq window-system 'ns)
+         (setq elpy-rpc-python-command (format "%s/anaconda3/bin/python" (getenv "HOME")))
+  ))
+#+END_SRC
+
 Suppress warning about native completion (https://github.com/jorgenschaefer/elpy/issues/887).
 #+BEGIN_SRC emacs-lisp
 (setq python-shell-completion-native-enable nil)
