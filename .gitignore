@@ -18,3 +18,4 @@ image-dired
 tramp
 session.*
 network-security.data
+eshell/

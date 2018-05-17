@@ -102,7 +102,7 @@ When called with argument DIR, make that main project instead."
 : set-main-project
 
 #+BEGIN_SRC emacs-lisp
-(setq projectile-switch-project-action '(lambda () (interactive) (projectile-find-file) (set-main-project)))
+(setq projectile-switch-project-action '(lambda () (interactive) (helm-projectile) (set-main-project)))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
