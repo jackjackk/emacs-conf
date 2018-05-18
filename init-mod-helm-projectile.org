@@ -5,9 +5,21 @@
 
 Integrate helm with Projectile.
 
-| ~C-?~ | Helm with Projectile. |
+| ~C-.~ | Helm with Projectile. |
 
 Assign convenient key.
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-?") 'helm-projectile)
+(global-set-key (kbd "C-.") 'helm-projectile)
+#+END_SRC
+
+Support creation of new files.
+#+BEGIN_SRC emacs-lisp
+;https://www.reddit.com/r/emacs/comments/3m8i5r/helmprojectile_quickly_findcreate_new_file_in/cvd5xu7/
+(with-eval-after-load 'helm-projectile
+  (defvar helm-source-file-not-found
+    (helm-build-dummy-source
+        "Create file"
+      :action (lambda (cand) (find-file cand))))
+
+  (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
 #+END_SRC
