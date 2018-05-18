@@ -44,3 +44,8 @@ Configure reftex.
 (quote
 ("~/org/research-bibliography.bib")))
 #+END_SRC
+
+Use shell escape flag for compilation with minted.
+#+BEGIN_SRC emacs-lisp
+(setq TeX-command-extra-options "-shell-escape")
+#+END_SRC

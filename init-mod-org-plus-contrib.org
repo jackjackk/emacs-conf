@@ -554,12 +554,12 @@ Insert within-paragraph Latex snippets with "@@l:...@@".
 
 Put every inline image in \begin{center} ... \end{center}.
 #+BEGIN_SRC emacs-lisp
-(advice-add 'org-latex--inline-image :around
-            (lambda (orig link info)
-              (concat
-               "\\begin{center}"
-               (funcall orig link info)
-               "\\end{center}")))
+;(advice-add 'org-latex--inline-image :around
+;            (lambda (orig link info)
+;              (concat
+;               "\\begin{center}"
+;               (funcall orig link info)
+;               "\\end{center}")))
 #+END_SRC
 
 Change hyper setup with nicer colors, and fixed author.
