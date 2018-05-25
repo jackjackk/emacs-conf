@@ -1,0 +1,20 @@
+* org-journal (~init-mod-org-journal.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-org-journal.el
+:END:
+
+A simple org-mode based journaling mode.
+
+Configure variables.
+#+BEGIN_SRC emacs-lisp
+  (setq org-journal-dir "~/org/journal")
+  (add-to-list 'org-agenda-files (expand-file-name "~/org/journal/"))
+  (setq org-journal-file-format "%Y%m%d.org")
+  (org-journal-update-auto-mode-alist)
+#+END_SRC
+
+Load package.
+#+BEGIN_SRC emacs-lisp
+  (require 'org-journal)
+#+END_SRC
+
