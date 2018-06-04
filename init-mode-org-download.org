@@ -1,0 +1,11 @@
+* org-download (~init-mod-org-download.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-org-download.el
+:END:
+
+Package for interactive image manipulation.
+#+BEGIN_SRC emacs-lisp
+(require 'org-download)
+(add-hook 'dired-mode-hook 'org-download-enable)
+#+END_SRC
+
