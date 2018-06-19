@@ -28,8 +28,10 @@ Use parenthetical citations by default.
 
 Define custom cite types (TODO).
 #+BEGIN_SRC emacs-lisp
-;  (org-ref-define-citation-link "citemet")
-;  (org-ref-define-citation-link "citesupp")
+  (org-ref-define-citation-link "citemet")
+  (org-ref-define-citation-link "citesupp")
+  (org-ref-define-citation-link "citepmet")
+  (org-ref-define-citation-link "citepsupp")
 #+END_SRC
 
 Add custom cite types (TODO).
