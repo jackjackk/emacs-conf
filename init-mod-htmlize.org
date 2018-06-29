@@ -1,0 +1,10 @@
+* htmlize (~init-mod-htmlize.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-htmlize.el
+:END:
+
+Convert buffer text and decorations to HTML ([[https://github.com/hniksic/emacs-htmlize][github]]).
+#+BEGIN_SRC emacs-lisp
+(require 'htmlize)
+#+END_SRC
+

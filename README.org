@@ -142,12 +142,13 @@ Load the path with configuration files.
   cdlatex
 #+END_SRC
 
-**** Tools ([[file:init-mod-magit.org][magit]], [[file:init-mod-helm-dash.org][helm-dash]], +[[file:init-mod-eimp.org][eimp]]+, [[file:init-mod-spray.org][spray]]) 
+**** Tools ([[file:init-mod-magit.org][magit]], [[file:init-mod-helm-dash.org][helm-dash]], +[[file:init-mod-eimp.org][eimp]]+, [[file:init-mod-spray.org][spray]], [[file:init-mod-htmlize.org][htmlize]]) 
 #+BEGIN_SRC emacs-lisp
                       magit
                       helm-dash
   ;                    eimp
                       spray
+                      htmlize
 #+END_SRC
 
 **** Mac packages ([[file:init-mod-osx-plist.org][osx-plist]])
