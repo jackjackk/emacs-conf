@@ -102,7 +102,7 @@ When called with argument DIR, make that main project instead."
 : set-main-project
 
 #+BEGIN_SRC emacs-lisp
-(setq projectile-switch-project-action '(lambda () (interactive) (helm-projectile) (set-main-project)))
+(setq projectile-switch-project-action '(lambda () (interactive) (set-main-project) (let ((readme-file (concat (file-name-as-directory projectile-main-project) "README.org"))) (if (file-exists-p readme-file) (progn (org-agenda-set-restriction-lock) (org-todo-list)) (helm-projectile)) (magit-status))))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
