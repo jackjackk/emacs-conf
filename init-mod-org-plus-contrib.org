@@ -480,16 +480,17 @@ When agenda loads Org files for the first time, don't ignore startup options.
 
 Identify stuck projects as project w/o next actions.
 #+BEGIN_SRC emacs-lisp
-(setq org-stuck-projects '("LEVEL=1" ("NEXT" "WAITING") nil ""))
+(setq org-stuck-projects '("LEVEL=2" ("NEXT" "WAITING") nil ""))
 #+END_SRC
 
 Custom commands.
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-custom-commands
-        '(("a" "Agenda, Next, Stuck, Someday"
+        '(("a" "Agenda, Next, Project, Waiting, Stuck, Someday"
            (
             (agenda "" )
             (todo "NEXT" )
+            (todo "PROJECT" )
             (todo "WAITING" )
             (stuck "" )
             )
@@ -498,7 +499,7 @@ Custom commands.
           ("n" "Next actions"
            todo "NEXT")
           ("p" "Projects"
-           tags "LEVEL=1")
+           todo "PROJECT")
           ))
 #+END_SRC 
 ** Latex
@@ -780,8 +781,7 @@ Refiling (~C-c C-w~, or ~w~ speed command) is extremely useful, especially after
 
 Make all project headlines of all the agenda files available as refile targets (helm helps a lot here in getting the right target!).
 #+BEGIN_SRC emacs-lisp
-  (setq org-refile-targets (quote ((nil :todo . "PROJECT")
-                                   (org-agenda-files :todo . "PROJECT"))))
+  (setq org-refile-targets (quote ((org-agenda-files :todo . "PROJECT"))))
 #+END_SRC
 
 Choose refiling targets in one step, showing levels as paths including the name of the files they belong to.
