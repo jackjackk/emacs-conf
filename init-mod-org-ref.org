@@ -42,7 +42,7 @@ Add custom cite types (TODO).
 
 Set convenient keys for working in your bibtex file.
 #+BEGIN_SRC emacs-lisp
-  (global-set-key [f10] 'org-ref-open-bibtex-notes)
-  (global-set-key [f11] 'org-ref-open-bibtex-pdf)
-  (global-set-key [f12] 'org-ref-open-in-browser)
+  (global-set-key [f7] 'org-ref-open-bibtex-notes)
+  (global-set-key [f8] 'org-ref-open-bibtex-pdf)
+  (global-set-key [f9] 'org-ref-open-in-browser)
 #+END_SRC

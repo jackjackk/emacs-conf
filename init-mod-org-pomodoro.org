@@ -1,0 +1,11 @@
+* org-pomodoro (~init-mod-org-pomodoro.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-org-pomodoro.el
+:END:
+
+Add support for Pomodoro technique in org-mode.
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-pomodoro)
+#+END_SRC
+
