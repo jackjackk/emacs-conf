@@ -471,6 +471,8 @@ Use ~F12~ (1 key less than the more common ~C-c a~) anywhere to open the Agenda,
 All *.org files under "~/org" directory will be included for agenda display.
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files (list "~/org/projects.org" "~/org/capture.org"))
+  ;(setq org-agenda-file-regexp "\\`README\\.org\\'")
+  ;(setq org-agenda-files projectile-known-projects)
 #+END_SRC
 
 When agenda loads Org files for the first time, don't ignore startup options.
