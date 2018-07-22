@@ -464,7 +464,8 @@ Some extra options.
 ** Agenda
 Use ~F12~ (1 key less than the more common ~C-c a~) anywhere to open the Agenda, which collects TODO items, time-stamped items, and tagged headlines, displaying them in an organized way.
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "<f12>") 'org-agenda)
+  (define-key global-map (kbd "<f12>")
+    (lambda () (interactive) ( org-agenda nil "a")))
   (global-set-key (kbd "C-c a") 'org-agenda)
 #+END_SRC
 
@@ -483,6 +484,11 @@ When agenda loads Org files for the first time, don't ignore startup options.
 Identify stuck projects as project w/o next actions.
 #+BEGIN_SRC emacs-lisp
 (setq org-stuck-projects '("LEVEL=2" ("NEXT" "WAITING") nil ""))
+#+END_SRC
+
+By default focus on daily agenda.
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-span 'day)
 #+END_SRC
 
 Custom commands.
