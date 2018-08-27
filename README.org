@@ -100,6 +100,7 @@ Load the path with configuration files.
                        yasnippet
                        expand-region
                        multiple-cursors
+                       writegood-mode
   ;                    column-marker
   ;                    visual-fill-column
   ;                    bm

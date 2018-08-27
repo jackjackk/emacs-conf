@@ -1,0 +1,16 @@
+* writegood-mode (~init-mod-writegood-mode.el~)
+:PROPERTIES:
+:header-args: :tangle   lisp/init-mod-writegood-mode.el
+:END:
+
+Package to improve English writing by highlighting weasel-words, passive-voice and duplicate words.
+#+BEGIN_SRC emacs-lisp
+(require 'writegood-mode)
+#+END_SRC
+
+Global keys to check writing.
+#+BEGIN_SRC emacs-lisp
+(global-set-key "\C-cg" 'writegood-mode)
+(global-set-key "\C-c\C-gg" 'writegood-grade-level)
+(global-set-key "\C-c\C-ge" 'writegood-reading-ease)
+#+END_SRC
