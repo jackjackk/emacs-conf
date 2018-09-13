@@ -109,12 +109,14 @@ For MacOS
 
 Shell
 #+BEGIN_SRC emacs-lisp
-(setq explicit-shell-file-name "/usr/local/bin/bash")
-(setq shell-file-name "bash")
-(setq explicit-bash-args '("--noediting" "--login" "-i"))
-(setenv "SHELL" shell-file-name)
-(add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
+  (cond ((eq system-type 'darwin)
+         (setq explicit-shell-file-name "/usr/bin/bash")
+         (setq shell-file-name "bash")
+         (setq explicit-bash-args '("--noediting" "--login" "-i"))
+         (setenv "SHELL" shell-file-name)
+         (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)))
 #+END_SRC
+
 ** TBD
 #+BEGIN_SRC elisp
 (defvar open-program-name

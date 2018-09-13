@@ -48,7 +48,7 @@ Use ~Consolas~ font in Windows, ~DejaVu Sans Mono~ otherwise.
         ((eq system-type 'darwin)
          (set-face-font 'default "Monaco-16.0:antialias=natural"))
         (t
-         (set-face-font 'default "DejaVu Sans Mono-14.0:antialias=natural")))
+         (set-face-font 'default "DejaVu Sans Mono-11.0:antialias=natural")))
 #+END_SRC
 
 Alternatively, use ~Fira Code~.
