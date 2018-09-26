@@ -68,9 +68,8 @@ Open docx w/ external program.
   (setq org-file-apps
         '(("\\.docx\\'" . default)
           ("\\.html\\'" . default)
-          ("\\.pdf\\'" . default)
-          ("\\.pptx\\'" . default)
-          (auto-mode . emacs)))
+          ("\\.pdf\\'" . "evince %s")
+          ("\\.pptx\\'" . default)))
   ; (and not w/ the default choice) http://stackoverflow.com/a/8836108/789593.
   ;(add-hook 'org-mode-hook
   ;      '(lambda ()
