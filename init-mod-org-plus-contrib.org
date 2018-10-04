@@ -155,6 +155,12 @@ Speed keys ~n~ and ~p~ are rebind to a tidier view of next/previous entries.
              '("p" ded/org-show-previous-heading-tidily))
 #+END_SRC
 
+Widen view from narrowed heading with "S".
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-speed-commands-user
+             '("S" widen))
+#+END_SRC
+
 Update Org document to new export blocks syntax (2015/12), i.e. 
 #+BEGIN_SRC org :tangle no
   ,#+BEGIN_EXPORT backend
