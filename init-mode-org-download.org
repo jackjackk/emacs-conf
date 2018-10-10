@@ -7,5 +7,36 @@ Package for interactive image manipulation.
 #+BEGIN_SRC emacs-lisp
 (require 'org-download)
 (add-hook 'dired-mode-hook 'org-download-enable)
+(setq-default org-download-image-dir "images")
+(setq-default org-download-heading-lvl 'nil)
+(setq-default org-download-image-latex-width 1.)
+(setq-default org-download-image-latex-width 1.)
+(setq-default org-download-image-org-width 0)
+(setq-default org-download-image-html-width 0)
 #+END_SRC
 
+Remove inline display of images.
+#+BEGIN_SRC emacs-lisp
+  (defun org-download-insert-link (link filename)
+    (if (looking-back "^[ \t]+" (line-beginning-position))
+        (delete-region (match-beginning 0) (match-end 0))
+      (newline))
+    (insert
+     (concat
+      (funcall org-download-annotate-function link)
+      "\n"
+      (if (= org-download-image-html-width 0)
+          ""
+        (format "#+ATTR_HTML: :width %dpx\n" org-download-image-html-width))
+      (if (= org-download-image-latex-width 0)
+          ""
+        (format "#+ATTR_LATEX: :width %.1f\\textwidth\n" org-download-image-latex-width))
+      (if (= org-download-image-org-width 0)
+          ""
+        (format "#+ATTR_ORG: :width %dpx\n" org-download-image-org-width))
+      (format org-download-link-format
+              (org-link-escape
+               (file-relative-name filename (file-name-directory (buffer-name)))))))
+  ;(org-display-inline-images)
+  )
+#+END_SRC

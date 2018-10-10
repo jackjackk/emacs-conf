@@ -20,10 +20,10 @@ Enable elpy in all python buffers.
 Use Jupyter console (recommended for interactive Python):
 #+BEGIN_SRC emacs-lisp
 (setq python-shell-interpreter "jupyter"
-      python-shell-interpreter-args "console --simple-prompt"
-      python-shell-prompt-detect-failure-warning nil)
-(add-to-list 'python-shell-completion-native-disabled-interpreters
-             "jupyter")
+      python-shell-interpreter-args "console --simple-prompt")
+;      python-shell-prompt-detect-failure-warning nil)
+;(add-to-list 'python-shell-completion-native-disabled-interpreters
+;             "jupyter")
 #+END_SRC
 
 Set the right python path under Mac.
